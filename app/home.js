@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
+import Icon from "react-native-vector-icons/FontAwesome";
 
 export default class App extends React.Component {
     render() {
@@ -51,13 +52,42 @@ class AccountScreen extends React.Component {
 
 const bottomTabNavigator = createBottomTabNavigator(
     {
-        Home: HomeScreen,
-        Queue: QueueScreen,
-        History: HistoryScreen,
-        Acccount: AccountScreen,
+        Home: {
+            screen: HomeScreen,
+            navigationOptions: {
+                tabBarIcon: ({ tintColor }) => (
+                    <Icon name="home" size={25} color={tintColor} />
+                )
+            }
+        },
+        Queue: {
+            screen: QueueScreen,
+            navigationOptions: {
+                tabBarIcon: ({ tintColor }) => (
+                    <Icon name="group" size={25} color={tintColor} />
+                )
+            }
+        }, History: {
+            screen: HistoryScreen,
+            navigationOptions: {
+                tabBarIcon: ({ tintColor }) => (
+                    <Icon name="history" size={25} color={tintColor} />
+                )
+            }
+        }, Acccount: {
+            screen: AccountScreen,
+            navigationOptions: {
+                tabBarIcon: ({ tintColor }) => (
+                    <Icon name="user" size={25} color={tintColor} />
+                )
+            }
+        },
     },
     {
-        initialRouteName: 'Home'
+        initialRouteName: 'Home',
+        tabBarOptions: {
+            activeTintColor: '#eb6e3d'
+        }
     }
 );
 
