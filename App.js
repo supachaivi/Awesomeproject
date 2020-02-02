@@ -4,6 +4,7 @@ import { Router, Scene } from 'react-native-router-flux';
 import login from './app/login';
 import register from './app/register';
 import forgot from './app/forgot';
+import home from './app/home';
 
 const App = () => {
   return (
@@ -22,6 +23,10 @@ const App = () => {
         <Scene
           key="forgot"
           component={forgot}
+        />
+        <Scene
+          key="home"
+          component={home}
         />
       </Scene>
     </Router>
