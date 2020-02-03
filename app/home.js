@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight, } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -28,21 +28,20 @@ class QueueScreen extends React.Component {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <Text> This is my Queue screen </Text>
-                <SFNumberPicker width={200} height={50} style={{marginLeft:10}} maxNumber={20} minNumber={0} onNumberChanged={this.onNumberChange} fontSize={20}/>
+
+                <SFNumberPicker width={200} height={50} style={{ marginLeft: 10 }} maxNumber={20} minNumber={0} onNumberChanged={this.onNumberChange} fontSize={20} />
+
+                <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => Actions.home()}>
+                    <Text style={styles.loginText}>Confirm</Text>
+                </TouchableHighlight>
             </View>
 
         );
     }
-        onNumberChange=(tag,number)=>{
-        }
+    onNumberChange = (tag, number) => {
+    }
 }
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-        alignItems:'center',
-        justifyContent:'center'
-    },
-  });
+
 class HistoryScreen extends React.Component {
     render() {
         return (
@@ -102,5 +101,25 @@ const bottomTabNavigator = createBottomTabNavigator(
         }
     }
 );
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    buttonContainer: {
+        height: 45,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 20,
+        width: 250,
+        borderRadius: 30,
+    },
+    loginButton: {
+        backgroundColor: "#00b5ec",
+    },
+});
 
 const AppContainer = createAppContainer(bottomTabNavigator);
