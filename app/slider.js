@@ -87,31 +87,31 @@ export default class example extends Component {
         );
     }
 
-    // momentumExample (number, title) {
-    //     return (
-    //         <View style={styles.exampleContainer}>
-    //             <Text style={styles.title}>{`Example ${number}`}</Text>
-    //             <Text style={styles.subtitle}>{title}</Text>
-    //             <Carousel
-    //               data={ENTRIES2}
-    //               renderItem={this._renderItem}
-    //               sliderWidth={sliderWidth}
-    //               itemWidth={itemWidth}
-    //               inactiveSlideScale={0.95}
-    //               inactiveSlideOpacity={1}
-    //               enableMomentum={true}
-    //               activeSlideAlignment={'start'}
-    //               containerCustomStyle={styles.slider}
-    //               contentContainerCustomStyle={styles.sliderContentContainer}
-    //               activeAnimationType={'spring'}
-    //               activeAnimationOptions={{
-    //                   friction: 4,
-    //                   tension: 40
-    //               }}
-    //             />
-    //         </View>
-    //     );
-    // }
+    momentumExample (number, title) {
+        return (
+            <View style={styles.exampleContainer}>
+                <Text style={styles.title}>{`Example ${number}`}</Text>
+                <Text style={styles.subtitle}>{title}</Text>
+                <Carousel
+                  data={ENTRIES2}
+                  renderItem={this._renderItem}
+                  sliderWidth={sliderWidth}
+                  itemWidth={itemWidth}
+                  inactiveSlideScale={0.95}
+                  inactiveSlideOpacity={1}
+                  enableMomentum={true}
+                  activeSlideAlignment={'start'}
+                  containerCustomStyle={styles.slider}
+                  contentContainerCustomStyle={styles.sliderContentContainer}
+                  activeAnimationType={'spring'}
+                  activeAnimationOptions={{
+                      friction: 4,
+                      tension: 40
+                  }}
+                />
+            </View>
+        );
+    }
 
     // layoutExample (number, title, type) {
     //     const isTinder = type === 'tinder';
@@ -169,7 +169,7 @@ export default class example extends Component {
 
     render () {
         const example1 = this.mainExample();
-        // const example2 = this.momentumExample(2, 'Momentum | Left-aligned | Active animation');
+        const example2 = this.momentumExample(2, 'Momentum | Left-aligned | Active animation');
         // const example3 = this.layoutExample(3, '"Stack of cards" layout | Loop', 'stack');
         // const example4 = this.layoutExample(4, '"Tinder-like" layout | Loop', 'tinder');
         // const example5 = this.customExample(5, 'Custom animation 1', 1, this._renderItem);
@@ -192,8 +192,8 @@ export default class example extends Component {
                       directionalLockEnabled={true}
                     >
                         { example1 }
-                        {/* { example2 }
-                        { example3 }
+                        { example2 }
+                        {/* { example3 }
                         { example4 }
                         { example5 }
                         { example6 }
