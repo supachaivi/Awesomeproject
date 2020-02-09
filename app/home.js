@@ -1,10 +1,11 @@
-import React from 'react';
-import { StyleSheet, Text, View, TouchableHighlight, } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, TouchableHighlight, Image, } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Icon from "react-native-vector-icons/FontAwesome";
 import SFNumberPicker from "react-native-sf-numberpicker";
-
+import { Actions } from 'react-native-router-flux';
+// import Slide from '../src1/slider'
 export default class App extends React.Component {
     render() {
         return (
@@ -16,8 +17,8 @@ export default class App extends React.Component {
 class HomeScreen extends React.Component {
     render() {
         return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text> This is my Home screen </Text>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                {/* <Slide/> */}
             </View>
         );
     }
@@ -26,7 +27,7 @@ class HomeScreen extends React.Component {
 class QueueScreen extends React.Component {
     render() {
         return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ flex: 1, justifyContent: 'space-around', alignItems: 'center' }}>
                 <Text> This is my Queue screen </Text>
 
                 <SFNumberPicker width={200} height={50} style={{ marginLeft: 10 }} maxNumber={20} minNumber={0} onNumberChanged={this.onNumberChange} fontSize={20} />
@@ -54,12 +55,65 @@ class HistoryScreen extends React.Component {
 class AccountScreen extends React.Component {
     render() {
         return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text> This is my Account screen </Text>
+            <View style={{ flex: 0.3, flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
+                <View style={{ width: 350, height: 100, backgroundColor: 'red' }} />
+                <Text> This is my History screen </Text>
+
+
             </View>
         );
     }
 }
+
+// const logo = createStackNavigator(
+//     {
+//         Home: {
+//             screen: HomeScreen,
+//             navigationOptions: {
+//                 title: 'HomeScreen',
+//                 headerLeft: <ActionBarImage />,
+//                 headerStyle: {
+//                     backgroundColor: '#e3e3e3',
+//                 },
+//                 headerTintColor: '#606070',
+//             }
+//         },
+//         Home: {
+//             screen: QueueScreen,
+//             navigationOptions: {
+//                 title: 'QueueScreen',
+//                 headerLeft: <ActionBarImage />,
+//                 headerStyle: {
+//                     backgroundColor: '#e3e3e3',
+//                 },
+//                 headerTintColor: '#606070',
+//             }
+//         },
+//         Home: {
+//             screen: HistoryScreen,
+//             navigationOptions: {
+//                 title: 'HistoryScreen',
+//                 headerLeft: <ActionBarImage />,
+//                 headerStyle: {
+//                     backgroundColor: '#e3e3e3',
+//                 },
+//                 headerTintColor: '#606070',
+//             }
+//         },
+//         Home: {
+//             screen: AccountScreen,
+//             navigationOptions: {
+//                 title: 'AcccountScreen',
+//                 headerLeft: <ActionBarImage />,
+//                 headerStyle: {
+//                     backgroundColor: '#e3e3e3',
+//                 },
+//                 headerTintColor: '#606070',
+//             }
+//         },
+//     }
+
+// );
 
 const bottomTabNavigator = createBottomTabNavigator(
     {
@@ -119,6 +173,13 @@ const styles = StyleSheet.create({
     },
     loginButton: {
         backgroundColor: "#00b5ec",
+    },
+    MainContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 10,
+        backgroundColor: '#fff'
     },
 });
 

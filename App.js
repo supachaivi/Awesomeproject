@@ -5,6 +5,7 @@ import login from './app/login';
 import register from './app/register';
 import forgot from './app/forgot';
 import home from './app/home';
+import slider from './app/slider';
 
 const App = () => {
   return (
@@ -27,6 +28,10 @@ const App = () => {
         <Scene
           key="home"
           component={home}
+        />
+         <Scene
+          key="slider"
+          component={slider}
         />
       </Scene>
     </Router>
