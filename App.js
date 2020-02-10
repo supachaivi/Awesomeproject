@@ -28,10 +28,13 @@ const App = () => {
         <Scene
           key="home"
           component={home}
+          hideNavBar
+          
         />
          <Scene
           key="slider"
           component={slider}
+          hideNavBar
         />
       </Scene>
     </Router>
