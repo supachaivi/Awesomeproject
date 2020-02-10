@@ -6,6 +6,7 @@ import register from './app/register';
 import forgot from './app/forgot';
 import home from './app/home';
 import slider from './app/slider';
+import menubar from './app/menubar'
 
 const App = () => {
   return (
@@ -28,13 +29,17 @@ const App = () => {
         <Scene
           key="home"
           component={home}
-          hideNavBar
+          // hideNavBar
           
         />
          <Scene
           key="slider"
           component={slider}
           hideNavBar
+        />
+        <Scene
+          key="menubar"
+          component={menubar}
         />
       </Scene>
     </Router>
