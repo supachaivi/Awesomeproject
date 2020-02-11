@@ -6,7 +6,8 @@ import register from './app/register';
 import forgot from './app/forgot';
 import home from './app/home';
 import slider from './app/slider';
-import menubar from './app/menubar'
+import order from './app/order'
+import menu from './app/menu'
 
 const App = () => {
   return (
@@ -29,7 +30,7 @@ const App = () => {
         <Scene
           key="home"
           component={home}
-          // hideNavBar
+          hideNavBar
           
         />
          <Scene
@@ -37,9 +38,15 @@ const App = () => {
           component={slider}
           hideNavBar
         />
-        <Scene
-          key="menubar"
-          component={menubar}
+         <Scene
+          key="order"
+          component={order}
+          hideNavBar
+        />
+         <Scene
+          key="menu"
+          component={menu}
+          hideNavBar
         />
       </Scene>
     </Router>

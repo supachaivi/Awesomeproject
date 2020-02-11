@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableHighlight, Image, } from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight, Image, ScrollView } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Icon from "react-native-vector-icons/FontAwesome";
 import SFNumberPicker from "react-native-sf-numberpicker";
 import { Actions } from 'react-native-router-flux';
+import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards'
+import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav'
 // import Slide from '../src1/slider'
 export default class App extends React.Component {
     render() {
@@ -17,8 +19,220 @@ export default class App extends React.Component {
 class HomeScreen extends React.Component {
     render() {
         return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                {/* <Slide/> */}
+            <View style={{ flex: 1 }}>
+                <NavBar>
+                    <NavTitle>
+                        <Text>
+                            Home
+                            </Text>
+                    </NavTitle>
+                </NavBar>
+                <ScrollView
+                    style={styles.scrollview}
+                    scrollEventThrottle={200}
+                    directionalLockEnabled={true}
+                >
+                    <Card>
+                        <CardImage
+                            source={require('../src/1.jpg')}
+                        // title="Above all i am here"
+                        />
+                        <CardTitle
+                            title="This is a title"
+                            subtitle="This is subtitle"
+                        />
+                        <CardContent text="Your device will reboot in few seconds once successful, be patient meanwhile" />
+                        <CardAction
+                            separator={true}
+                            inColumn={false}>
+                            <CardButton
+                                onPress={() => { }}
+                                title="Push"
+                                color="blue"
+                            />
+                            <CardButton
+                                onPress={() => { }}
+                                title="Later"
+                                color="blue"
+                            />
+                        </CardAction>
+                    </Card>
+                    <Card>
+                        <CardImage
+                            source={require('../src/2.jpg')}
+                        // title="Above all i am here"
+                        />
+                        <CardTitle
+                            title="This is a title"
+                            subtitle="This is subtitle"
+                        />
+                        <CardContent text="Your device will reboot in few seconds once successful, be patient meanwhile" />
+                        <CardAction
+                            separator={true}
+                            inColumn={false}>
+                            <CardButton
+                                onPress={() => { }}
+                                title="Push"
+                                color="blue"
+                            />
+                            <CardButton
+                                onPress={() => { }}
+                                title="Later"
+                                color="blue"
+                            />
+                        </CardAction>
+                    </Card>
+                    <Card>
+                        <CardImage
+                            source={require('../src/3.jpg')}
+                        // title="Above all i am here"
+                        />
+                        <CardTitle
+                            title="This is a title"
+                            subtitle="This is subtitle"
+                        />
+                        <CardContent text="Your device will reboot in few seconds once successful, be patient meanwhile" />
+                        <CardAction
+                            separator={true}
+                            inColumn={false}>
+                            <CardButton
+                                onPress={() => { }}
+                                title="Push"
+                                color="blue"
+                            />
+                            <CardButton
+                                onPress={() => { }}
+                                title="Later"
+                                color="blue"
+                            />
+                        </CardAction>
+                    </Card>
+                    <Card>
+                        <CardImage
+                            source={require('../src/4.jpg')}
+                        // title="Above all i am here"
+                        />
+                        <CardTitle
+                            title="This is a title"
+                            subtitle="This is subtitle"
+                        />
+                        <CardContent text="Your device will reboot in few seconds once successful, be patient meanwhile" />
+                        <CardAction
+                            separator={true}
+                            inColumn={false}>
+                            <CardButton
+                                onPress={() => { }}
+                                title="Push"
+                                color="blue"
+                            />
+                            <CardButton
+                                onPress={() => { }}
+                                title="Later"
+                                color="blue"
+                            />
+                        </CardAction>
+                    </Card>
+                    <Card>
+                        <CardImage
+                            source={require('../src/5.jpg')}
+                        // title="Above all i am here"
+                        />
+                        <CardTitle
+                            title="This is a title"
+                            subtitle="This is subtitle"
+                        />
+                        <CardContent text="Your device will reboot in few seconds once successful, be patient meanwhile" />
+                        <CardAction
+                            separator={true}
+                            inColumn={false}>
+                            <CardButton
+                                onPress={() => { }}
+                                title="Push"
+                                color="blue"
+                            />
+                            <CardButton
+                                onPress={() => { }}
+                                title="Later"
+                                color="blue"
+                            />
+                        </CardAction>
+                    </Card>
+                    <Card>
+                        <CardImage
+                            source={require('../src/6.jpg')}
+                        // title="Above all i am here"
+                        />
+                        <CardTitle
+                            title="This is a title"
+                            subtitle="This is subtitle"
+                        />
+                        <CardContent text="Your device will reboot in few seconds once successful, be patient meanwhile" />
+                        <CardAction
+                            separator={true}
+                            inColumn={false}>
+                            <CardButton
+                                onPress={() => { }}
+                                title="Push"
+                                color="blue"
+                            />
+                            <CardButton
+                                onPress={() => { }}
+                                title="Later"
+                                color="blue"
+                            />
+                        </CardAction>
+                    </Card>
+                    <Card>
+                        <CardImage
+                            source={require('../src/7.jpg')}
+                        // title="Above all i am here"
+                        />
+                        <CardTitle
+                            title="This is a title"
+                            subtitle="This is subtitle"
+                        />
+                        <CardContent text="Your device will reboot in few seconds once successful, be patient meanwhile" />
+                        <CardAction
+                            separator={true}
+                            inColumn={false}>
+                            <CardButton
+                                onPress={() => { }}
+                                title="Push"
+                                color="blue"
+                            />
+                            <CardButton
+                                onPress={() => { }}
+                                title="Later"
+                                color="blue"
+                            />
+                        </CardAction>
+                    </Card>
+                    <Card>
+                        <CardImage
+                            source={require('../src/8.jpg')}
+                        // title="Above all i am here"
+                        />
+                        <CardTitle
+                            title="This is a title"
+                            subtitle="This is subtitle"
+                        />
+                        <CardContent text="Your device will reboot in few seconds once successful, be patient meanwhile" />
+                        <CardAction
+                            separator={true}
+                            inColumn={false}>
+                            <CardButton
+                                onPress={() => { }}
+                                title="Push"
+                                color="blue"
+                            />
+                            <CardButton
+                                onPress={() => { }}
+                                title="Later"
+                                color="blue"
+                            />
+                        </CardAction>
+                    </Card>
+                </ScrollView>
             </View>
         );
     }
@@ -27,14 +241,23 @@ class HomeScreen extends React.Component {
 class QueueScreen extends React.Component {
     render() {
         return (
-            <View style={{ flex: 1, justifyContent: 'space-around', alignItems: 'center' }}>
-                <Text> This is my Queue screen </Text>
+            <View style={{ flex: 1, justifyContent: 'space-around' }}>
+                <NavBar>
+                    <NavTitle>
+                        <Text>
+                            Queue
+                            </Text>
+                    </NavTitle>
+                </NavBar>
+                <View style={{ flex: 1, justifyContent: 'space-around', alignItems: 'center' }}>
+                    < SFNumberPicker width={200} height={50} style={{ marginLeft: 10 }} maxNumber={20} minNumber={0} onNumberChanged={this.onNumberChange} fontSize={20} />
+                    <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => Actions.home()}>
+                        <Text style={styles.loginText}>Confirm</Text>
+                    </TouchableHighlight>
 
-                <SFNumberPicker width={200} height={50} style={{ marginLeft: 10 }} maxNumber={20} minNumber={0} onNumberChanged={this.onNumberChange} fontSize={20} />
+                </View>
 
-                <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => Actions.home()}>
-                    <Text style={styles.loginText}>Confirm</Text>
-                </TouchableHighlight>
+
             </View>
 
         );
@@ -46,8 +269,14 @@ class QueueScreen extends React.Component {
 class HistoryScreen extends React.Component {
     render() {
         return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text> This is my History screen </Text>
+            <View style={{ flex: 1 }}>
+                <NavBar>
+                    <NavTitle>
+                        <Text>
+                            History
+                            </Text>
+                    </NavTitle>
+                </NavBar>
             </View>
         );
     }
@@ -55,65 +284,22 @@ class HistoryScreen extends React.Component {
 class AccountScreen extends React.Component {
     render() {
         return (
-            <View style={{ flex: 0.3, flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
-                <View style={{ width: 350, height: 100, backgroundColor: 'red' }} />
-                <Text> This is my History screen </Text>
+            <View style={{ flex: 1 }}>
+                <NavBar>
+                    <NavTitle>
+                        <Text>
+                            Account
+                            </Text>
+                    </NavTitle>
+                </NavBar>
+
+                <View style={{ height: 100, backgroundColor: 'red', alignItems: 'space-around' }} />
 
 
             </View>
         );
     }
 }
-
-// const logo = createStackNavigator(
-//     {
-//         Home: {
-//             screen: HomeScreen,
-//             navigationOptions: {
-//                 title: 'HomeScreen',
-//                 headerLeft: <ActionBarImage />,
-//                 headerStyle: {
-//                     backgroundColor: '#e3e3e3',
-//                 },
-//                 headerTintColor: '#606070',
-//             }
-//         },
-//         Home: {
-//             screen: QueueScreen,
-//             navigationOptions: {
-//                 title: 'QueueScreen',
-//                 headerLeft: <ActionBarImage />,
-//                 headerStyle: {
-//                     backgroundColor: '#e3e3e3',
-//                 },
-//                 headerTintColor: '#606070',
-//             }
-//         },
-//         Home: {
-//             screen: HistoryScreen,
-//             navigationOptions: {
-//                 title: 'HistoryScreen',
-//                 headerLeft: <ActionBarImage />,
-//                 headerStyle: {
-//                     backgroundColor: '#e3e3e3',
-//                 },
-//                 headerTintColor: '#606070',
-//             }
-//         },
-//         Home: {
-//             screen: AccountScreen,
-//             navigationOptions: {
-//                 title: 'AcccountScreen',
-//                 headerLeft: <ActionBarImage />,
-//                 headerStyle: {
-//                     backgroundColor: '#e3e3e3',
-//                 },
-//                 headerTintColor: '#606070',
-//             }
-//         },
-//     }
-
-// );
 
 const bottomTabNavigator = createBottomTabNavigator(
     {

@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView } from 'react-native';
-// import LinearGradient from 'react-native-linear-gradient';
-
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { sliderWidth, itemWidth } from './styles/SliderEntry.style';
 import SliderEntry from './components/SliderEntry';
 import styles, { colors } from './styles/index.style';
 import { ENTRIES1, ENTRIES2 } from './static/entries';
-import { scrollInterpolators, animatedStyles } from './utils/animations';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards'
 import { Actions } from 'react-native-router-flux';
 import Icon from "react-native-vector-icons/FontAwesome";
 import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav'
 
+
 const IS_ANDROID = Platform.OS === 'android';
 const SLIDER_1_FIRST_ITEM = 1;
+
 
 export default class example extends Component {
 
@@ -130,12 +129,12 @@ export default class example extends Component {
 
                     <NavBar>
                         <NavTitle>
-                            <Text>
+                            <Text >
                                 Home
                             </Text>
                         </NavTitle>
                         <NavButton>
-                            <Icon name="list" size={20} onPress={() => Actions.menubar()} />
+                            <Icon name="list" size={20} style={{justifyContent: 'center'}} onPress={() => Actions.menu()} />
                         </NavButton>
                     </NavBar>
 

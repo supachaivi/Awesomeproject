@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export const colors = {
     black: '#1a1917',
     gray: '#888888',
-    background1: '#b3b3b3',
+    background1: '#EBEBEB',
     background2: '#21D4FD'
 };
 
@@ -62,8 +62,8 @@ export default StyleSheet.create({
         paddingVertical: 8
     },
     paginationDot: {
-        width: 8,
-        height: 8,
+        width: 10,
+        height: 10,
         borderRadius: 4,
         marginHorizontal: 8
     }
