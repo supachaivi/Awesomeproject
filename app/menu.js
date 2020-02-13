@@ -40,16 +40,21 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'space-evenly',
+        alignContent: 'space-around',
+        alignItems: 'center',
     },
     container2: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
     },
     container3: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
     }
 });
+
