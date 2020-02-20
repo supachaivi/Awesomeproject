@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView } from 'react-native';
+import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView, Image } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { sliderWidth, itemWidth } from './styles/SliderEntry.style';
 import SliderEntry from './components/SliderEntry';
 import styles, { colors } from './styles/index.style';
-import { ENTRIES1, ENTRIES2 } from './static/entries';
+import { ENTRIES1, ENTRIES2, ENTRIES3 } from './static/entries';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards'
 import { Actions } from 'react-native-router-flux';
-import Icon from "react-native-vector-icons/FontAwesome";
+// import Icon from "react-native-vector-icons/FontAwesome";
+import Icon1 from "react-native-vector-icons/Feather";
 import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav'
-
+import imagedb from './Imagedb'
 
 const IS_ANDROID = Platform.OS === 'android';
 const SLIDER_1_FIRST_ITEM = 1;
@@ -119,6 +120,7 @@ export default class example extends Component {
         );
     }
 
+
     render() {
         const example1 = this.mainExample();
         const example2 = this.momentumExample();
@@ -134,7 +136,7 @@ export default class example extends Component {
                             </Text>
                         </NavTitle>
                         <NavButton>
-                            <Icon name="list" size={20} style={{justifyContent: 'center'}} onPress={() => Actions.menu()} />
+                            <Icon1 name="shopping-cart" size={25} color={'gray'} style={{ justifyContent: 'center' }} onPress={() => Actions.menu()} />
                         </NavButton>
                     </NavBar>
 
@@ -150,7 +152,34 @@ export default class example extends Component {
                         directionalLockEnabled={true}
                     >
                         {example1}
-                        <Card>
+                        {imagedb.map((image) => {
+                            return (<Card>
+                                <CardImage
+                                    source={image.src}
+                                // title="Above all i am here"
+                                />
+                                <CardTitle
+                                    title={image.name}
+                                    subtitle="This is subtitle"
+                                />
+                                <CardContent text="Your device will reboot in few seconds once successful, be patient meanwhile" />
+                                <CardAction
+                                    separator={true}
+                                    inColumn={false}>
+                                    <CardButton
+                                        onPress={() => { }}
+                                        title="Push"
+                                        color="blue"
+                                    />
+                                    <CardButton
+                                        onPress={() => { }}
+                                        title="Later"
+                                        color="blue"
+                                    />
+                                </CardAction>
+                            </Card>)
+                        })}
+                        {/* <Card>
                             <CardImage
                                 source={require('../src/1.jpg')}
                             // title="Above all i am here"
@@ -349,7 +378,7 @@ export default class example extends Component {
                                     color="blue"
                                 />
                             </CardAction>
-                        </Card>
+                        </Card> */}
                         {example2}
                     </ScrollView>
 

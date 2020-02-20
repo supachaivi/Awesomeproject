@@ -6,22 +6,23 @@ import {
   StyleSheet
 } from 'react-native'
 import { Actions } from 'react-native-router-flux';
+import axios from 'axios'
 export default class SignUp extends React.Component {
   state = {
-    firstname: '', lastname: '', phone: '', email: '', password: '', confirm: ''
+    first_name: '', last_name: '', phone: '', email: '', password: '', confirm_password: ''
   }
   onChangeText = (key, val) => {
     this.setState({ [key]: val })
   }
-  signUp = async () => {
-    const { firstname, lastname, phone, email, password, confirm } = this.state
-    try {
-      // here place your signup logic
-      console.log('user successfully signed up!: ', success)
-    } catch (err) {
-      console.log('error signing up: ', err)
-    }
-  }
+  // signUp = async () => {
+  //   const { firstname, lastname, phone, email, password, confirm } = this.state
+  //   try {
+  //     // here place your signup logic
+  //     console.log('user successfully signed up!: ', success)
+  //   } catch (err) {
+  //     console.log('error signing up: ', err)
+  //   }
+  // }
 
   render() {
     return (
@@ -31,14 +32,14 @@ export default class SignUp extends React.Component {
           placeholder='Firstname'
           autoCapitalize="none"
           placeholderTextColor='gray'
-          onChangeText={val => this.onChangeText('firstname', val)}
+          onChangeText={val => this.onChangeText('first_name', val)}
         />
         <TextInput
           style={styles.input}
           placeholder='Lastname'
           autoCapitalize="none"
           placeholderTextColor='gray'
-          onChangeText={val => this.onChangeText('lastname', val)}
+          onChangeText={val => this.onChangeText('last_name', val)}
         />
         <TextInput
           style={styles.input}
@@ -68,11 +69,25 @@ export default class SignUp extends React.Component {
           secureTextEntry={true}
           autoCapitalize="none"
           placeholderTextColor='gray'
-          onChangeText={val => this.onChangeText('confirm', val)}
+          onChangeText={val => this.onChangeText('confirm_password', val)}
         />
         <Button
           title='Sign Up'
-          onPress={() => Actions.login()}
+          onPress={() => {
+            axios.post("http://127.0.0.1:8000/api/accounts/register/", {
+              first_tname: '',
+              last_name: '', 
+              phone: '', 
+              email: '', 
+              password: '', 
+              confirm_password: ''
+            }).then((response) => {
+              console.log(response);
+            }).catch(error => {
+              console.log(error);
+            })
+            Actions.login();
+          }}
         />
       </View>
     )

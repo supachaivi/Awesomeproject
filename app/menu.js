@@ -9,7 +9,7 @@ import Icon3 from "react-native-vector-icons/AntDesign";
 export default class OrderScreen extends React.Component {
     render() {
         return (
-            <View style={{ flex: 1}}>
+            <View style={{ flex: 1 }}>
                 <NavBar>
                     <NavTitle>
                         <Text>
@@ -30,6 +30,7 @@ export default class OrderScreen extends React.Component {
                 </View>
                 <View style={styles.container3}>
                     <Icon name="money" size={60} />
+                    <Text>Menu</Text>
                 </View>
             </View>
         )
@@ -40,20 +41,20 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-around',
         alignContent: 'space-around',
         alignItems: 'center',
     },
     container2: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-around',
         alignItems: 'center',
     },
     container3: {
         flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
+        // flexDirection: 'row',
+        // justifyContent: 'space-around',
         alignItems: 'center',
     }
 });
