@@ -8,6 +8,8 @@ import home from './app/home';
 import slider from './app/slider';
 import order from './app/order'
 import menu from './app/menu'
+import mycart from './app/mycart'
+import fooddetail from './app/fooddetail'
 
 const App = () => {
   return (
@@ -17,7 +19,7 @@ const App = () => {
           key="login"
           component={login}
           hideNavBar
-          initial
+          // initial
         />
         <Scene
           key="register"
@@ -37,6 +39,7 @@ const App = () => {
           key="slider"
           component={slider}
           hideNavBar
+          initial
         />
          <Scene
           key="order"
@@ -46,6 +49,16 @@ const App = () => {
          <Scene
           key="menu"
           component={menu}
+          hideNavBar
+        />
+        <Scene
+          key="mycart"
+          component={mycart}
+          hideNavBar
+        />
+        <Scene
+          key="fooddetail"
+          component={fooddetail}
           hideNavBar
         />
       </Scene>

@@ -136,7 +136,7 @@ export default class example extends Component {
                             </Text>
                         </NavTitle>
                         <NavButton>
-                            <Icon1 name="shopping-cart" size={25} color={'gray'} style={{ justifyContent: 'center' }} onPress={() => Actions.menu()} />
+                            <Icon1 name="shopping-cart" size={25} color={'gray'} style={{ justifyContent: 'center' }} onPress={() => Actions.mycart()} />
                         </NavButton>
                     </NavBar>
 
@@ -167,7 +167,7 @@ export default class example extends Component {
                                     separator={true}
                                     inColumn={false}>
                                     <CardButton
-                                        onPress={() => { }}
+                                        onPress={() => { this.props.navigation.navigate('fooddetail', {image});}}
                                         title="Push"
                                         color="blue"
                                     />
@@ -179,206 +179,6 @@ export default class example extends Component {
                                 </CardAction>
                             </Card>)
                         })}
-                        {/* <Card>
-                            <CardImage
-                                source={require('../src/1.jpg')}
-                            // title="Above all i am here"
-                            />
-                            <CardTitle
-                                title="This is a title"
-                                subtitle="This is subtitle"
-                            />
-                            <CardContent text="Your device will reboot in few seconds once successful, be patient meanwhile" />
-                            <CardAction
-                                separator={true}
-                                inColumn={false}>
-                                <CardButton
-                                    onPress={() => { }}
-                                    title="Push"
-                                    color="blue"
-                                />
-                                <CardButton
-                                    onPress={() => { }}
-                                    title="Later"
-                                    color="blue"
-                                />
-                            </CardAction>
-                        </Card>
-                        <Card>
-                            <CardImage
-                                source={require('../src/2.jpg')}
-                            // title="Above all i am here"
-                            />
-                            <CardTitle
-                                title="This is a title"
-                                subtitle="This is subtitle"
-                            />
-                            <CardContent text="Your device will reboot in few seconds once successful, be patient meanwhile" />
-                            <CardAction
-                                separator={true}
-                                inColumn={false}>
-                                <CardButton
-                                    onPress={() => { }}
-                                    title="Push"
-                                    color="blue"
-                                />
-                                <CardButton
-                                    onPress={() => { }}
-                                    title="Later"
-                                    color="blue"
-                                />
-                            </CardAction>
-                        </Card>
-                        <Card>
-                            <CardImage
-                                source={require('../src/3.jpg')}
-                            // title="Above all i am here"
-                            />
-                            <CardTitle
-                                title="This is a title"
-                                subtitle="This is subtitle"
-                            />
-                            <CardContent text="Your device will reboot in few seconds once successful, be patient meanwhile" />
-                            <CardAction
-                                separator={true}
-                                inColumn={false}>
-                                <CardButton
-                                    onPress={() => { }}
-                                    title="Push"
-                                    color="blue"
-                                />
-                                <CardButton
-                                    onPress={() => { }}
-                                    title="Later"
-                                    color="blue"
-                                />
-                            </CardAction>
-                        </Card>
-                        <Card>
-                            <CardImage
-                                source={require('../src/4.jpg')}
-                            // title="Above all i am here"
-                            />
-                            <CardTitle
-                                title="This is a title"
-                                subtitle="This is subtitle"
-                            />
-                            <CardContent text="Your device will reboot in few seconds once successful, be patient meanwhile" />
-                            <CardAction
-                                separator={true}
-                                inColumn={false}>
-                                <CardButton
-                                    onPress={() => { }}
-                                    title="Push"
-                                    color="blue"
-                                />
-                                <CardButton
-                                    onPress={() => { }}
-                                    title="Later"
-                                    color="blue"
-                                />
-                            </CardAction>
-                        </Card>
-                        <Card>
-                            <CardImage
-                                source={require('../src/5.jpg')}
-                            // title="Above all i am here"
-                            />
-                            <CardTitle
-                                title="This is a title"
-                                subtitle="This is subtitle"
-                            />
-                            <CardContent text="Your device will reboot in few seconds once successful, be patient meanwhile" />
-                            <CardAction
-                                separator={true}
-                                inColumn={false}>
-                                <CardButton
-                                    onPress={() => { }}
-                                    title="Push"
-                                    color="blue"
-                                />
-                                <CardButton
-                                    onPress={() => { }}
-                                    title="Later"
-                                    color="blue"
-                                />
-                            </CardAction>
-                        </Card>
-                        <Card>
-                            <CardImage
-                                source={require('../src/6.jpg')}
-                            // title="Above all i am here"
-                            />
-                            <CardTitle
-                                title="This is a title"
-                                subtitle="This is subtitle"
-                            />
-                            <CardContent text="Your device will reboot in few seconds once successful, be patient meanwhile" />
-                            <CardAction
-                                separator={true}
-                                inColumn={false}>
-                                <CardButton
-                                    onPress={() => { }}
-                                    title="Push"
-                                    color="blue"
-                                />
-                                <CardButton
-                                    onPress={() => { }}
-                                    title="Later"
-                                    color="blue"
-                                />
-                            </CardAction>
-                        </Card>
-                        <Card>
-                            <CardImage
-                                source={require('../src/7.jpg')}
-                            // title="Above all i am here"
-                            />
-                            <CardTitle
-                                title="This is a title"
-                                subtitle="This is subtitle"
-                            />
-                            <CardContent text="Your device will reboot in few seconds once successful, be patient meanwhile" />
-                            <CardAction
-                                separator={true}
-                                inColumn={false}>
-                                <CardButton
-                                    onPress={() => { }}
-                                    title="Push"
-                                    color="blue"
-                                />
-                                <CardButton
-                                    onPress={() => { }}
-                                    title="Later"
-                                    color="blue"
-                                />
-                            </CardAction>
-                        </Card>
-                        <Card>
-                            <CardImage
-                                source={require('../src/8.jpg')}
-                            // title="Above all i am here"
-                            />
-                            <CardTitle
-                                title="This is a title"
-                                subtitle="This is subtitle"
-                            />
-                            <CardContent text="Your device will reboot in few seconds once successful, be patient meanwhile" />
-                            <CardAction
-                                separator={true}
-                                inColumn={false}>
-                                <CardButton
-                                    onPress={() => { }}
-                                    title="Push"
-                                    color="blue"
-                                />
-                                <CardButton
-                                    onPress={() => { }}
-                                    title="Later"
-                                    color="blue"
-                                />
-                            </CardAction>
-                        </Card> */}
                         {example2}
                     </ScrollView>
 
