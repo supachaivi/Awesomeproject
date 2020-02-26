@@ -5,6 +5,7 @@ import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav'
 
 export default class OrderScreen extends React.Component {
     render() {
+        const { image } = this.props
         return (
             <View style={{ flex: 1 }}>
                 <NavBar>
@@ -14,7 +15,17 @@ export default class OrderScreen extends React.Component {
                         </Text>
                     </NavTitle>
                 </NavBar>
+                <View style={styles.smallItemContainer}>
+                    <Text style={styles.mainText}>${this.state.value} ${image.name}</Text>
+                </View>
             </View>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    smallItemContainer: {
+        marginBottom: 5,
+    },
+   
+});

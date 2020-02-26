@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
-import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView, StyleSheet, Dimensions, Image, Button } from 'react-native';
+import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView, StyleSheet, Dimensions, Image, Button, Alert } from 'react-native';
 import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav'
-import { SimpleStepper } from 'react-native-simple-stepper';
-import SFNumberPicker from "react-native-sf-numberpicker";
+// import { SimpleStepper } from 'react-native-simple-stepper';
+// import SFNumberPicker from "react-native-sf-numberpicker";
+import { Actions } from 'react-native-router-flux';
 import NumericInput from 'react-native-numeric-input'
 
 const screenWidth = Dimensions.get('window').width;
+const value = 1;
 
 class FoodDetails extends Component {
-    state = {
-        value: 1,
-      };
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: value
+        };
+    }
     render() {
         const { image } = this.props
         return (
@@ -61,7 +66,14 @@ class FoodDetails extends Component {
 
                     <View style={styles.itemContainer}>
                         <Button
-                            onPress={() => { }}
+                            onPress={() => 
+                                Alert.alert(
+                                'Added to basket',
+                                `${this.state.value} ${image.name} was added to the basket.`,Actions.slider())
+                              
+                                // this.props.navigation.navigate('slider', {image,value})
+                            }
+                            
                             title="Add to Basket"
                             color="#c53c3c"
                         />
