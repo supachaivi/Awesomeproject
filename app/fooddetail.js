@@ -5,19 +5,46 @@ import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav'
 // import SFNumberPicker from "react-native-sf-numberpicker";
 import { Actions } from 'react-native-router-flux';
 import NumericInput from 'react-native-numeric-input'
+import APIKit, { setClientToken } from './APIKit';
 
 const screenWidth = Dimensions.get('window').width;
-const value = 1;
 
 class FoodDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: value
+            value: 1
         };
     }
+
+    // onPressMenu() {
+    //     const { username, password } = this.state;
+    //     const payload = { username, password };
+    //     console.log(payload);
+
+    //     const onSuccess = ({ data }) => {
+    //         Actions.slider()
+    //         // Actions.pop()
+    //         // Set JSON Web Token on success
+    //         setClientToken(data.token);
+    //         // this.setState({ isLoading: false, isAuthorized: true });
+    //     };
+
+    //     const onFailure = error => {
+    //         console.log(error.response.data);
+    //         this.setState({ errors: error.response.data, isLoading: false });
+    //     };
+
+    //     // Show spinner when call is made
+    //     this.setState({ isLoading: true });
+    //     APIKit.post('/accounts/login/', payload)
+    //         .then(onSuccess)
+    //         .catch(onFailure);
+    // }
+
     render() {
         const { image } = this.props
+        const { value } = this.state
         return (
             <View>
                 <NavBar>
@@ -66,14 +93,15 @@ class FoodDetails extends Component {
 
                     <View style={styles.itemContainer}>
                         <Button
-                            onPress={() => 
+                            onPress={() => {
                                 Alert.alert(
                                 'Added to basket',
-                                `${this.state.value} ${image.name} was added to the basket.`,Actions.slider())
-                              
+                                `${this.state.value} ${image.name} was added to the basket.`)
+                                this.props.navigation.navigate('mycart', { image, value })
                                 // this.props.navigation.navigate('slider', {image,value})
-                            }
-                            
+
+                            }}
+
                             title="Add to Basket"
                             color="#c53c3c"
                         />
