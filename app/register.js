@@ -7,26 +7,61 @@ import {
 } from 'react-native'
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios'
+import APIKit, { setClientToken } from './APIKit';
 export default class SignUp extends React.Component {
   state = {
-    first_name: '', last_name: '', phone: '', email: '', password: '', confirm_password: ''
+    username: '', password: '', confirm_password: '', email: '', first_name: '', last_name: '', phone: '', isLoading: true,
   }
   onChangeText = (key, val) => {
     this.setState({ [key]: val })
   }
-  // signUp = async () => {
-  //   const { firstname, lastname, phone, email, password, confirm } = this.state
-  //   try {
-  //     // here place your signup logic
-  //     console.log('user successfully signed up!: ', success)
-  //   } catch (err) {
-  //     console.log('error signing up: ', err)
-  //   }
-  // }
+  onPressRegister() {
+    const { username, password, confirm_password, email, first_name, last_name, phone } = this.state;
+    const payload = { username, password, confirm_password, email, first_name, last_name, phone };
+    console.log(payload);
+    axios.post('http://161.246.5.195:8000/api/accounts/register/', payload)
+    .then(function(response){
+      console.log(response,Actions.login())
+    })
+    .catch(function(error){
+      console.log(error);
+    })
+  }
 
   render() {
+    const { isLoading } = this.state;
     return (
       <View style={styles.container}>
+        <TextInput
+          style={styles.input}
+          placeholder='Username'
+          autoCapitalize="none"
+          placeholderTextColor='gray'
+          onChangeText={val => this.onChangeText('username', val)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder='Password'
+          secureTextEntry={true}
+          autoCapitalize="none"
+          placeholderTextColor='gray'
+          onChangeText={val => this.onChangeText('password', val)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder='Confirm Password'
+          secureTextEntry={true}
+          autoCapitalize="none"
+          placeholderTextColor='gray'
+          onChangeText={val => this.onChangeText('confirm_password', val)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder='E-mail'
+          autoCapitalize="none"
+          placeholderTextColor='gray'
+          onChangeText={val => this.onChangeText('email', val)}
+        />
         <TextInput
           style={styles.input}
           placeholder='Firstname'
@@ -48,46 +83,9 @@ export default class SignUp extends React.Component {
           placeholderTextColor='gray'
           onChangeText={val => this.onChangeText('phone', val)}
         />
-        <TextInput
-          style={styles.input}
-          placeholder='E-mail'
-          autoCapitalize="none"
-          placeholderTextColor='gray'
-          onChangeText={val => this.onChangeText('email', val)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder='Password'
-          secureTextEntry={true}
-          autoCapitalize="none"
-          placeholderTextColor='gray'
-          onChangeText={val => this.onChangeText('password', val)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder='Confirm'
-          secureTextEntry={true}
-          autoCapitalize="none"
-          placeholderTextColor='gray'
-          onChangeText={val => this.onChangeText('confirm_password', val)}
-        />
         <Button
           title='Sign Up'
-          onPress={() => {
-            axios.post("http://127.0.0.1:8000/api/accounts/register/", {
-              first_tname: '',
-              last_name: '', 
-              phone: '', 
-              email: '', 
-              password: '', 
-              confirm_password: ''
-            }).then((response) => {
-              console.log(response);
-            }).catch(error => {
-              console.log(error);
-            })
-            Actions.login();
-          }}
+          onPress={this.onPressRegister.bind(this)}
         />
       </View>
     )

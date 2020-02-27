@@ -43,7 +43,7 @@ class Login extends Component {
     console.log(payload);
 
     const onSuccess = ({ data }) => {
-      Actions.slider()
+      Actions.home()
       // Actions.pop()
       // Set JSON Web Token on success
       setClientToken(data.token);

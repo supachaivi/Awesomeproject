@@ -15,7 +15,7 @@ export default class OrderScreen extends React.Component {
     //     .catch((error) => console.log(error));
     //   }
     render() {
-        const { image,value } = this.props
+        const { image, value } = this.props
         // const {mycart} = this.state
         return (
             <View style={{ flex: 1 }}>
@@ -26,6 +26,12 @@ export default class OrderScreen extends React.Component {
                         </Text>
                     </NavTitle>
                 </NavBar>
+                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
+                    <Text style={{fontSize: 15}}>ลำดับ</Text>
+                    <Text style={{fontSize: 15}}>รายการอาหาร</Text>
+                    <Text style={{fontSize: 15}}>จำนวน</Text>
+                    <Text style={{fontSize: 15}}>ราคา</Text>
+                </View>
                 {/* {mycart.map((menu) => {
                             return (
                                 <Text>menu</Text>
@@ -44,5 +50,5 @@ const styles = StyleSheet.create({
     smallItemContainer: {
         marginBottom: 5,
     },
-   
+
 });

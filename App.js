@@ -33,13 +33,14 @@ const App = () => {
           key="home"
           component={home}
           hideNavBar
+          initial
           
         />
          <Scene
           key="slider"
           component={slider}
           hideNavBar
-          initial
+          // initial
         />
          <Scene
           key="order"
