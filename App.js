@@ -6,10 +6,15 @@ import register from './app/register';
 import forgot from './app/forgot';
 import home from './app/home';
 import slider from './app/slider';
-import order from './app/order'
-import menubar from './app/menubar'
-import mycart from './app/mycart'
-import fooddetail from './app/fooddetail'
+import order from './app/order';
+import menubar from './app/menubar';
+import mycart from './app/mycart';
+import fooddetail from './app/fooddetail';
+import Menu from './app/Menu';
+import myaccount from './app/myaccount';
+import checkbill from './app/checkbill';
+
+
 
 const App = () => {
   return (
@@ -60,6 +65,21 @@ const App = () => {
         <Scene
           key="fooddetail"
           component={fooddetail}
+          hideNavBar
+        />
+         <Scene
+          key="menu"
+          component={Menu}
+          hideNavBar
+        />
+        <Scene
+          key="myaccount"
+          component={myaccount}
+          hideNavBar
+        />
+        <Scene
+          key="checkbill"
+          component={checkbill}
           hideNavBar
         />
       </Scene>

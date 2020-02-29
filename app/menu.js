@@ -8,6 +8,7 @@ import {
   Image,
   Text,
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 const window = Dimensions.get('window');
 const uri = 'https://pickaface.net/gallery/avatar/Opi51c74d0125fd4.png';
@@ -36,6 +37,7 @@ const styles = StyleSheet.create({
     top: 20,
   },
   item: {
+    marginBottom: 15,
     fontSize: 14,
     fontWeight: '300',
     paddingTop: 5,
@@ -54,17 +56,41 @@ export default function Menu({ onItemSelected }) {
       </View>
 
       <Text
-        onPress={() => onItemSelected('About')}
+        onPress={() => Actions.slider()}
         style={styles.item}
       >
-        About
+        Menu
       </Text>
 
+      <Text
+        onPress={() => Actions.myaccount()}
+        style={styles.item}
+      >
+        My Account
+      </Text>
       <Text
         onPress={() => onItemSelected('Contacts')}
         style={styles.item}
       >
-        Contacts
+        Your Order
+      </Text>
+      <Text
+        onPress={() => Actions.checkbill()}
+        style={styles.item}
+      >
+        Check Bill
+      </Text>
+      <Text
+        onPress={() => onItemSelected('Contacts')}
+        style={styles.item}
+      >
+        Feedback
+      </Text>
+      <Text
+        onPress={() => onItemSelected('Contacts')}
+        style={styles.item}
+      >
+        About
       </Text>
     </ScrollView>
   );

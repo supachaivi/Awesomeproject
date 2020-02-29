@@ -25,7 +25,7 @@ export default class example extends Component {
         this.toggle = this.toggle.bind(this);
         this.state = { 
             isOpen: false,
-            selectedItem: 'About',
+            selectedItem: '',
             slider1ActiveSlide: SLIDER_1_FIRST_ITEM,
            
         };
