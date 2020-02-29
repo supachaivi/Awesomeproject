@@ -1,61 +1,75 @@
-import React, { Component } from 'react';
-import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView, StyleSheet } from 'react-native';
-import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav'
-import Icon from "react-native-vector-icons/FontAwesome";
-import Icon1 from "react-native-vector-icons/MaterialIcons";
-import Icon2 from "react-native-vector-icons/Octicons";
-import Icon3 from "react-native-vector-icons/AntDesign";
+import React from 'react';
+import PropTypes from 'prop-types';
+import {
+  Dimensions,
+  StyleSheet,
+  ScrollView,
+  View,
+  Image,
+  Text,
+} from 'react-native';
 
-export default class OrderScreen extends React.Component {
-    render() {
-        return (
-            <View style={{ flex: 1 }}>
-                <NavBar>
-                    <NavTitle>
-                        <Text>
-                            Menu
-                        </Text>
-                    </NavTitle>
-                </NavBar>
-                <View style={styles.container}>
-                    <Icon3 name="book" size={60} />
-                    <Icon name="user" size={60} />
-                    <Icon2 name="list-ordered" size={60} />
-                </View>
-
-                <View style={styles.container2}>
-                    <Icon1 name="feedback" size={60} />
-                    <Icon1 name="home" size={60} />
-                    <Icon name="search-plus" size={60} />
-                </View>
-                <View style={styles.container3}>
-                    <Icon name="money" size={60} />
-                    <Text>Menu</Text>
-                </View>
-            </View>
-        )
-    }
-}
+const window = Dimensions.get('window');
+const uri = 'https://pickaface.net/gallery/avatar/Opi51c74d0125fd4.png';
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignContent: 'space-around',
-        alignItems: 'center',
-    },
-    container2: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-    },
-    container3: {
-        flex: 1,
-        // flexDirection: 'row',
-        // justifyContent: 'space-around',
-        alignItems: 'center',
-    }
+  menu: {
+    flex: 1,
+    width: window.width,
+    height: window.height,
+    backgroundColor: 'gray',
+    padding: 20,
+  },
+  avatarContainer: {
+    marginBottom: 20,
+    marginTop: 20,
+  },
+  avatar: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    flex: 1,
+  },
+  name: {
+    position: 'absolute',
+    left: 70,
+    top: 20,
+  },
+  item: {
+    fontSize: 14,
+    fontWeight: '300',
+    paddingTop: 5,
+  },
 });
 
+export default function Menu({ onItemSelected }) {
+  return (
+    <ScrollView scrollsToTop={false} style={styles.menu}>
+      <View style={styles.avatarContainer}>
+        <Image
+          style={styles.avatar}
+          source={{ uri }}
+        />
+        <Text style={styles.name}>Your name</Text>
+      </View>
+
+      <Text
+        onPress={() => onItemSelected('About')}
+        style={styles.item}
+      >
+        About
+      </Text>
+
+      <Text
+        onPress={() => onItemSelected('Contacts')}
+        style={styles.item}
+      >
+        Contacts
+      </Text>
+    </ScrollView>
+  );
+}
+
+Menu.propTypes = {
+  onItemSelected: PropTypes.func.isRequired,
+};

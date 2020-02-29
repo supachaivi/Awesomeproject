@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView, Image } from 'react-native';
+import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView, Image, TouchableOpacity, } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { sliderWidth, itemWidth } from './styles/SliderEntry.style';
 import SliderEntry from './components/SliderEntry';
@@ -7,10 +7,12 @@ import styles, { colors } from './styles/index.style';
 import { ENTRIES1, ENTRIES2, ENTRIES3 } from './static/entries';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards'
 import { Actions } from 'react-native-router-flux';
-// import Icon from "react-native-vector-icons/FontAwesome";
+import Icon2 from "react-native-vector-icons/Entypo";
 import Icon1 from "react-native-vector-icons/Feather";
 import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav'
 import imagedb from './Imagedb'
+import SideMenu from 'react-native-side-menu';
+import Menu from './Menu';
 
 const IS_ANDROID = Platform.OS === 'android';
 const SLIDER_1_FIRST_ITEM = 1;
@@ -20,10 +22,30 @@ export default class example extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            slider1ActiveSlide: SLIDER_1_FIRST_ITEM
+        this.toggle = this.toggle.bind(this);
+        this.state = { 
+            isOpen: false,
+            selectedItem: 'About',
+            slider1ActiveSlide: SLIDER_1_FIRST_ITEM,
+           
         };
     }
+
+    toggle() {
+        this.setState({
+            isOpen: !this.state.isOpen,
+        });
+    }
+
+    updateMenuState(isOpen) {
+        this.setState({ isOpen });
+    }
+
+    onMenuItemSelected = item =>
+        this.setState({
+            isOpen: false,
+            selectedItem: item,
+        });
 
     _renderItem({ item, index }) {
         return <SliderEntry data={item} even={(index + 1) % 2 === 0} />;
@@ -122,67 +144,76 @@ export default class example extends Component {
 
 
     render() {
+        const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
         const example1 = this.mainExample();
         const example2 = this.momentumExample();
-
+        
         return (
             <SafeAreaView style={styles.safeArea}>
-                <View style={styles.container}>
-
-                    <NavBar>
-                        <NavTitle>
-                            <Text >
-                                Home
+                <SideMenu
+                    menu={menu}
+                    isOpen={this.state.isOpen}
+                    onChange={isOpen => this.updateMenuState(isOpen)}>
+                    <View style={styles.container}>
+                        <NavBar>
+                            <NavButton>
+                                <Icon2 name="menu" size={30} color={'gray'} style={{ justifyContent: 'flex-start' }} onPress={this.toggle} />
+                            </NavButton>
+                            <NavTitle>
+                                <Text >
+                                    Home
                             </Text>
-                        </NavTitle>
-                        <NavButton>
-                            <Icon1 name="shopping-cart" size={25} color={'gray'} style={{ justifyContent: 'center' }} onPress={() => Actions.mycart()} />
-                        </NavButton>
-                    </NavBar>
+                            </NavTitle>
+                            <NavButton>
+                                <Icon1 name="shopping-cart" size={25} color={'gray'} style={{ justifyContent: 'center' }} onPress={() => Actions.mycart()} />
+                            </NavButton>
+                        </NavBar>
 
-                    <StatusBar
-                        translucent={true}
-                        backgroundColor={'rgba(0, 0, 0, 0.3)'}
-                        barStyle={'light-content'}
-                    />
-                    {this.gradient}
-                    <ScrollView
-                        style={styles.scrollview}
-                        scrollEventThrottle={200}
-                        directionalLockEnabled={true}
-                    >
-                        {example1}
-                        {imagedb.map((image) => {
-                            return (<Card>
-                                <CardImage
-                                    source={image.src}
-                                // title="Above all i am here"
-                                />
-                                <CardTitle
-                                    title={image.name}
-                                    subtitle="This is subtitle"
-                                />
-                                <CardContent text="Your device will reboot in few seconds once successful, be patient meanwhile" />
-                                <CardAction
-                                    separator={true}
-                                    inColumn={false}>
-                                    <CardButton
-                                        onPress={() => { this.props.navigation.navigate('fooddetail', {image});}}
-                                        title="Push"
-                                        color="blue"
+                        <StatusBar
+                            translucent={true}
+                            backgroundColor={'rgba(0, 0, 0, 0.3)'}
+                            barStyle={'light-content'}
+                        />
+                        {this.gradient}
+                        <ScrollView
+                            style={styles.scrollview}
+                            scrollEventThrottle={200}
+                            directionalLockEnabled={true}
+                        >
+                            {example1}
+                            {imagedb.map((image) => {
+                                return (<Card>
+                                    <CardImage
+                                        source={image.src}
+                                    // title="Above all i am here"
                                     />
-                                    <CardButton
-                                        onPress={() => { }}
-                                        title="Later"
-                                        color="blue"
+                                    <CardTitle
+                                        title={image.name}
+                                        subtitle="This is subtitle"
                                     />
-                                </CardAction>
-                            </Card>)
-                        })}
-                        {example2}
-                    </ScrollView>
+                                    <CardContent text="Your device will reboot in few seconds once successful, be patient meanwhile" />
+                                    <CardAction
+                                        separator={true}
+                                        inColumn={false}>
+                                        <CardButton
+                                            onPress={() => { this.props.navigation.navigate('fooddetail', { image }); }}
+                                            title="Push"
+                                            color="blue"
+                                        />
+                                        <CardButton
+                                            onPress={() => { }}
+                                            title="Later"
+                                            color="blue"
+                                        />
+                                    </CardAction>
+                                </Card>)
+                            })}
+                            {example2}
+                        </ScrollView>
 
-                </View>
+                    </View>
+                </SideMenu>
+
             </SafeAreaView>
         );
     }

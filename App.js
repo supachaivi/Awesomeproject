@@ -7,7 +7,7 @@ import forgot from './app/forgot';
 import home from './app/home';
 import slider from './app/slider';
 import order from './app/order'
-import menu from './app/menu'
+import menubar from './app/menubar'
 import mycart from './app/mycart'
 import fooddetail from './app/fooddetail'
 
@@ -33,14 +33,14 @@ const App = () => {
           key="home"
           component={home}
           hideNavBar
-          initial
+          // initial
           
         />
          <Scene
           key="slider"
           component={slider}
           hideNavBar
-          // initial
+          initial
         />
          <Scene
           key="order"
@@ -48,8 +48,8 @@ const App = () => {
           hideNavBar
         />
          <Scene
-          key="menu"
-          component={menu}
+          key="menubar"
+          component={menubar}
           hideNavBar
         />
         <Scene
