@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView, Image, TouchableOpacity, } from 'react-native';
+import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView, Image, TouchableOpacity, AsyncStorage, } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { sliderWidth, itemWidth } from './styles/SliderEntry.style';
 import SliderEntry from './components/SliderEntry';
@@ -196,7 +196,11 @@ export default class example extends Component {
                                         separator={true}
                                         inColumn={false}>
                                         <CardButton
-                                            onPress={() => { this.props.navigation.navigate('fooddetail', { image }); }}
+                                            onPress={() => { 
+                                               
+                                                this.props.navigation.navigate('fooddetail', { image }); 
+                                            
+                                            }}
                                             title="Push"
                                             color="blue"
                                         />

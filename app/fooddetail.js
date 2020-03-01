@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView, StyleSheet, Dimensions, Image, Button, Alert } from 'react-native';
+import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView, StyleSheet, Dimensions, Image, Button, Alert, AsyncStorage } from 'react-native';
 import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav'
 // import { SimpleStepper } from 'react-native-simple-stepper';
 // import SFNumberPicker from "react-native-sf-numberpicker";
 import { Actions } from 'react-native-router-flux';
 import NumericInput from 'react-native-numeric-input'
 import APIKit, { setClientToken } from './APIKit';
+
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -93,13 +94,12 @@ class FoodDetails extends Component {
 
                     <View style={styles.itemContainer}>
                         <Button
-                            onPress={() => {
+                            onPress={ () => {
                                 Alert.alert(
                                 'Added to basket',
                                 `${this.state.value} ${image.name} was added to the basket.`)
                                 this.props.navigation.navigate('mycart', { image, value })
-                                // this.props.navigation.navigate('slider', {image,value})
-
+                                // this.props.navigation.navigate('slider', {image,value})                  
                             }}
 
                             title="Add to Basket"

@@ -6,6 +6,7 @@ import {
   StyleSheet
 } from 'react-native'
 import { Actions } from 'react-native-router-flux';
+import APIKit from './APIKit';
 export default class Forgot extends React.Component {
   state = {
     email: '',
@@ -22,6 +23,18 @@ export default class Forgot extends React.Component {
       console.log('not found this E-mail ', err)
     }
   }
+
+  onPressFogot() {
+    const { email } = this.state;
+    const payload = { email };
+    console.log('payload');
+    APIKit.post('/accounts/forgetpassword/' , payload).then(function(response){
+      console.log(response,Actions.login())
+    })
+    .catch(function(error){
+      console.log(error);
+    })
+  }
  
   render() {
     return (
@@ -35,7 +48,7 @@ export default class Forgot extends React.Component {
         />
         <Button
           title='Confirm'
-          onPress={() => Actions.login()}
+          onPress={this.onPressFogot.bind(this)}
         />
       </View>
     )

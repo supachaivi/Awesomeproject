@@ -11,9 +11,9 @@ export default class OrderScreen extends React.Component {
     //     };
     // }
     // componentDidMount() {
-    //     APIKit.get('/mycart').then((mycart) => this.setState({mycart}))
-    //     .catch((error) => console.log(error));
-    //   }
+    //     // APIKit.get('/mycart').then((mycart) => this.setState({mycart}))
+    //     // .catch((error) => console.log(error));
+    //        }
     render() {
         const { image, value } = this.props
         // const {mycart} = this.state
@@ -27,10 +27,10 @@ export default class OrderScreen extends React.Component {
                     </NavTitle>
                 </NavBar>
                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
-                    <Text style={{fontSize: 15}}>ลำดับ</Text>
-                    <Text style={{fontSize: 15}}>รายการอาหาร</Text>
-                    <Text style={{fontSize: 15}}>จำนวน</Text>
-                    <Text style={{fontSize: 15}}>ราคา</Text>
+                    <Text style={{ fontSize: 15 }}>ลำดับ</Text>
+                    <Text style={{ fontSize: 15 }}>รายการอาหาร</Text>
+                    <Text style={{ fontSize: 15 }}>จำนวน</Text>
+                    <Text style={{ fontSize: 15 }}>ราคา</Text>
                 </View>
                 {/* {mycart.map((menu) => {
                             return (
