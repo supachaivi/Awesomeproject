@@ -13,6 +13,9 @@ import fooddetail from './app/fooddetail';
 import Menu from './app/Menu';
 import myaccount from './app/myaccount';
 import checkbill from './app/checkbill';
+import feedback from './app/feedback'
+import checkbillcash from './app/checkbillcash'
+
 
 
 
@@ -24,7 +27,7 @@ const App = () => {
           key="login"
           component={login}
           hideNavBar
-          // initial
+        // initial
         />
         <Scene
           key="register"
@@ -38,21 +41,21 @@ const App = () => {
           key="home"
           component={home}
           hideNavBar
-          // initial
-          
+        // initial
+
         />
-         <Scene
+        <Scene
           key="slider"
           component={slider}
           hideNavBar
-          initial
+          // initial
         />
-         <Scene
+        <Scene
           key="order"
           component={order}
           hideNavBar
         />
-         <Scene
+        <Scene
           key="menubar"
           component={menubar}
           hideNavBar
@@ -67,7 +70,7 @@ const App = () => {
           component={fooddetail}
           hideNavBar
         />
-         <Scene
+        <Scene
           key="menu"
           component={Menu}
           hideNavBar
@@ -81,6 +84,17 @@ const App = () => {
           key="checkbill"
           component={checkbill}
           hideNavBar
+        />
+        <Scene
+          key="feedback"
+          component={feedback}
+          hideNavBar
+        />
+        <Scene
+          key="checkbillcash"
+          component={checkbillcash}
+          hideNavBar
+          initial
         />
       </Scene>
     </Router>

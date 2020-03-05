@@ -52,7 +52,7 @@ export default function Menu({ onItemSelected }) {
           style={styles.avatar}
           source={{ uri }}
         />
-        <Text style={styles.name}>Your name</Text>
+        <Text style={styles.name}>Supachai Viriyacharoenkit</Text>
       </View>
 
       <Text
@@ -81,7 +81,7 @@ export default function Menu({ onItemSelected }) {
         Check Bill
       </Text>
       <Text
-        onPress={() => onItemSelected('Contacts')}
+        onPress={() => Actions.feedback()}
         style={styles.item}
       >
         Feedback

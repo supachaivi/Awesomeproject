@@ -3,9 +3,13 @@ import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView, StyleSheet }
 import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav'
 import SideMenu from 'react-native-side-menu';
 import Menu from './Menu';
-import Icon1 from "react-native-vector-icons/Feather";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Icon1 from "react-native-vector-icons/AntDesign";
 import Icon2 from "react-native-vector-icons/Entypo";
+import Icon3 from "react-native-vector-icons/Feather";
 import { colors } from './styles/index.style';
+import { TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
+import { Actions } from 'react-native-router-flux';
 
 export default class OrderScreen extends React.Component {
     constructor(props) {
@@ -52,9 +56,33 @@ export default class OrderScreen extends React.Component {
                             </Text>
                             </NavTitle>
                             <NavButton>
-                                <Icon1 name="shopping-cart" size={25} color={'gray'} style={{ justifyContent: 'center' }} onPress={() => Actions.mycart()} />
+                                <Icon3 name="shopping-cart" size={25} color={'gray'} style={{ justifyContent: 'center' }} onPress={() => Actions.mycart()} />
                             </NavButton>
                         </NavBar>
+                        <View style={styles.container1}>
+                            <TouchableOpacity onPress={() => Actions.checkbillcash()}>
+                                <View style={[styles.view, styles.withBorderRadius]}>
+                                    <Icon style={styles.icon} name="cash-usd" size={80} />
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <View style={[styles.view, styles.withBorderRadius]}>
+                                    <Icon1 style={styles.icon1} name="creditcard" size={70} />
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <View style={[styles.view, styles.withBorderRadius]}>
+                                    <Icon style={styles.icon2} name="qrcode-scan" size={60} />
+                                </View>
+                            </TouchableOpacity>
+
+                        </View>
+                        <View style={styles.container2}>
+                            <Text style={styles.text}>Cash</Text>
+                            <Text style={styles.text1}>Credit Card</Text>
+                            <Text style={styles.text2}>QR Code</Text>
+
+                        </View>
                     </View>
                 </SideMenu>
             </SafeAreaView>
@@ -72,5 +100,55 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: colors.background1
     },
-   
+    view: {
+        width: 100,
+        height: 100,
+        backgroundColor: 'white',
+        margin: 10,
+        padding: 10,
+        // justifyContent: "flex-start",
+
+    },
+    withBorderRadius: {
+        borderRadius: 20,
+        /* the same is ofr the borderBottomRight/Left */
+    },
+    container1: {
+        marginTop: 35,
+        flexDirection: 'row',
+        justifyContent: 'center',
+
+    },
+    container2: {
+        marginTop: 10,
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+
+    },
+    icon: {
+        justifyContent: 'center',
+        alignSelf: 'center',
+    },
+    icon1: {
+        justifyContent: 'center',
+        alignSelf: 'center',
+        marginTop: 5
+    },
+    icon2: {
+        justifyContent: 'center',
+        alignSelf: 'center',
+        marginTop: 10
+    },
+    text: {
+        marginLeft: 70
+
+    },
+    text1: {
+        marginLeft: 70
+    },
+    text2: {
+        marginLeft: 60
+    }
+
+
 });
