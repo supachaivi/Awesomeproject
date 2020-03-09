@@ -15,6 +15,9 @@ import myaccount from './app/myaccount';
 import checkbill from './app/checkbill';
 import feedback from './app/feedback'
 import checkbillcash from './app/checkbillcash'
+import uploadimg from './app/uploadimg'
+import about from './app/about'
+import yourorder from './app/yourorder'
 
 
 
@@ -94,7 +97,25 @@ const App = () => {
           key="checkbillcash"
           component={checkbillcash}
           hideNavBar
+          // initial
+        />
+        <Scene
+          key="uploadimg"
+          component={uploadimg}
+          hideNavBar
           initial
+        />
+        <Scene
+          key="about"
+          component={about}
+          hideNavBar
+          // initial
+        />
+         <Scene
+          key="yourorder"
+          component={yourorder}
+          hideNavBar
+          // initial
         />
       </Scene>
     </Router>

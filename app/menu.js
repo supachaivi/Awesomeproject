@@ -69,7 +69,7 @@ export default function Menu({ onItemSelected }) {
         My Account
       </Text>
       <Text
-        onPress={() => onItemSelected('Contacts')}
+        onPress={() => Actions.yourorder()}
         style={styles.item}
       >
         Your Order
@@ -87,7 +87,7 @@ export default function Menu({ onItemSelected }) {
         Feedback
       </Text>
       <Text
-        onPress={() => onItemSelected('Contacts')}
+        onPress={() => Actions.about()}
         style={styles.item}
       >
         About

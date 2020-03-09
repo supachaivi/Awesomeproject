@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView, StyleSheet } from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
 import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav'
 import SideMenu from 'react-native-side-menu';
 import Menu from './Menu';
@@ -8,10 +8,10 @@ import Icon1 from "react-native-vector-icons/AntDesign";
 import Icon2 from "react-native-vector-icons/Entypo";
 import Icon3 from "react-native-vector-icons/Feather";
 import { colors } from './styles/index.style';
-import { TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Actions } from 'react-native-router-flux';
 
-export default class OrderScreen extends React.Component {
+export default class CheckbillScreen extends React.Component {
     constructor(props) {
         super(props);
         this.toggle = this.toggle.bind(this);
@@ -48,7 +48,7 @@ export default class OrderScreen extends React.Component {
                     <View style={styles.container}>
                         <NavBar>
                             <NavButton>
-                                <Icon2 name="menu" size={30} color={'gray'} style={{ justifyContent: 'flex-start' }} onPress={this.toggle} />
+                                <Icon2 name="menu" size={30} color={'gray'} onPress={this.toggle} style={{marginLeft: -20}} />
                             </NavButton>
                             <NavTitle>
                                 <Text>
@@ -56,7 +56,7 @@ export default class OrderScreen extends React.Component {
                             </Text>
                             </NavTitle>
                             <NavButton>
-                                <Icon3 name="shopping-cart" size={25} color={'gray'} style={{ justifyContent: 'center' }} onPress={() => Actions.mycart()} />
+                                
                             </NavButton>
                         </NavBar>
                         <View style={styles.container1}>
@@ -65,12 +65,12 @@ export default class OrderScreen extends React.Component {
                                     <Icon style={styles.icon} name="cash-usd" size={80} />
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => Actions.checkbillcash()}>
                                 <View style={[styles.view, styles.withBorderRadius]}>
                                     <Icon1 style={styles.icon1} name="creditcard" size={70} />
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => Actions.checkbillcash()}>
                                 <View style={[styles.view, styles.withBorderRadius]}>
                                     <Icon style={styles.icon2} name="qrcode-scan" size={60} />
                                 </View>
@@ -106,12 +106,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         margin: 10,
         padding: 10,
-        // justifyContent: "flex-start",
 
     },
     withBorderRadius: {
         borderRadius: 20,
-        /* the same is ofr the borderBottomRight/Left */
     },
     container1: {
         marginTop: 35,

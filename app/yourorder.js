@@ -7,7 +7,7 @@ import Icon2 from "react-native-vector-icons/Entypo";
 import Icon3 from "react-native-vector-icons/Feather";
 import { colors } from './styles/index.style';
 
-export default class MycartScreen extends React.Component {
+export default class YourorderScreen extends React.Component {
     // constructor(props) {
     //     super(props);
     //     this.state = {
@@ -52,13 +52,13 @@ export default class MycartScreen extends React.Component {
                     isOpen={this.state.isOpen}
                     onChange={isOpen => this.updateMenuState(isOpen)}>
                     <View style={styles.container}>
-                        <NavBar>
+                        <NavBar style={styles.navbar1}>
                             <NavButton>
                                 <Icon2 name="menu" size={30} color={'gray'} onPress={this.toggle} style={{marginLeft: -20}} />
                             </NavButton>
                             <NavTitle>
                                 <Text>
-                                    My Cart
+                                    Your Order
                                 </Text>
                             </NavTitle>
                             <NavButton>
@@ -127,6 +127,8 @@ const styles = StyleSheet.create({
         color: 'gray',
         alignSelf: 'center'
     },
-
+    navbar1: {
+        backgroundColor: 'black'
+    }
 
 });

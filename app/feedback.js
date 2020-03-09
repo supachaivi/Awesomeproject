@@ -44,7 +44,7 @@ export default class OrderScreen extends React.Component {
                     <View style={styles.container}>
                         <NavBar>
                             <NavButton>
-                                <Icon2 name="menu" size={30} color={'gray'} style={{ justifyContent: 'flex-start' }} onPress={this.toggle} />
+                                <Icon2 name="menu" size={30} color={'gray'} style={{ justifyContent: 'flex-start' }} onPress={this.toggle} style={{marginLeft: -20}}/>
                             </NavButton>
                             <NavTitle>
                                 <Text>
@@ -55,6 +55,9 @@ export default class OrderScreen extends React.Component {
                                 <Icon3 name="shopping-cart" size={25} color={'gray'} style={{ justifyContent: 'center' }} onPress={() => Actions.mycart()} />
                             </NavButton>
                         </NavBar>
+                        <View>
+                            
+                        </View>
                     </View>
                 </SideMenu>
             </SafeAreaView>

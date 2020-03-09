@@ -8,7 +8,7 @@ import Icon2 from "react-native-vector-icons/Entypo";
 import { colors } from './styles/index.style';
 import Icon from "react-native-vector-icons/AntDesign";
 
-export default class OrderScreen extends React.Component {
+export default class MyaccountScreen extends React.Component {
     constructor(props) {
         super(props);
         this.toggle = this.toggle.bind(this);
@@ -45,7 +45,7 @@ export default class OrderScreen extends React.Component {
                     <View style={styles.container}>
                         <NavBar>
                             <NavButton>
-                                <Icon2 name="menu" size={30} color={'gray'} style={{ justifyContent: 'flex-start' }} onPress={this.toggle} />
+                                <Icon2 name="menu" size={30} color={'gray'} onPress={this.toggle} style={{marginLeft: -20}} />
                             </NavButton>
                             <NavTitle>
                                 <Text>
@@ -53,7 +53,7 @@ export default class OrderScreen extends React.Component {
                             </Text>
                             </NavTitle>
                             <NavButton>
-                                <Icon1 name="shopping-cart" size={25} color={'gray'} style={{ justifyContent: 'center' }} onPress={() => Actions.mycart()} />
+                                
                             </NavButton>
                         </NavBar>
                         <View style={styles.container1}>

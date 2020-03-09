@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView, StyleSheet, TextInput } from 'react-native';
+import { Platform, View, Button, ScrollView, Text, StatusBar, SafeAreaView, StyleSheet, TextInput } from 'react-native';
 import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav'
 import SideMenu from 'react-native-side-menu';
 import Menu from './Menu';
@@ -9,6 +9,7 @@ import { colors } from './styles/index.style';
 import Stars from 'react-native-stars';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import QRCode from 'react-native-qrcode-svg';
+import { Actions } from 'react-native-router-flux';
 
 export default class CheckbillcashScreen extends React.Component {
     constructor(props) {
@@ -52,7 +53,7 @@ export default class CheckbillcashScreen extends React.Component {
                     <View style={styles.container}>
                         <NavBar>
                             <NavButton>
-                                <Icon2 name="menu" size={30} color={'gray'} style={{ justifyContent: 'flex-start' }} onPress={this.toggle} />
+                                <Icon2 name="menu" size={30} color={'gray'} onPress={this.toggle} style={{marginLeft: -20}}/>
                             </NavButton>
                             <NavTitle>
                                 <Text>
@@ -60,7 +61,7 @@ export default class CheckbillcashScreen extends React.Component {
                             </Text>
                             </NavTitle>
                             <NavButton>
-                                <Icon3 name="shopping-cart" size={25} color={'gray'} style={{ justifyContent: 'center' }} onPress={() => Actions.mycart()} />
+
                             </NavButton>
                         </NavBar>
                         <View>
@@ -98,7 +99,7 @@ export default class CheckbillcashScreen extends React.Component {
                             />
                         </View>
 
-                        <View style={{ alignItems: 'flex-start', marginLeft: 40, marginTop: 50 }}>
+                        <View style={{ alignItems: 'flex-start', marginLeft: 40, marginTop: 20 }}>
                             <Stars
                                 default={2}
                                 count={5}
@@ -117,6 +118,14 @@ export default class CheckbillcashScreen extends React.Component {
                             placeholderTextColor='gray'
                             onChangeText={val => this.onChangeText('comment', val)}
                         />
+                        <View style={styles.itemcontainer}>
+                            <Button
+                                onPress={() => Actions.slider()}
+
+                                title="Confirm"
+                                color="#c53c3c"
+                            />
+                        </View>
 
 
                     </View>
@@ -150,7 +159,8 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         borderWidth: 1,
         margin: 40,
-        marginTop: 15,
+        marginBottom: 15,
+        marginTop: 10,
         borderRadius: 5,
         padding: 5,
     },
@@ -165,10 +175,12 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     MainContainer: {
-        flex: 1,
-        margin: 10,
         alignItems: 'center',
         paddingTop: 30,
-      },
+    },
+    itemcontainer:{
+        marginLeft: 120,
+        marginRight: 120
+    }
 
 });

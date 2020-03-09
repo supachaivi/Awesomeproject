@@ -157,7 +157,7 @@ export default class example extends Component {
                     <View style={styles.container}>
                         <NavBar>
                             <NavButton>
-                                <Icon2 name="menu" size={30} color={'gray'} style={{ justifyContent: 'flex-start' }} onPress={this.toggle} />
+                                <Icon2 name="menu" size={30} color={'gray'} style={{ justifyContent: 'flex-start' }} onPress={this.toggle} style={{marginLeft: -20}}/>
                             </NavButton>
                             <NavTitle>
                                 <Text >
