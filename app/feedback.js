@@ -52,7 +52,7 @@ export default class OrderScreen extends React.Component {
                             </Text>
                             </NavTitle>
                             <NavButton>
-                                <Icon3 name="shopping-cart" size={25} color={'gray'} style={{ justifyContent: 'center' }} onPress={() => Actions.mycart()} />
+                               
                             </NavButton>
                         </NavBar>
                         <View>

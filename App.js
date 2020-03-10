@@ -18,6 +18,11 @@ import checkbillcash from './app/checkbillcash'
 import uploadimg from './app/uploadimg'
 import about from './app/about'
 import yourorder from './app/yourorder'
+import reservation from './app/reservation'
+import staff from './app/staff'
+import addstaff from './app/addstaff'
+import stock from './app/stock'
+
 
 
 
@@ -51,7 +56,7 @@ const App = () => {
           key="slider"
           component={slider}
           hideNavBar
-          // initial
+        initial
         />
         <Scene
           key="order"
@@ -97,25 +102,49 @@ const App = () => {
           key="checkbillcash"
           component={checkbillcash}
           hideNavBar
-          // initial
+        // initial
         />
         <Scene
           key="uploadimg"
           component={uploadimg}
           hideNavBar
-          initial
+        // initial
         />
         <Scene
           key="about"
           component={about}
           hideNavBar
-          // initial
+        // initial
         />
-         <Scene
+        <Scene
           key="yourorder"
           component={yourorder}
           hideNavBar
-          // initial
+        // initial
+        />
+        <Scene
+          key="reservation"
+          component={reservation}
+          hideNavBar
+        // initial
+        />
+        <Scene
+          key="staff"
+          component={staff}
+          hideNavBar
+        // initial
+        />
+        <Scene
+          key="addstaff"
+          component={addstaff}
+          hideNavBar
+        // initial
+        />
+         <Scene
+          key="stock"
+          component={stock}
+          hideNavBar
+        // initial
         />
       </Scene>
     </Router>

@@ -56,7 +56,7 @@ import {
     TouchableHighlight,
 } from 'react-native';
 
-const heartIcon = require('../src/heart.png');
+const heartIcon = require('../src/button.png');
 
 export default class MainApp extends Component {
     state = {
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
         tintColor: '#f1f1f1',
     },
     liked: {
-        tintColor: '#e74c3c',
+        tintColor: '#84ff00',
     },
     text: {
         marginTop: 20,

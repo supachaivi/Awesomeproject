@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableHighlight, Image,StatusBar, ScrollView,SafeAreaView, Button, Alert } from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight, Image, StatusBar, ScrollView, SafeAreaView, Button, Alert } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -14,6 +14,8 @@ import { ENTRIES1, ENTRIES2, ENTRIES3 } from './static/entries';
 import SliderEntry from './components/SliderEntry';
 import { colors } from './styles/index.style';
 import { sliderWidth, itemWidth } from './styles/SliderEntry.style';
+import APIKit, { setClientToken } from './APIKit';
+import { acc } from 'react-native-reanimated';
 
 const IS_ANDROID = Platform.OS === 'android';
 const SLIDER_1_FIRST_ITEM = 1;
@@ -277,7 +279,27 @@ class HistoryScreen extends React.Component {
     }
 }
 class AccountScreen extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            account: {}
+        };
+    }
+    
+    componentDidMount() {
+        APIKit.get('/accounts/accountmanagement/').then((response) =>{ 
+            const account = response.data.results[0]
+            this.setState({account})
+    })
+        .then(console.log(this.state))
+        .catch((error) => console.log(error));
+           }
     render() {
+        const {account} = this.state
+        // account = account.pop()
+
+        console.log(account.first_name)
+        
         return (
             <View style={{ flex: 1, backgroundColor: "#e8e8e8" }}>
                 <NavBar>
@@ -290,16 +312,16 @@ class AccountScreen extends React.Component {
                 <Image style={styles.accountimage} source={require('../src/account.png')} />
                 {/* <View style={{ height: 100, backgroundColor: 'red', alignItems: 'space-around' }} /> */}
                 <View style={styles.MainContainer}>
-                    <Text style={styles.TextComponentStyle}>First name</Text>
+                    <Text style={styles.TextComponentStyle}>{account.first_name}</Text>
                 </View>
                 <View style={styles.MainContainer}>
-                    <Text style={styles.TextComponentStyle}>Last name</Text>
+                    <Text style={styles.TextComponentStyle}>{account.last_name}</Text>
                 </View>
                 <View style={styles.MainContainer}>
-                    <Text style={styles.TextComponentStyle}>Phone number</Text>
+                    <Text style={styles.TextComponentStyle}>{account.phone}</Text>
                 </View>
                 <View style={styles.MainContainer}>
-                    <Text style={styles.TextComponentStyle}>E-mail</Text>
+                    <Text style={styles.TextComponentStyle}>{account.email}</Text>
                 </View>
             </View>
         );

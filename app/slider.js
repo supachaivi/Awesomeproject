@@ -13,6 +13,7 @@ import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav'
 import imagedb from './Imagedb'
 import SideMenu from 'react-native-side-menu';
 import Menu from './Menu';
+import APIKit, { setClientToken } from './APIKit';
 
 const IS_ANDROID = Platform.OS === 'android';
 const SLIDER_1_FIRST_ITEM = 1;
@@ -23,11 +24,12 @@ export default class example extends Component {
     constructor(props) {
         super(props);
         this.toggle = this.toggle.bind(this);
-        this.state = { 
+        this.state = {
             isOpen: false,
             selectedItem: '',
             slider1ActiveSlide: SLIDER_1_FIRST_ITEM,
-           
+            menu: []
+
         };
     }
 
@@ -141,13 +143,21 @@ export default class example extends Component {
             </View>
         );
     }
-
+    componentDidMount() {
+        APIKit.get('/menu/menu/').then((response) => {
+            const menu = response.data.results
+            this.setState({ menu })
+        })
+            .then(console.log(this.state))
+            .catch((error) => console.log(error));
+    }
 
     render() {
+        console.log(this.state.menu)
         const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
         const example1 = this.mainExample();
         const example2 = this.momentumExample();
-        
+
         return (
             <SafeAreaView style={styles.safeArea}>
                 <SideMenu
@@ -157,7 +167,7 @@ export default class example extends Component {
                     <View style={styles.container}>
                         <NavBar>
                             <NavButton>
-                                <Icon2 name="menu" size={30} color={'gray'} style={{ justifyContent: 'flex-start' }} onPress={this.toggle} style={{marginLeft: -20}}/>
+                                <Icon2 name="menu" size={30} color={'gray'} style={{ justifyContent: 'flex-start' }} onPress={this.toggle} style={{ marginLeft: -20 }} />
                             </NavButton>
                             <NavTitle>
                                 <Text >
@@ -181,25 +191,25 @@ export default class example extends Component {
                             directionalLockEnabled={true}
                         >
                             {example1}
-                            {imagedb.map((image) => {
+                            {this.state.menu.map((image) => {
                                 return (<Card>
                                     <CardImage
-                                        source={image.src}
+                                        // source={image.src}
                                     // title="Above all i am here"
                                     />
                                     <CardTitle
-                                        title={image.name}
-                                        subtitle="This is subtitle"
+                                        title={image.menu_name}
+                                    // subtitle="This is subtitle"
                                     />
                                     <CardContent text="Your device will reboot in few seconds once successful, be patient meanwhile" />
                                     <CardAction
                                         separator={true}
                                         inColumn={false}>
                                         <CardButton
-                                            onPress={() => { 
-                                               
-                                                this.props.navigation.navigate('fooddetail', { image }); 
-                                            
+                                            onPress={() => {
+
+                                                this.props.navigation.navigate('fooddetail', { image });
+
                                             }}
                                             title="Push"
                                             color="blue"
