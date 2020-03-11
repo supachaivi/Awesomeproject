@@ -145,7 +145,7 @@ export default class example extends Component {
                                 </NavButton>
                                 <NavTitle>
                                     <Text>
-                                        Home(soup)
+                                        Home(drink)
                                     </Text>
                                 </NavTitle>
                                 <NavButton>

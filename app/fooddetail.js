@@ -51,7 +51,7 @@ class FoodDetails extends Component {
                 <NavBar>
                     <NavTitle>
                         <Text>
-                            {image.name}
+                            {image.menu_name}
                         </Text>
                     </NavTitle>
                 </NavBar>
@@ -62,7 +62,7 @@ class FoodDetails extends Component {
                     />
 
                     <View style={styles.smallItemContainer}>
-                        <Text style={styles.mainText}>{image.name}</Text>
+                        <Text style={styles.mainText}>{image.menu_name}</Text>
                     </View>
 
                     <View style={styles.itemContainer}>
@@ -97,7 +97,7 @@ class FoodDetails extends Component {
                             onPress={ () => {
                                 Alert.alert(
                                 'Added to basket',
-                                `${this.state.value} ${image.name} was added to the basket.`)
+                                `${this.state.value} ${image.menu_image} was added to the basket.`)
                                 this.props.navigation.navigate('mycart', { image, value })
                                 // this.props.navigation.navigate('slider', {image,value})                  
                             }}

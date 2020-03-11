@@ -47,7 +47,8 @@ class Login extends Component {
       Actions.home()
       // Actions.pop()
       // Set JSON Web Token on success
-      setClientToken(data.token);
+      // setClientToken(data.token);
+      // console.log(data)
       // this.setState({ isLoading: false, isAuthorized: true });
     };
 

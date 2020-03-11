@@ -5,7 +5,20 @@ import login from './app/login';
 import register from './app/register';
 import forgot from './app/forgot';
 import home from './app/home';
+import home1 from './app/home1';
+import home2 from './app/home2';
+import home3 from './app/home3';
+import home4 from './app/home4';
+import home5 from './app/home5';
+
 import slider from './app/slider';
+import slider1 from './app/slider1';
+import slider2 from './app/slider2';
+import slider3 from './app/slider3';
+import slider4 from './app/slider4';
+import slider5 from './app/slider5';
+
+
 import order from './app/order';
 import menubar from './app/menubar';
 import mycart from './app/mycart';
@@ -49,6 +62,41 @@ const App = () => {
           key="home"
           component={home}
           hideNavBar
+          initial
+
+        />
+        <Scene
+          key="home1"
+          component={home1}
+          hideNavBar
+        // initial
+
+        />
+        <Scene
+          key="home2"
+          component={home2}
+          hideNavBar
+        // initial
+
+        />
+        <Scene
+          key="home3"
+          component={home3}
+          hideNavBar
+        // initial
+
+        />
+        <Scene
+          key="home4"
+          component={home4}
+          hideNavBar
+        // initial
+
+        />
+        <Scene
+          key="home5"
+          component={home5}
+          hideNavBar
         // initial
 
         />
@@ -56,7 +104,37 @@ const App = () => {
           key="slider"
           component={slider}
           hideNavBar
-        initial
+        // initial
+        />
+        <Scene
+          key="slider1"
+          component={slider1}
+          hideNavBar
+        // initial
+        />
+        <Scene
+          key="slider2"
+          component={slider2}
+          hideNavBar
+        // initial
+        />
+        <Scene
+          key="slider3"
+          component={slider3}
+          hideNavBar
+        // initial
+        />
+        <Scene
+          key="slider4"
+          component={slider4}
+          hideNavBar
+        // initial
+        />
+        <Scene
+          key="slider5"
+          component={slider5}
+          hideNavBar
+        // initial
         />
         <Scene
           key="order"
@@ -140,7 +218,7 @@ const App = () => {
           hideNavBar
         // initial
         />
-         <Scene
+        <Scene
           key="stock"
           component={stock}
           hideNavBar

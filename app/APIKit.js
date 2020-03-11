@@ -7,7 +7,7 @@ let APIKit = axios.create({
   // baseURL: 'https://httpbin.org',
   timeout: 10000,
 });
-
+let Click = false
 // Set JSON Web Token in Client to be included in all calls
 export const setClientToken = token => {
   APIKit.interceptors.request.use(function(config) {

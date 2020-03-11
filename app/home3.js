@@ -155,7 +155,7 @@ class HomeScreen extends React.Component {
                         <NavBar>
                             <NavTitle>
                                 <Text>
-                                    Home(soup)
+                                    Home(side dishes)
                             </Text>
                             </NavTitle>
                         </NavBar>

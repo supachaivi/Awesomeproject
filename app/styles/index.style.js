@@ -66,5 +66,80 @@ export default StyleSheet.create({
         height: 10,
         borderRadius: 4,
         marginHorizontal: 8
+    },
+
+
+    
+    itemContainer: {
+        marginTop: 25,
+    },
+    textinput: {
+        alignSelf: 'center',
+        marginTop: 20,
+        fontWeight: 'bold',
+        fontSize: 20,
+    },
+    textinput1: {
+        alignSelf: 'center',
+        marginTop: 20,
+    },
+    restaurantimage: {
+        marginLeft: 10,
+        marginRight: 10,
+        marginTop: 25,
+        width: 390,
+        height: 250,
+    },
+    accountimage: {
+        marginTop: 25,
+        marginBottom: 30,
+        borderWidth: 1,
+        borderColor: 'rgba(0,0,0,0.2)',
+        width: 150,
+        height: 150,
+        borderRadius: 500,
+        alignSelf: 'center',
+    },
+    itemContainer: {
+        marginTop: 35,
+        alignItems: 'center',
+    },
+    buttonContainer: {
+        height: 45,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 20,
+        width: 250,
+        borderRadius: 30,
+    },
+    loginButton: {
+        backgroundColor: "#00b5ec",
+    },
+    MainContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20,
+    },
+
+    TextComponentStyle: {
+        width: 200,
+        height: 40,
+        borderRadius: 100,
+        alignItems: 'center',
+        justifyContent: 'center',
+
+        backgroundColor: '#ffffff',
+        padding: 6,
+        fontSize: 20,
+        textAlign: 'center',
+    },
+    logo: {
+        width: 50,
+        height: 33,
+        alignItems: 'center',
+        borderRadius: 10,
+        // borderColor: 'black',
+        // borderWidth: 1
     }
 });
