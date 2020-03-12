@@ -7,6 +7,7 @@ import Icon2 from "react-native-vector-icons/Entypo";
 import Icon3 from "react-native-vector-icons/Feather";
 import { colors } from './styles/index.style';
 import { Actions } from 'react-native-router-flux';
+import APIKit, { setClientToken } from './APIKit';
 
 const button = require('../src/button.png');
 
@@ -27,6 +28,7 @@ export default class StockScreen extends React.Component {
         this.state = {
             isOpen: false,
             selectedItem: '',
+            stock: []
         };
     }
 
@@ -45,6 +47,15 @@ export default class StockScreen extends React.Component {
             isOpen: false,
             selectedItem: item,
         });
+
+    componentDidMount() {
+        APIKit.get('/stock/stock/').then((response) => {
+            const stock = response.data.results
+            this.setState({ stock })
+        })
+            .then(console.log(this.state))
+            .catch((error) => console.log(error));
+    }
 
     render() {
         const likedStyles = this.state.liked ? styles.liked : null;
@@ -73,9 +84,20 @@ export default class StockScreen extends React.Component {
                             <Text style={{ fontSize: 15 }}>ลำดับ</Text>
                             <Text style={{ fontSize: 15 }}>รายการวัตถุดิบ</Text>
                             <Text style={{ fontSize: 15 }}>จำนวน</Text>
-                            <Text style={{ fontSize: 15 }}>ราคา</Text>
                         </View>
                         <Text numberOfLines={1} style={styles.line}>_______________________________________________________________</Text>
+                        {this.state.stock.map((checkstock) => {
+                            return (
+                                <View style={{ flexDirection: 'row',marginTop: 20, justifyContent: 'space-around'}}>
+                                   
+                                        <Text style={{ fontSize: 15 }}>{checkstock.id}</Text>
+                                        <Text style={{ fontSize: 15 }}>{checkstock.material_name}</Text>
+                                        <Text style={{ fontSize: 15 }}>{checkstock.quantity_material}</Text>
+                        
+                                </View>
+                            )
+                        }
+                        )}
                     </View>
                 </SideMenu>
             </SafeAreaView>

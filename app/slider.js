@@ -170,7 +170,7 @@ export default class example extends Component {
                                 {this.state.menu.map((image) => {
                                     return (<Card>
                                         <CardImage
-                                            source={image.menu_image}
+                                            source={{uri:image.menu_image}}
                                         />
                                         <CardTitle
                                             title={image.menu_name}

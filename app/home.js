@@ -134,7 +134,7 @@ class HomeScreen extends React.Component {
     }
 
     componentDidMount() {
-        APIKit.get('/menu/menu/').then((response) => {
+        APIKit.get('/menu/category/?type=soup').then((response) => {
             const menu = response.data.results
             this.setState({ menu })
         })
@@ -177,7 +177,7 @@ class HomeScreen extends React.Component {
                             {this.state.menu.map((image) => {
                                 return (<Card>
                                     <CardImage
-                                        source={image.menu_image}
+                                        source={{uri:image.menu_image}}
                                     // title="Above all i am here"
                                     />
                                     <CardTitle
@@ -350,8 +350,8 @@ class AccountScreen extends React.Component {
     }
 
     componentDidMount() {
-        APIKit.get('/accounts/accountmanagement/').then((response) => {
-            const account = response.data.results[0]
+        APIKit.get('/accounts/accounviewprofile/').then((response) => {
+            const account = response.data
             this.setState({ account })
         })
             .then(console.log(this.state))
@@ -361,7 +361,7 @@ class AccountScreen extends React.Component {
         const { account } = this.state
         // account = account.pop()
 
-        // console.log(account.first_name)
+        console.log(account.image)
 
         return (
             <View style={{ flex: 1, backgroundColor: "#e8e8e8" }}>
@@ -372,7 +372,7 @@ class AccountScreen extends React.Component {
                             </Text>
                     </NavTitle>
                 </NavBar>
-                <Image style={styles.accountimage} source={require('../src/account1.png')} />
+                <Image style={styles.accountimage} source={{uri:account.image}} />
                 {/* <View style={{ height: 100, backgroundColor: 'red', alignItems: 'space-around' }} /> */}
                 <View style={styles.MainContainer1}>
                     <Text style={{fontSize: 20}}>  Your Point: </Text>

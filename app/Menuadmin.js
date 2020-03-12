@@ -56,24 +56,12 @@ export default function Menu({ onItemSelected }) {
       </View>
 
       <Text
-        onPress={() => Actions.slider()}
+        onPress={() => Actions.stock()}
         style={styles.item}
       >
-        Menu
+        Stock
       </Text>
 
-      <Text
-        onPress={() => Actions.myaccount()}
-        style={styles.item}
-      >
-        My Account
-      </Text>
-      <Text
-        onPress={() => Actions.reservation()}
-        style={styles.item}
-      >
-        Resevation
-      </Text>
       <Text
         onPress={() => Actions.staff()}
         style={styles.item}
@@ -81,34 +69,28 @@ export default function Menu({ onItemSelected }) {
         Staff
       </Text>
       <Text
-        onPress={() => Actions.yourorder()}
+        onPress={() => Actions.bill()}
         style={styles.item}
       >
-        Your Order
+        Bill
       </Text>
       <Text
-        onPress={() => Actions.stock()}
+        onPress={() => Actions.reservation()}
         style={styles.item}
       >
-        Stock
+        Reservation
       </Text>
       <Text
-        onPress={() => Actions.checkbill()}
+        onPress={() => Actions.orderadmin()}
         style={styles.item}
       >
-        Check Bill
+        Order
       </Text>
       <Text
-        onPress={() => Actions.feedback()}
+        onPress={() => Actions.checkfeedback()}
         style={styles.item}
       >
         Feedback
-      </Text>
-      <Text
-        onPress={() => Actions.about()}
-        style={styles.item}
-      >
-        About
       </Text>
     </ScrollView>
   );

@@ -35,6 +35,8 @@ import reservation from './app/reservation'
 import staff from './app/staff'
 import addstaff from './app/addstaff'
 import stock from './app/stock'
+import bill from './app/bill'
+import checkfeedback from './app/checkfeedback'
 
 
 
@@ -48,7 +50,7 @@ const App = () => {
           key="login"
           component={login}
           hideNavBar
-        // initial
+        initial
         />
         <Scene
           key="register"
@@ -62,7 +64,7 @@ const App = () => {
           key="home"
           component={home}
           hideNavBar
-          initial
+        // initial
 
         />
         <Scene
@@ -221,6 +223,18 @@ const App = () => {
         <Scene
           key="stock"
           component={stock}
+          hideNavBar
+          // initial
+        />
+        <Scene
+          key="bill"
+          component={bill}
+          hideNavBar
+        // initial
+        />
+        <Scene
+          key="checkfeedback"
+          component={checkfeedback}
           hideNavBar
         // initial
         />
