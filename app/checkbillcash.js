@@ -6,10 +6,12 @@ import Menu from './Menu';
 import Icon2 from "react-native-vector-icons/Entypo";
 import Icon3 from "react-native-vector-icons/Feather";
 import { colors } from './styles/index.style';
-import Stars from 'react-native-stars';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+// import Stars from 'react-native-stars';
+// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import QRCode from 'react-native-qrcode-svg';
 import { Actions } from 'react-native-router-flux';
+import StarRating from 'react-native-star-rating';
+import APIKit, { setClientToken } from './APIKit';
 
 export default class CheckbillcashScreen extends React.Component {
     constructor(props) {
@@ -18,8 +20,9 @@ export default class CheckbillcashScreen extends React.Component {
         this.state = {
             isOpen: false,
             selectedItem: '',
-            comment: '',
+            review_text: '',
             valueForQRCode: '250',
+            starCount: 2,
         };
     }
 
@@ -42,7 +45,28 @@ export default class CheckbillcashScreen extends React.Component {
         this.setState({ [key]: val })
     }
 
+    onPressReview() {
+        const { starCount, review_text } = this.state;
+        const payload = {starCount, review_text };
+        console.log(payload)
+        
+        APIKit.post('/review/', payload)
+            .then(function (response) {
+                console.log(response, Actions.slider())
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
+    onStarRatingPress(rating) {
+        this.setState({
+            starCount: rating
+        });
+    }
+
     render() {
+
         const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
         return (
             <SafeAreaView style={styles.safeArea}>
@@ -53,7 +77,7 @@ export default class CheckbillcashScreen extends React.Component {
                     <View style={styles.container}>
                         <NavBar>
                             <NavButton>
-                                <Icon2 name="menu" size={30} color={'gray'} onPress={this.toggle} style={{marginLeft: -20}}/>
+                                <Icon2 name="menu" size={30} color={'gray'} onPress={this.toggle} style={{ marginLeft: -20 }} />
                             </NavButton>
                             <NavTitle>
                                 <Text>
@@ -100,14 +124,11 @@ export default class CheckbillcashScreen extends React.Component {
                         </View>
 
                         <View style={{ alignItems: 'flex-start', marginLeft: 40, marginTop: 20 }}>
-                            <Stars
-                                default={2}
-                                count={5}
-                                // half={true}
-                                starSize={50}
-                                fullStar={<Icon size={20} name={'star'} style={[styles.myStarStyle]} />}
-                                emptyStar={<Icon size={20} name={'star-outline'} style={[styles.myStarStyle, styles.myEmptyStarStyle]} />}
-                                halfStar={<Icon size={20} name={'star-half'} style={[styles.myStarStyle]} />}
+                            <StarRating
+                                disabled={false}
+                                maxStars={5}
+                                rating={this.state.starCount}
+                                selectedStar={(rating) => this.onStarRatingPress(rating)}
                             />
                         </View>
 
@@ -116,11 +137,11 @@ export default class CheckbillcashScreen extends React.Component {
                             placeholder='Your Comment'
                             autoCapitalize="none"
                             placeholderTextColor='gray'
-                            onChangeText={val => this.onChangeText('comment', val)}
+                            onChangeText={val => this.onChangeText('review_text', val)}
                         />
                         <View style={styles.itemcontainer}>
                             <Button
-                                onPress={() => Actions.slider()}
+                                onPress={this.onPressReview.bind(this)}
 
                                 title="Confirm"
                                 color="#c53c3c"
@@ -151,7 +172,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
     },
     line: {
-        marginTop: 20,
+        marginTop: 10,
         alignSelf: 'center'
     },
     input: {
@@ -176,9 +197,9 @@ const styles = StyleSheet.create({
     },
     MainContainer: {
         alignItems: 'center',
-        paddingTop: 30,
+        paddingTop: 25,
     },
-    itemcontainer:{
+    itemcontainer: {
         marginLeft: 120,
         marginRight: 120
     }

@@ -118,7 +118,7 @@ export default class example extends Component {
         );
     }
     componentDidMount() {
-        APIKit.get('/menu/menu/').then((response) => {
+        APIKit.get('/menu/category/?type=dessert').then((response) => {
             const menu = response.data.results
             this.setState({ menu })
         })
@@ -168,33 +168,34 @@ export default class example extends Component {
                             <View style={{ flex: 1 }}>
                                 {example1}
                                 {this.state.menu.map((image) => {
-                                    return (<Card>
-                                        <CardImage
-                                            source={image.menu_image}
-                                        />
-                                        <CardTitle
-                                            title={image.menu_name}
-                                        />
-                                        <CardContent text={image.description} />
-                                        <CardAction
-                                            separator={true}
-                                            inColumn={false}>
-                                            <CardButton
-                                                onPress={() => {
-
-                                                    this.props.navigation.navigate('fooddetail', { image });
-
-                                                }}
-                                                title="Push"
-                                                color="blue"
+                                    return (
+                                        <Card>
+                                            <CardImage
+                                                source={{ uri: image.menu_image }}
                                             />
-                                            <CardButton
-                                                onPress={() => { }}
-                                                title="Later"
-                                                color="blue"
+                                            <CardTitle
+                                                title={image.menu_name}
                                             />
-                                        </CardAction>
-                                    </Card>)
+                                            <CardContent text={image.description} />
+                                            <CardAction
+                                                separator={true}
+                                                inColumn={false}>
+                                                <CardButton
+                                                    onPress={() => {
+
+                                                        this.props.navigation.navigate('fooddetail', { image });
+
+                                                    }}
+                                                    title="Push"
+                                                    color="blue"
+                                                />
+                                                <CardButton
+                                                    onPress={() => { }}
+                                                    title="Later"
+                                                    color="blue"
+                                                />
+                                            </CardAction>
+                                        </Card>)
                                 })}
 
                             </View>
@@ -209,13 +210,13 @@ export default class example extends Component {
                             >
                                 <NavBar>
                                     <NavButton onPress={() => Actions.slider()}>
-                                        <Image source={require('../src/soup.jpg')} style={styles.logo}  />
+                                        <Image source={require('../src/soup.jpg')} style={styles.logo} />
                                         <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Soup</NavButtonText>
                                     </NavButton>
                                 </NavBar>
                                 <NavBar>
                                     <NavButton onPress={() => Actions.slider1()}>
-                                        <Image source={require('../src/salad.jpg')} style={styles.logo}  />
+                                        <Image source={require('../src/salad.jpg')} style={styles.logo} />
                                         <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Salad</NavButtonText>
                                     </NavButton>
                                 </NavBar>
@@ -227,13 +228,13 @@ export default class example extends Component {
                                 </NavBar>
                                 <NavBar>
                                     <NavButton onPress={() => Actions.slider3()}>
-                                        <Image source={require('../src/side.jpg')} style={styles.logo}/>
+                                        <Image source={require('../src/side.jpg')} style={styles.logo} />
                                         <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Side Dish</NavButtonText>
                                     </NavButton>
                                 </NavBar>
                                 <NavBar>
                                     <NavButton onPress={() => Actions.slider4()}>
-                                        <Image source={require('../src/drink.jpg')} style={styles.logo}/>
+                                        <Image source={require('../src/drink.jpg')} style={styles.logo} />
                                         <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Drink</NavButtonText>
                                     </NavButton>
                                 </NavBar>

@@ -47,10 +47,12 @@ class FoodDetails extends Component {
         const { image } = this.props
         const { value } = this.state
         return (
+            
             <View>
                 <NavBar>
                     <NavTitle>
                         <Text>
+                            
                             {image.menu_name}
                         </Text>
                     </NavTitle>
@@ -58,7 +60,7 @@ class FoodDetails extends Component {
                 <View style={styles.wrapper}>
                     <Image
                         style={styles.Image}
-                        source={image.src}
+                        source={{uri:image.menu_image}}
                     />
 
                     <View style={styles.smallItemContainer}>

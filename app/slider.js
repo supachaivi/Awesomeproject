@@ -118,7 +118,7 @@ export default class example extends Component {
         );
     }
     componentDidMount() {
-        APIKit.get('/menu/menu/').then((response) => {
+        APIKit.get('/menu/category/?type=soup').then((response) => {
             const menu = response.data.results
             this.setState({ menu })
         })

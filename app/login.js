@@ -44,12 +44,12 @@ class Login extends Component {
 
     const onSuccess = ({ data }) => {
      
-      Actions.home()
+      Actions.slider()
       // Actions.pop()
       // Set JSON Web Token on success
-      // setClientToken(data.token);
+      setClientToken(data.token);
       // console.log(data)
-      // this.setState({ isLoading: false, isAuthorized: true });
+      this.setState({ isLoading: false, isAuthorized: true });
     };
 
     const onFailure = error => {
