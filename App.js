@@ -37,7 +37,8 @@ import addstaff from './app/addstaff'
 import stock from './app/stock'
 import bill from './app/bill'
 import checkfeedback from './app/checkfeedback'
-
+import review from './app/review'
+import uploadimage from './app/uploadimage'
 
 
 
@@ -46,6 +47,12 @@ const App = () => {
   return (
     <Router>
       <Scene key="root">
+      <Scene
+          key="uploadimage"
+          component={uploadimage}
+          hideNavBar
+        // initial
+        />
         <Scene
           key="login"
           component={login}
@@ -53,8 +60,15 @@ const App = () => {
         initial
         />
         <Scene
+          key="review"
+          component={review}
+          hideNavBar
+        // initial
+        />
+        <Scene
           key="register"
           component={register}
+        // initial
         />
         <Scene
           key="forgot"
@@ -177,12 +191,13 @@ const App = () => {
           key="feedback"
           component={feedback}
           hideNavBar
+          // initial
         />
         <Scene
           key="checkbillcash"
           component={checkbillcash}
           hideNavBar
-        // initial
+          // initial
         />
         <Scene
           key="uploadimg"
@@ -224,7 +239,7 @@ const App = () => {
           key="stock"
           component={stock}
           hideNavBar
-          // initial
+        // initial
         />
         <Scene
           key="bill"

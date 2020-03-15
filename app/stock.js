@@ -7,7 +7,7 @@ import Icon2 from "react-native-vector-icons/Entypo";
 import Icon3 from "react-native-vector-icons/Feather";
 import { colors } from './styles/index.style';
 import { Actions } from 'react-native-router-flux';
-import APIKit, { setClientToken } from './APIKit';
+import APIKit from './APIKit';
 
 const button = require('../src/button.png');
 

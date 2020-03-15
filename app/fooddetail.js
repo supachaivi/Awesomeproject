@@ -100,7 +100,8 @@ class FoodDetails extends Component {
                                 Alert.alert(
                                 'Added to basket',
                                 `${this.state.value} ${image.menu_image} was added to the basket.`)
-                                this.props.navigation.navigate('mycart', { image, value })
+                                // this.props.navigation.navigate('mycart', { image, value })
+                                Actions.slider()
                                 // this.props.navigation.navigate('slider', {image,value})                  
                             }}
 

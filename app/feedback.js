@@ -6,6 +6,7 @@ import Menu from './Menu';
 import Icon2 from "react-native-vector-icons/Entypo";
 import Icon3 from "react-native-vector-icons/Feather";
 import { colors } from './styles/index.style';
+import APIKit from './APIKit';
 
 export default class OrderScreen extends React.Component {
     constructor(props) {
@@ -14,6 +15,7 @@ export default class OrderScreen extends React.Component {
         this.state = {
             isOpen: false,
             selectedItem: '',
+            review: []
         };
     }
 
@@ -33,6 +35,15 @@ export default class OrderScreen extends React.Component {
             selectedItem: item,
         });
 
+    componentDidMount() {
+        APIKit.get('/review/').then((response) => {
+            const review = response.data.results
+            this.setState({ review })
+        })
+            .then(console.log(this.state))
+            .catch((error) => console.log(error));
+    }
+
     render() {
         const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
         return (
@@ -44,7 +55,7 @@ export default class OrderScreen extends React.Component {
                     <View style={styles.container}>
                         <NavBar>
                             <NavButton>
-                                <Icon2 name="menu" size={30} color={'gray'} style={{ justifyContent: 'flex-start' }} onPress={this.toggle} style={{marginLeft: -20}}/>
+                                <Icon2 name="menu" size={30} color={'gray'} style={{ justifyContent: 'flex-start' }} onPress={this.toggle} style={{ marginLeft: -20 }} />
                             </NavButton>
                             <NavTitle>
                                 <Text>
@@ -52,12 +63,32 @@ export default class OrderScreen extends React.Component {
                             </Text>
                             </NavTitle>
                             <NavButton>
-                               
+
                             </NavButton>
                         </NavBar>
-                        <View>
-                            
-                        </View>
+                        <ScrollView
+                            style={styles.scrollview}
+                            scrollEventThrottle={200}
+                            directionalLockEnabled={true}
+                        >
+                            <View>
+                                <Text style={{fontWeight:'bold', fontSize: 20, marginTop: 20, marginLeft: 20}}>Ratings & Reviews</Text>
+                                {this.state.review.map((checkreview) => {
+                                    return (
+                                        <View style={{ flexDirection: 'column', marginTop: 30}}>
+                                            <Text style={{ fontSize: 15, marginLeft: 30  }}>Rating: {checkreview.starCount}/5</Text>
+                                            <View style={{ flexDirection: 'column', marginTop: 10 }}>
+                                                <Text style={{ fontSize: 15, marginLeft: 30  }}>- {checkreview.review_text}</Text>
+                                            </View>
+                                            <Text numberOfLines={1} style={styles.line}>___________________________________________________________</Text>
+
+                                        </View>
+                                    )
+                                }
+                                )}
+
+                            </View>
+                        </ScrollView>
                     </View>
                 </SideMenu>
             </SafeAreaView>
@@ -74,5 +105,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: colors.background1
+    },
+    line: {
+        color: 'gray',
+        alignSelf: 'center',
+        marginBottom: 20,
+        margin:10
     },
 });

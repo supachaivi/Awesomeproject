@@ -11,7 +11,8 @@ import { colors } from './styles/index.style';
 import QRCode from 'react-native-qrcode-svg';
 import { Actions } from 'react-native-router-flux';
 import StarRating from 'react-native-star-rating';
-import APIKit, { setClientToken } from './APIKit';
+// import APIKit from './APIKit';
+import axios from 'axios'
 
 export default class CheckbillcashScreen extends React.Component {
     constructor(props) {
@@ -25,6 +26,10 @@ export default class CheckbillcashScreen extends React.Component {
             starCount: 2,
         };
     }
+
+    componentDidMount() {
+        axios.get('http://161.246.5.195:8000/api/accounts/logout/');
+      }
 
     toggle() {
         this.setState({
@@ -50,13 +55,9 @@ export default class CheckbillcashScreen extends React.Component {
         const payload = {starCount, review_text };
         console.log(payload)
         
-        APIKit.post('/review/', payload)
-            .then(function (response) {
-                console.log(response, Actions.slider())
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
+        axios.post('http://161.246.5.195:8000/api/review/', payload)
+        .then(response => {console.log(response),Actions.slider()})
+        .catch(error => {console.log(error)});
     }
 
     onStarRatingPress(rating) {
