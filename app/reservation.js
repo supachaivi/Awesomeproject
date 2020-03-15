@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView, StyleSheet, TouchableHighlight, Image } from 'react-native';
+import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView, StyleSheet, Image, Button, Alert, TouchableOpacity } from 'react-native';
 import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav'
 import SideMenu from 'react-native-side-menu';
 import Menu from './Menuadmin';
 import Icon2 from "react-native-vector-icons/Entypo";
 import Icon3 from "react-native-vector-icons/Feather";
 import { colors } from './styles/index.style';
+// import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const button = require('../src/button.png');
 
@@ -26,14 +27,7 @@ export default class YourorderScreen extends React.Component {
         this.state = {
             isOpen: false,
             selectedItem: '',
-            liked: false,
         };
-    }
-
-    _onPressBtn = () => {
-        this.setState({
-            liked: !this.state.liked,
-        });
     }
 
     toggle() {
@@ -75,83 +69,49 @@ export default class YourorderScreen extends React.Component {
 
                             </NavButton>
                         </NavBar>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 20 }}>
                             <Text style={{ fontSize: 15 }}>ลำดับ</Text>
                             <Text style={{ fontSize: 15 }}>คิว</Text>
                             <Text style={{ fontSize: 15 }}>จำนวนคน</Text>
                             <Text style={{ fontSize: 15 }}></Text>
+
                         </View>
                         <Text numberOfLines={1} style={styles.line}>_______________________________________________________________</Text>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
-                            <Text style={{ fontSize: 15 }}>1</Text>
-                            <Text style={{ fontSize: 15 }}>07</Text>
-                            <Text style={{ fontSize: 15 }}>4</Text>
-                            <TouchableHighlight
-                                onPress={this._onPressBtn}
-                                // style={styles.btn}
-                                underlayColor="gary"
-                            >
-                                <Image
-                                    source={button}
-                                    style={[styles.icon, likedStyles]}
-                                />
-                            </TouchableHighlight>
-                            
+
+                        <View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
+                                <Text style={{ fontSize: 15 }}>1</Text>
+                                <Text style={{ fontSize: 15 }}>07</Text>
+                                <Text style={{ fontSize: 15 }}>4</Text>
+                                <TouchableOpacity onPress={() => Alert.alert('Queue1')}>
+                                    <Image style={styles.icon} source={button}/>
+                                </TouchableOpacity>
+
+                            </View>
+                            <View style={{ flexDirection: 'row', marginLeft:10,marginRight:10}}>
+                                <Text numberOfLines={1} style={styles.line}>____________________________________________________________</Text>
+                            </View>
                         </View>
-                        <Text numberOfLines={1} style={styles.line}>____________________________________________________________</Text>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
-                            <Text style={{ fontSize: 15 }}>2</Text>
-                            <Text style={{ fontSize: 15 }}>08</Text>
-                            <Text style={{ fontSize: 15 }}>2</Text>
-                            <TouchableHighlight
-                                onPress={this._onPressBtn}
-                                // style={styles.btn}
-                                underlayColor="gary"
-                            >
-                                <Image
-                                    source={button}
-                                    style={[styles.icon, likedStyles]}
-                                />
-                            </TouchableHighlight>
+                        <View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
+                                <Text style={{ fontSize: 15 }}>1</Text>
+                                <Text style={{ fontSize: 15 }}>07</Text>
+                                <Text style={{ fontSize: 15 }}>4</Text>
+                                <TouchableOpacity onPress={() => Alert.alert('Queue2')}>
+                                    <Image style={styles.icon} source={button}/>
+                                </TouchableOpacity>
+
+                            </View>
+                            <View style={{ flexDirection: 'row', marginLeft:10,marginRight:10}}>
+                                <Text numberOfLines={1} style={styles.line}>____________________________________________________________</Text>
+                            </View>
                         </View>
-                        <Text numberOfLines={1} style={styles.line}>____________________________________________________________</Text>
                     </View>
                 </SideMenu>
             </SafeAreaView>
 
         )
     }
-
-    //     render() {
-    //         const { image, value } = this.props
-    //         // const {mycart} = this.state
-    //         return (
-    //             <View style={{ flex: 1 }}>
-    //                 <NavBar>
-    //                     <NavTitle>
-    //                         <Text>
-    //                             My cart
-    //                         </Text>
-    //                     </NavTitle>
-    //                 </NavBar>
-    //                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
-    //                     <Text style={{ fontSize: 15 }}>ลำดับ</Text>
-    //                     <Text style={{ fontSize: 15 }}>รายการอาหาร</Text>
-    //                     <Text style={{ fontSize: 15 }}>จำนวน</Text>
-    //                     <Text style={{ fontSize: 15 }}>ราคา</Text>
-    //                 </View>
-    //                 {/* {mycart.map((menu) => {
-    //                             return (
-    //                                 <Text>menu</Text>
-    //                             )
-    //                         })} */}
-    //                 {/* <View style={styles.smallItemContainer}>
-    //                     <Text style={styles.mainText}>{image.name} {value}</Text>
-    //                 </View> */}
-
-    //             </View>
-    //         )
-    //     }
 }
 
 const styles = StyleSheet.create({
