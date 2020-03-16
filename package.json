@@ -11,6 +11,7 @@
     "axios": "^0.19.2",
     "expo": "~36.0.0",
     "expo-image-picker": "^8.0.2",
+    "expo-permissions": "~8.0.0",
     "mathjs": "^6.6.0",
     "react": "16.9.0",
     "react-dom": "~16.9.0",
@@ -61,8 +62,7 @@
     "rn-fetch-blob": "^0.12.0",
     "styled-components-native": "^1.0.2",
     "url-join": "^4.0.1",
-    "uuid": "^7.0.2",
-    "expo-permissions": "~8.0.0"
+    "uuid": "^7.0.2"
   },
   "devDependencies": {
     "babel-preset-expo": "~8.0.0",

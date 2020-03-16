@@ -16,7 +16,7 @@ import { colors } from './styles/index.style';
 import { sliderWidth, itemWidth } from './styles/SliderEntry.style';
 import APIKit from './APIKit';
 import { acc } from 'react-native-reanimated';
-import {ENTRIES1} from './static/entries'
+import { ENTRIES1 } from './static/entries'
 
 const IS_ANDROID = Platform.OS === 'android';
 const SLIDER_1_FIRST_ITEM = 1;
@@ -36,7 +36,7 @@ class HomeScreen extends React.Component {
             slider1ActiveSlide: SLIDER_1_FIRST_ITEM,
             menu: [],
             promotion: []
-            
+
         };
     }
 
@@ -361,23 +361,18 @@ class AccountScreen extends React.Component {
                 </View>
                 <View style={styles.MainContainer}>
                     <Icon name="user" size={25} />
-                    <Text >  First Name: </Text>
-                    <Text >{account.first_name}</Text>
-                </View>
-                <View style={styles.MainContainer}>
-                    <Icon name="user" size={25} />
-                    <Text >  Last Name: </Text>
-                    <Text>{account.last_name}</Text>
+                    <Text >  Name: </Text>
+                    <Text > {account.first_name} {account.last_name}</Text>
                 </View>
                 <View style={styles.MainContainer}>
                     <Icon name="phone" size={25} />
                     <Text >  phone: </Text>
-                    <Text>{account.phone}</Text>
+                    <Text> {account.phone}</Text>
                 </View>
                 <View style={styles.MainContainer}>
                     <Icon1 name="email" size={25} />
                     <Text >  E-mail: </Text>
-                    <Text>{account.email}</Text>
+                    <Text> {account.email}</Text>
                 </View>
             </View>
         );

@@ -16,7 +16,8 @@ import { colors } from './styles/index.style';
 import { sliderWidth, itemWidth } from './styles/SliderEntry.style';
 import APIKit from './APIKit';
 import { acc } from 'react-native-reanimated';
-import {ENTRIES1} from './static/entries'
+import { ENTRIES1 } from './static/entries'
+// import LinearGradient from 'react-native-linear-gradient';
 
 const IS_ANDROID = Platform.OS === 'android';
 const SLIDER_1_FIRST_ITEM = 1;
@@ -36,7 +37,7 @@ class HomeScreen extends React.Component {
             slider1ActiveSlide: SLIDER_1_FIRST_ITEM,
             menu: [],
             promotion: []
-            
+
         };
     }
 
@@ -240,68 +241,112 @@ class QueueScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: ''
+            value: '',
+            count: 1
         };
     }
 
     render() {
-        return (
-            <View style={{ flex: 1, backgroundColor: "#e8e8e8" }}>
-                <View style={{ justifyContent: 'flex-start' }}>
-                    <NavBar>
-                        <NavTitle>
-                            <Text>
-                                Queue
+        if (this.state.count == 1) {
+            return (
+                <View style={{ flex: 1, backgroundColor: "#e8e8e8" }}>
+                    <View style={{ justifyContent: 'flex-start' }}>
+                        <NavBar>
+                            <NavTitle>
+                                <Text>
+                                    Queue
                             </Text>
-                        </NavTitle>
-                    </NavBar>
-                </View>
+                            </NavTitle>
+                        </NavBar>
+                    </View>
 
-                <Image style={styles.restaurantimage} source={require('../src/restaurant.jpg')} />
-                <Text style={styles.textinput}>Restaurant Name: Swiftfood</Text>
-                <View
-                    style={{
-                        borderBottomColor: 'black',
-                        borderBottomWidth: 1,
-                        marginTop: 20,
-                    }}
-                />
-                <Text style={styles.textinput1}>Please enter your seat</Text>
-                <View style={styles.itemContainer}>
-                    <NumericInput
-                        value={this.state.value}
-                        onChange={value => this.setState({ value })}
-                        onLimitReached={(isMax, msg) => console.log(isMax, msg)}
-                        totalWidth={240}
-                        minValue={1}
-                        maxValue={10}
-                        totalHeight={50}
-                        iconSize={25}
-                        step={1}
-                        valueType='real'
-                        rounded
-                        textColor='#000000'
-                        iconStyle={{ color: 'black' }}
-                        rightButtonBackgroundColor='#e8e8e8'
-                        leftButtonBackgroundColor='#e8e8e8' />
-                </View>
-                <View style={styles.itemContainer}>
-                    <Button
-                        onPress={() => {
-                            Alert.alert(
-                                'Confirm Queue',
-                                `${this.state.value} seat was add to system`)
-
-                            Actions.home()
+                    <Image style={styles.restaurantimage} source={require('../src/restaurant.jpg')} />
+                    <Text style={styles.textinput}>Restaurant Name: Swiftfood</Text>
+                    <View
+                        style={{
+                            borderBottomColor: 'black',
+                            borderBottomWidth: 1,
+                            marginTop: 20,
                         }}
-
-                        title="Comfirm"
-                        color="#c53c3c"
                     />
-                </View>
-            </View>
+                    <Text style={styles.textinput1}>Please enter your seat</Text>
+                    <View style={styles.itemContainer}>
+                        <NumericInput
+                            // value={this.state.value}
+                            onChange={value => this.setState({ value })}
+                            onLimitReached={(isMax, msg) => console.log(isMax, msg)}
+                            totalWidth={240}
+                            minValue={1}
+                            maxValue={10}
+                            totalHeight={50}
+                            iconSize={25}
+                            step={1}
+                            valueType='real'
+                            rounded
+                            textColor='#000000'
+                            iconStyle={{ color: 'black' }}
+                            rightButtonBackgroundColor='#e8e8e8'
+                            leftButtonBackgroundColor='#e8e8e8' />
+                    </View>
+                    <View style={styles.itemContainer}>
+                        <Button
+                            onPress={() => {
+                                Alert.alert(
+                                    'Confirm Queue',
+                                    `${this.state.value} seat was add to system`)
 
-        );
+                                Actions.home()
+                            }}
+
+                            title="Comfirm"
+                            color="#c53c3c"
+                        />
+                    </View>
+                </View>
+
+            );
+        }
+        else {
+            return (
+                <View style={{ flex: 1, backgroundColor: "#e8e8e8" }}>
+                    <View style={{ justifyContent: 'flex-start' }}>
+                        <NavBar>
+                            <NavTitle>
+                                <Text>
+                                    Queue
+                                </Text>
+                            </NavTitle>
+                        </NavBar>
+                    </View>
+                    <View style={{ flexDirection: 'row' }}>
+                        <View style={styles.blanktext}>
+                            <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 35, marginLeft: 95 }}>Your Queue</Text>
+                            <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 105, marginLeft: -95 }}>07</Text>
+                        </View>
+                    </View>
+                    <View style={{ flexDirection: 'row' }}>
+                        <View style={styles.blanktext1}>
+                            <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 25, marginLeft: 80 }}>Now queue : 05</Text>
+                            {/* <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 45, marginLeft: -60 }}>Now</Text> */}
+                        </View>
+                    </View>
+                    <View style={{ flexDirection: 'row',justifyContent: 'center' }}>
+                        <View style={{marginTop: 85}}>
+                            <Button
+                                onPress={() => {
+                                    Alert.alert("Hi")
+                                 }}
+
+                                title="Check Queue"
+                                color="#c53c3c"
+                            />
+                        </View>
+                    </View>
+                </View>
+
+            );
+        }
+
     }
     onNumberChange = (tag, number) => {
     }
@@ -361,23 +406,18 @@ class AccountScreen extends React.Component {
                 </View>
                 <View style={styles.MainContainer}>
                     <Icon name="user" size={25} />
-                    <Text >  First Name: </Text>
-                    <Text >{account.first_name}</Text>
-                </View>
-                <View style={styles.MainContainer}>
-                    <Icon name="user" size={25} />
-                    <Text >  Last Name: </Text>
-                    <Text>{account.last_name}</Text>
+                    <Text >  Name: </Text>
+                    <Text > {account.first_name} {account.last_name}</Text>
                 </View>
                 <View style={styles.MainContainer}>
                     <Icon name="phone" size={25} />
                     <Text >  phone: </Text>
-                    <Text>{account.phone}</Text>
+                    <Text> {account.phone}</Text>
                 </View>
                 <View style={styles.MainContainer}>
                     <Icon1 name="email" size={25} />
                     <Text >  E-mail: </Text>
-                    <Text>{account.email}</Text>
+                    <Text> {account.email}</Text>
                 </View>
             </View>
         );
@@ -581,7 +621,41 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         // borderColor: 'black',
         // borderWidth: 1
-    }
+    },
+    blanktext: {
+        flex: 1,
+        marginTop: 50,
+        marginLeft: 25,
+        marginRight: 25,
+        borderWidth: 1,
+        borderColor: 'rgba(0,0,0,0.2)',
+        backgroundColor: 'red',
+        height: 200,
+        borderRadius: 10,
+        alignSelf: 'center',
+        flexDirection: 'row'
+    },
+    blanktext1: {
+        flex: 1,
+        marginTop: 30,
+        marginLeft: 25,
+        marginRight: 25,
+        borderWidth: 1,
+        borderColor: 'rgba(0,0,0,0.2)',
+        backgroundColor: 'orange',
+        height: 100,
+        borderRadius: 10,
+        alignSelf: 'center',
+        flexDirection: 'row'
+    },
+    LinearGradientStyle: {
+        height: 40,
+        paddingLeft: 15,
+        paddingRight: 15,
+        borderRadius: 5,
+        marginBottom: 20
+    },
+
 });
 
 const AppContainer = createAppContainer(bottomTabNavigator);

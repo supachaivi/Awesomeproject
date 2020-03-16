@@ -361,23 +361,18 @@ class AccountScreen extends React.Component {
                 </View>
                 <View style={styles.MainContainer}>
                     <Icon name="user" size={25} />
-                    <Text >  First Name: </Text>
-                    <Text >{account.first_name}</Text>
-                </View>
-                <View style={styles.MainContainer}>
-                    <Icon name="user" size={25} />
-                    <Text >  Last Name: </Text>
-                    <Text>{account.last_name}</Text>
+                    <Text >  Name: </Text>
+                    <Text > {account.first_name} {account.last_name}</Text>
                 </View>
                 <View style={styles.MainContainer}>
                     <Icon name="phone" size={25} />
                     <Text >  phone: </Text>
-                    <Text>{account.phone}</Text>
+                    <Text> {account.phone}</Text>
                 </View>
                 <View style={styles.MainContainer}>
                     <Icon1 name="email" size={25} />
                     <Text >  E-mail: </Text>
-                    <Text>{account.email}</Text>
+                    <Text> {account.email}</Text>
                 </View>
             </View>
         );
