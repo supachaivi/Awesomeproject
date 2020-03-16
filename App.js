@@ -39,6 +39,7 @@ import bill from './app/bill'
 import checkfeedback from './app/checkfeedback'
 import review from './app/review'
 import uploadimage from './app/uploadimage'
+import notification from './app/notification'
 
 
 
@@ -47,7 +48,13 @@ const App = () => {
   return (
     <Router>
       <Scene key="root">
-      <Scene
+        <Scene
+          key="notification"
+          component={notification}
+          hideNavBar
+        // initial
+        />
+        <Scene
           key="uploadimage"
           component={uploadimage}
           hideNavBar
@@ -57,7 +64,7 @@ const App = () => {
           key="login"
           component={login}
           hideNavBar
-        initial
+          initial
         />
         <Scene
           key="review"
@@ -191,13 +198,13 @@ const App = () => {
           key="feedback"
           component={feedback}
           hideNavBar
-          // initial
+        // initial
         />
         <Scene
           key="checkbillcash"
           component={checkbillcash}
           hideNavBar
-          // initial
+        // initial
         />
         <Scene
           key="uploadimg"

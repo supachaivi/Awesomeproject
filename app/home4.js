@@ -11,12 +11,12 @@ import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav'
 import imagedb from './Imagedb'
 import NumericInput from 'react-native-numeric-input'
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import { ENTRIES1, ENTRIES2, ENTRIES3 } from './static/entries';
 import SliderEntry from './components/SliderEntry';
 import { colors } from './styles/index.style';
 import { sliderWidth, itemWidth } from './styles/SliderEntry.style';
-import APIKit, { setClientToken } from './APIKit';
+import APIKit from './APIKit';
 import { acc } from 'react-native-reanimated';
+import {ENTRIES1} from './static/entries'
 
 const IS_ANDROID = Platform.OS === 'android';
 const SLIDER_1_FIRST_ITEM = 1;
@@ -34,7 +34,9 @@ class HomeScreen extends React.Component {
         super(props);
         this.state = {
             slider1ActiveSlide: SLIDER_1_FIRST_ITEM,
-            menu: []
+            menu: [],
+            promotion: []
+            
         };
     }
 
@@ -61,6 +63,18 @@ class HomeScreen extends React.Component {
         return <SliderEntry data={item} even={true} />;
     }
 
+    componentDidMount() {
+        APIKit.get('/menu/category/?type=drink').then((response) => {
+            const menu = response.data.results
+            var self = this
+            Object.keys(response.data.results).forEach(function (i) {
+                self.state.promotion.push({ title: menu[i].menu_name, subtitle: menu[i].description, illustration: menu[i].menu_image })
+            })
+            this.setState({ menu })
+        })
+            .catch((error) => console.log(error));
+    }
+
     mainExample(number, title) {
         const { slider1ActiveSlide } = this.state;
 
@@ -73,7 +87,7 @@ class HomeScreen extends React.Component {
                 <Text style={styles.subtitle}>{title}</Text> */}
                 <Carousel
                     ref={c => this._slider1Ref = c}
-                    data={ENTRIES1}
+                    data={this.state.promotion}
                     renderItem={this._renderItemWithParallax}
                     sliderWidth={sliderWidth}
                     itemWidth={itemWidth}
@@ -92,7 +106,7 @@ class HomeScreen extends React.Component {
                     onSnapToItem={(index) => this.setState({ slider1ActiveSlide: index })}
                 />
                 <Pagination
-                    dotsLength={ENTRIES1.length}
+                    dotsLength={this.state.promotion.length}
                     activeDotIndex={slider1ActiveSlide}
                     containerStyle={styles.paginationContainer}
                     dotColor={'rgba(255, 255, 255, 0.92)'}
@@ -107,45 +121,10 @@ class HomeScreen extends React.Component {
         );
     }
 
-    momentumExample(number, title) {
-        return (
-            <View style={styles.exampleContainer}>
-                {/* <Text style={styles.title}>{`Example ${number}`}</Text>
-                <Text style={styles.subtitle}>{title}</Text> */}
-                <Carousel
-                    data={ENTRIES2}
-                    renderItem={this._renderItem}
-                    sliderWidth={sliderWidth}
-                    itemWidth={itemWidth}
-                    inactiveSlideScale={0.95}
-                    inactiveSlideOpacity={1}
-                    enableMomentum={true}
-                    activeSlideAlignment={'start'}
-                    containerCustomStyle={styles.slider}
-                    contentContainerCustomStyle={styles.sliderContentContainer}
-                    activeAnimationType={'spring'}
-                    activeAnimationOptions={{
-                        friction: 4,
-                        tension: 40
-                    }}
-                />
-            </View>
-        );
-    }
-
-    componentDidMount() {
-        APIKit.get('/menu/menu/').then((response) => {
-            const menu = response.data.results
-            this.setState({ menu })
-        })
-            .then(console.log(this.state))
-            .catch((error) => console.log(error));
-    }
 
 
     render() {
         const example1 = this.mainExample();
-        const example2 = this.momentumExample();
 
         return (
             <SafeAreaView style={styles.safeArea}>
@@ -177,7 +156,7 @@ class HomeScreen extends React.Component {
                             {this.state.menu.map((image) => {
                                 return (<Card>
                                     <CardImage
-                                        source={{uri:image.menu_image}}
+                                        source={{ uri: image.menu_image }}
                                     // title="Above all i am here"
                                     />
                                     <CardTitle
@@ -220,19 +199,19 @@ class HomeScreen extends React.Component {
                             </NavBar>
                             <NavBar>
                                 <NavButton onPress={() => Actions.home1()}>
-                                    <Image source={require('../src/salad.jpg')} style={styles.logo}/>
+                                    <Image source={require('../src/salad.jpg')} style={styles.logo} />
                                     <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Salad</NavButtonText>
                                 </NavButton>
                             </NavBar>
                             <NavBar>
                                 <NavButton onPress={() => Actions.home2()}>
-                                    <Image source={require('../src/main.jpg')} style={styles.logo}/>
+                                    <Image source={require('../src/main.jpg')} style={styles.logo} />
                                     <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Main</NavButtonText>
                                 </NavButton>
                             </NavBar>
                             <NavBar>
                                 <NavButton onPress={() => Actions.home3()}>
-                                    <Image source={require('../src/side.jpg')} style={styles.logo}  />
+                                    <Image source={require('../src/side.jpg')} style={styles.logo} />
                                     <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Side Dish</NavButtonText>
                                 </NavButton>
                             </NavBar>
@@ -270,9 +249,11 @@ class QueueScreen extends React.Component {
             <View style={{ flex: 1, backgroundColor: "#e8e8e8" }}>
                 <View style={{ justifyContent: 'flex-start' }}>
                     <NavBar>
-                        <NavButton>
-
-                        </NavButton>
+                        <NavTitle>
+                            <Text>
+                                Queue
+                            </Text>
+                        </NavTitle>
                     </NavBar>
                 </View>
 
@@ -372,11 +353,11 @@ class AccountScreen extends React.Component {
                             </Text>
                     </NavTitle>
                 </NavBar>
-                <Image style={styles.accountimage} source={{uri:account.image}} />
+                <Image style={styles.accountimage} source={{ uri: account.image }} />
                 {/* <View style={{ height: 100, backgroundColor: 'red', alignItems: 'space-around' }} /> */}
                 <View style={styles.MainContainer1}>
-                    <Text style={{fontSize: 20}}>  Your Point: </Text>
-                    <Text style={{fontSize: 20}}>100 points</Text>
+                    <Text style={{ fontSize: 20 }}>  Your Point: </Text>
+                    <Text style={{ fontSize: 20 }}>100 points</Text>
                 </View>
                 <View style={styles.MainContainer}>
                     <Icon name="user" size={25} />

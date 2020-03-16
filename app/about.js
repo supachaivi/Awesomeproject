@@ -63,40 +63,22 @@ export default class AboutScreen extends React.Component {
                             <View style={{ flexDirection: 'row' }}>
                                 <Image
                                     style={styles.accountimage}
-                                    // source={require('../src/about1.jpg')}
+                                    source={require('../src/about1.jpg')}
                                 ></Image>
                                 <View style={styles.text}>
-                                    <Text></Text>
+                                    <Text style={{margin:10}}>ร้าน อ.มัลลิการ์เปิดครั้งแรกเมื่อวันที่ 15 พฤศจิกายน 2537 ซึ่งร้านนี้นอกจากจะเป็นร้านอาหารไทยที่สามารถรองรับลูกค้าได้มากกว่า 120 ท่าน มีเมนูอร่อยให้ลูกค้าเลือกไม่น้อยกว่า 300 รายการ</Text>
                                 </View>
                             </View>
                             <View style={{ flexDirection: 'row' }}>
                                 <Image
                                     style={styles.blankimage}
-                                    // source={require('../src/about2.jpg')}
+                                    source={require('../src/about2.jpg')}
                                 ></Image>
                             </View>
                             <View style={{ flexDirection: 'row' }}>
                                 <Image
                                     style={styles.blankimage}
-                                    // source={require('../src/about2.jpg')}
-                                ></Image>
-                            </View>
-                            <View style={{ flexDirection: 'row' }}>
-                                <Image
-                                    style={styles.blankimage}
-                                    // source={require('../src/about2.jpg')}
-                                ></Image>
-                            </View>
-                            <View style={{ flexDirection: 'row' }}>
-                                <Image
-                                    style={styles.blankimage}
-                                    // source={require('../src/about2.jpg')}
-                                ></Image>
-                            </View>
-                            <View style={{ flexDirection: 'row' }}>
-                                <Image
-                                    style={styles.blankimage}
-                                    // source={require('../src/about2.jpg')}
+                                    source={require('../src/about3.jpg')}
                                 ></Image>
                             </View>
                           

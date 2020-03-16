@@ -6,7 +6,8 @@ import {
   StyleSheet
 } from 'react-native'
 import { Actions } from 'react-native-router-flux';
-import axios from 'axios'
+// import axios from 'axios'
+import APIKit from './APIKit';
 // import APIKit from './APIKit';
 export default class SignUp extends React.Component {
   state = {
@@ -21,7 +22,7 @@ export default class SignUp extends React.Component {
     const { username, password, confirm_password, email, first_name, last_name, phone } = this.state;
     const payload = { username, password, confirm_password, email, first_name, last_name, phone };
     console.log(payload);
-    axios.post('http://161.246.5.195:8000/api/accounts/register/', payload)
+    APIKit.post('/accounts/register/', payload)
     .then(function(response){
       console.log(response,Actions.login())
     })

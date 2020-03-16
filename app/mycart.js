@@ -65,7 +65,7 @@ export default class MycartScreen extends React.Component {
                                 
                             </NavButton>
                         </NavBar>
-                        <View style={{  flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
+                        <View style={{  flexDirection: 'row', justifyContent: 'space-around', marginTop: 20 }}>
                             <Text style={{ fontSize: 15 }}>ลำดับ</Text>
                             <Text style={{ fontSize: 15 }}>รายการอาหาร</Text>
                             <Text style={{ fontSize: 15 }}>จำนวน</Text>

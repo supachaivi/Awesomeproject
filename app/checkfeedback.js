@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView, StyleSheet } from 'react-native';
 import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav'
 import SideMenu from 'react-native-side-menu';
-import Menu from './Menu';
+import Menu from './Menuadmin';
 import Icon2 from "react-native-vector-icons/Entypo";
 import Icon3 from "react-native-vector-icons/Feather";
 import { colors } from './styles/index.style';

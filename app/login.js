@@ -11,8 +11,8 @@ import { Actions } from 'react-native-router-flux';
 
 import Spinner from 'react-native-loading-spinner-overlay'
 
-// import APIKit from './APIKit';
-import axios from 'axios';
+import APIKit from './APIKit';
+// import axios from 'axios';
 const initialState = {
   username: '',
   password: '',
@@ -25,7 +25,7 @@ class Login extends Component {
   state = initialState;
 
   componentDidMount() {
-    axios.get('http://161.246.5.195:8000/api/accounts/logout/');
+    APIKit.get('/accounts/logout/');
   }
 
   componentWillUnmount() { }
@@ -48,7 +48,7 @@ class Login extends Component {
       // Actions.pop()
       // Set JSON Web Token on success
       // setClientToken(data.token);
-      Actions.slider()
+      Actions.home()
       // console.log(data)
       this.setState({ isLoading: false, isAuthorized: true });
     };
@@ -60,7 +60,7 @@ class Login extends Component {
 
     // Show spinner when call is made
     this.setState({ isLoading: true });
-    axios.post('http://161.246.5.195:8000/api/accounts/login/', payload)
+    APIKit.post('/accounts/login/', payload)
       .then(onSuccess)
       .catch(onFailure);
   }

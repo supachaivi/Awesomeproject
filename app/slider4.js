@@ -13,7 +13,7 @@ import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav'
 import imagedb from './Imagedb'
 import SideMenu from 'react-native-side-menu';
 import Menu from './Menu';
-import APIKit, { setClientToken } from './APIKit';
+import APIKit from './APIKit';
 
 const IS_ANDROID = Platform.OS === 'android';
 const SLIDER_1_FIRST_ITEM = 1;
@@ -28,7 +28,8 @@ export default class example extends Component {
             isOpen: false,
             selectedItem: '',
             slider1ActiveSlide: SLIDER_1_FIRST_ITEM,
-            menu: []
+            menu: [],
+            promotion: []
 
         };
     }
@@ -72,19 +73,30 @@ export default class example extends Component {
         return <SliderEntry data={item} even={true} />;
     }
 
+    componentDidMount() {
+        APIKit.get('/menu/category/?type=drink').then((response) => {
+            const menu = response.data.results
+            var self = this
+            Object.keys(response.data.results).forEach(function (i) {
+                self.state.promotion.push({ title: menu[i].menu_name, subtitle: menu[i].description, illustration: menu[i].menu_image })
+            })
+            this.setState({ menu })
+        })
+            .catch((error) => console.log(error));
+    }
+
+
+
+
     mainExample(number, title) {
         const { slider1ActiveSlide } = this.state;
 
+
         return (
             <View style={styles.exampleContainer}>
-
-
-
-                {/* <Text style={styles.title}>{`Example ${number}`}</Text>
-                <Text style={styles.subtitle}>{title}</Text> */}
                 <Carousel
                     ref={c => this._slider1Ref = c}
-                    data={ENTRIES1}
+                    data={this.state.promotion}
                     renderItem={this._renderItemWithParallax}
                     sliderWidth={sliderWidth}
                     itemWidth={itemWidth}
@@ -103,7 +115,7 @@ export default class example extends Component {
                     onSnapToItem={(index) => this.setState({ slider1ActiveSlide: index })}
                 />
                 <Pagination
-                    dotsLength={ENTRIES1.length}
+                    dotsLength={this.state.promotion.length}
                     activeDotIndex={slider1ActiveSlide}
                     containerStyle={styles.paginationContainer}
                     dotColor={'rgba(255, 255, 255, 0.92)'}
@@ -117,17 +129,11 @@ export default class example extends Component {
             </View>
         );
     }
-    componentDidMount() {
-        APIKit.get('/menu/category/?type=drink').then((response) => {
-            const menu = response.data.results
-            this.setState({ menu })
-        })
-            .then(console.log(this.state))
-            .catch((error) => console.log(error));
-    }
+
 
     render() {
-        console.log(this.state.menu)
+        // console.log(this.state.menu)
+        // console.log(ENTRIES1)
         const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
         const example1 = this.mainExample();
 
@@ -170,7 +176,7 @@ export default class example extends Component {
                                 {this.state.menu.map((image) => {
                                     return (<Card>
                                         <CardImage
-                                            source={{uri:image.menu_image}}
+                                            source={{ uri: image.menu_image }}
                                         />
                                         <CardTitle
                                             title={image.menu_name}
@@ -209,13 +215,13 @@ export default class example extends Component {
                             >
                                 <NavBar>
                                     <NavButton onPress={() => Actions.slider()}>
-                                        <Image source={require('../src/soup.jpg')} style={styles.logo}  />
+                                        <Image source={require('../src/soup.jpg')} style={styles.logo} />
                                         <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Soup</NavButtonText>
                                     </NavButton>
                                 </NavBar>
                                 <NavBar>
                                     <NavButton onPress={() => Actions.slider1()}>
-                                        <Image source={require('../src/salad.jpg')} style={styles.logo}  />
+                                        <Image source={require('../src/salad.jpg')} style={styles.logo} />
                                         <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Salad</NavButtonText>
                                     </NavButton>
                                 </NavBar>
@@ -227,13 +233,13 @@ export default class example extends Component {
                                 </NavBar>
                                 <NavBar>
                                     <NavButton onPress={() => Actions.slider3()}>
-                                        <Image source={require('../src/side.jpg')} style={styles.logo}/>
+                                        <Image source={require('../src/side.jpg')} style={styles.logo} />
                                         <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Side Dish</NavButtonText>
                                     </NavButton>
                                 </NavBar>
                                 <NavBar>
                                     <NavButton onPress={() => Actions.slider4()}>
-                                        <Image source={require('../src/drink.jpg')} style={styles.logo}/>
+                                        <Image source={require('../src/drink.jpg')} style={styles.logo} />
                                         <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Drink</NavButtonText>
                                     </NavButton>
                                 </NavBar>
