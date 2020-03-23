@@ -28,7 +28,6 @@ import myaccount from './app/myaccount';
 import checkbill from './app/checkbill';
 import feedback from './app/feedback'
 import checkbillcash from './app/checkbillcash'
-import uploadimg from './app/uploadimg'
 import about from './app/about'
 import yourorder from './app/yourorder'
 import reservation from './app/reservation'
@@ -38,7 +37,6 @@ import stock from './app/stock'
 import bill from './app/bill'
 import checkfeedback from './app/checkfeedback'
 import review from './app/review'
-import uploadimage from './app/uploadimage'
 import notification from './app/notification'
 
 
@@ -51,12 +49,6 @@ const App = () => {
         <Scene
           key="notification"
           component={notification}
-          hideNavBar
-        // initial
-        />
-        <Scene
-          key="uploadimage"
-          component={uploadimage}
           hideNavBar
         // initial
         />
@@ -203,12 +195,6 @@ const App = () => {
         <Scene
           key="checkbillcash"
           component={checkbillcash}
-          hideNavBar
-        // initial
-        />
-        <Scene
-          key="uploadimg"
-          component={uploadimg}
           hideNavBar
         // initial
         />

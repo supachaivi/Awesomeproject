@@ -8,7 +8,7 @@ import Icon3 from "react-native-vector-icons/Feather";
 import { colors } from './styles/index.style';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const button = require('../src/button.png');
+const button = require('../src/button.jpg');
 
 export default class YourorderScreen extends React.Component {
     // constructor(props) {

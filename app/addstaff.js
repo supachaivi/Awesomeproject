@@ -8,7 +8,6 @@ import Icon3 from "react-native-vector-icons/Feather";
 import { colors } from './styles/index.style';
 import { Actions } from 'react-native-router-flux';
 
-const button = require('../src/button.png');
 
 export default class StockScreen extends React.Component {
     constructor(props) {

@@ -9,7 +9,6 @@ import { colors } from './styles/index.style';
 import { Actions } from 'react-native-router-flux';
 import APIKit from './APIKit';
 
-const button = require('../src/button.png');
 
 export default class StockScreen extends React.Component {
     // constructor(props) {
