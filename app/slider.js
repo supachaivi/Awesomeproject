@@ -78,7 +78,7 @@ export default class example extends Component {
             const menu = response.data.results
             var self = this
             Object.keys(response.data.results).forEach(function (i) {
-                self.state.promotion.push({ title: menu[i].menu_name, subtitle: menu[i].description, illustration: menu[i].menu_image })
+                self.state.promotion.push({ title: menu[i].menu_name, subtitle: menu[i].description, illustration: menu[i].menu_image, price: menu[i].price })
             })
             this.setState({ menu })
         })
@@ -134,6 +134,7 @@ export default class example extends Component {
     render() {
         // console.log(this.state.menu)
         // console.log(ENTRIES1)
+        console.log(this.props.token)
         const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
         const example1 = this.mainExample();
 
@@ -174,7 +175,7 @@ export default class example extends Component {
                             <View style={{ flex: 1 }}>
                                 {example1}
                                 {this.state.menu.map((image) => {
-                                    return (<Card>
+                                    return (<Card style={{marginBottom: 20}}>
                                         <CardImage
                                             source={{ uri: image.menu_image }}
                                         />

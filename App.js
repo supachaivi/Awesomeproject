@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Router, Scene } from 'react-native-router-flux';
-
 import login from './app/login';
 import register from './app/register';
 import forgot from './app/forgot';
@@ -10,15 +9,12 @@ import home2 from './app/home2';
 import home3 from './app/home3';
 import home4 from './app/home4';
 import home5 from './app/home5';
-
 import slider from './app/slider';
 import slider1 from './app/slider1';
 import slider2 from './app/slider2';
 import slider3 from './app/slider3';
 import slider4 from './app/slider4';
 import slider5 from './app/slider5';
-
-
 import order from './app/order';
 import menubar from './app/menubar';
 import mycart from './app/mycart';

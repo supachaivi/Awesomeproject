@@ -134,6 +134,7 @@ export default class example extends Component {
     render() {
         // console.log(this.state.menu)
         // console.log(ENTRIES1)
+        // console.log(this.props.token)
         const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
         const example1 = this.mainExample();
 
@@ -174,7 +175,7 @@ export default class example extends Component {
                             <View style={{ flex: 1 }}>
                                 {example1}
                                 {this.state.menu.map((image) => {
-                                    return (<Card>
+                                    return (<Card style={{marginBottom: 20}}>
                                         <CardImage
                                             source={{ uri: image.menu_image }}
                                         />

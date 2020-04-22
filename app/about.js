@@ -4,9 +4,7 @@ import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav'
 import SideMenu from 'react-native-side-menu';
 import Menu from './Menu';
 import Icon2 from "react-native-vector-icons/Entypo";
-import Icon3 from "react-native-vector-icons/Feather";
 import { colors } from './styles/index.style';
-
 export default class AboutScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -63,26 +61,31 @@ export default class AboutScreen extends React.Component {
                             <View style={{ flexDirection: 'row' }}>
                                 <Image
                                     style={styles.accountimage}
-                                    // source={require('../src/about1.jpg')}
+                                    source={require('../src/about1.jpg')}
                                 ></Image>
-                                <View style={styles.text}>
-                                    {/* <Text style={{margin:10}}>ร้าน อ.มัลลิการ์เปิดครั้งแรกเมื่อวันที่ 15 พฤศจิกายน 2537 ซึ่งร้านนี้นอกจากจะเป็นร้านอาหารไทยที่สามารถรองรับลูกค้าได้มากกว่า 120 ท่าน มีเมนูอร่อยให้ลูกค้าเลือกไม่น้อยกว่า 300 รายการ</Text> */}
-                                </View>
+                                <Image
+                                    style={styles.accountimage}
+                                    source={require('../src/about2.jpg')}
+                                ></Image>
+
+                                {/* <View style={styles.text}>
+                                    <Text style={{ margin: 10 }}>ร้าน อ.มัลลิการ์เปิดครั้งแรกเมื่อวันที่ 15 พฤศจิกายน 2537 ซึ่งร้านนี้นอกจากจะเป็นร้านอาหารไทยที่สามารถรองรับลูกค้าได้มากกว่า 120 ท่าน มีเมนูอร่อยให้ลูกค้าเลือกไม่น้อยกว่า 300 รายการ</Text>
+                                </View> */}
                             </View>
                             <View style={{ flexDirection: 'row' }}>
                                 <Image
                                     style={styles.blankimage}
-                                    // source={require('../src/about2.jpg')}
+                                    source={require('../src/about3.jpg')}
                                 ></Image>
                             </View>
                             <View style={{ flexDirection: 'row' }}>
                                 <Image
                                     style={styles.blankimage}
-                                    // source={require('../src/about3.jpg')}
+                                    source={require('../src/about4.jpg')}
                                 ></Image>
                             </View>
-                          
-                            
+
+
                         </ScrollView>
                     </View>
                 </SideMenu>
@@ -113,7 +116,7 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
     },
     accountimage1: {
-        flex:1,
+        flex: 1,
         marginTop: 5,
         margin: 15,
         borderWidth: 1,

@@ -52,7 +52,7 @@ export default function Menu({ onItemSelected }) {
           style={styles.avatar}
           source={{ uri }}
         />
-        <Text style={styles.name}>Supachai Viriyacharoenkit</Text>
+        <Text style={styles.name}>ADMIN</Text>
       </View>
 
       <Text
@@ -91,6 +91,12 @@ export default function Menu({ onItemSelected }) {
         style={styles.item}
       >
         Feedback
+      </Text>
+      <Text
+        onPress={() => Actions.login()}
+        style={styles.item}
+      >
+        Log out
       </Text>
     </ScrollView>
   );

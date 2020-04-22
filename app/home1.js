@@ -16,7 +16,7 @@ import { colors } from './styles/index.style';
 import { sliderWidth, itemWidth } from './styles/SliderEntry.style';
 import APIKit from './APIKit';
 import { acc } from 'react-native-reanimated';
-import {ENTRIES1} from './static/entries'
+import { ENTRIES1 } from './static/entries'
 
 const IS_ANDROID = Platform.OS === 'android';
 const SLIDER_1_FIRST_ITEM = 1;
@@ -36,7 +36,7 @@ class HomeScreen extends React.Component {
             slider1ActiveSlide: SLIDER_1_FIRST_ITEM,
             menu: [],
             promotion: []
-            
+
         };
     }
 
@@ -154,32 +154,33 @@ class HomeScreen extends React.Component {
                         <View style={{ flex: 1 }}>
                             {example1}
                             {this.state.menu.map((image) => {
-                                return (<Card>
-                                    <CardImage
-                                        source={{ uri: image.menu_image }}
-                                    // title="Above all i am here"
-                                    />
-                                    <CardTitle
-                                        title={image.menu_name}
-                                    // subtitle="This is subtitle"
-                                    />
-                                    <CardContent text={image.description} />
-                                    <CardAction
-                                        separator={true}
-                                        inColumn={false}>
-                                        <CardButton
-                                            onPress={() => {
-                                            }}
-                                            title="Push"
-                                            color="blue"
+                                return (
+                                    <Card style={{marginBottom: 20}}>
+                                        <CardImage
+                                            source={{ uri: image.menu_image }}
+                                        // title="Above all i am here"
                                         />
-                                        <CardButton
-                                            onPress={() => { }}
-                                            title="Later"
-                                            color="blue"
+                                        <CardTitle
+                                            title={image.menu_name}
+                                        // subtitle="This is subtitle"
                                         />
-                                    </CardAction>
-                                </Card>)
+                                        <CardContent text={image.description} />
+                                        {/* <CardAction
+                                            separator={true}
+                                            inColumn={false}>
+                                            <CardButton
+                                                onPress={() => {
+                                                }}
+                                                title="Push"
+                                                color="blue"
+                                            />
+                                            <CardButton
+                                                onPress={() => { }}
+                                                title="Later"
+                                                color="blue"
+                                            />
+                                        </CardAction> */}
+                                    </Card>)
                             })}
                         </View>
 
@@ -240,9 +241,20 @@ class QueueScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: ''
+            value: '',
+            // queue: 1,
         };
     }
+
+    // onPressQueue() {
+    //     const { value, queue } = this.state;
+    //     const payload = {value, queue };
+    //     console.log(payload)
+
+    //     APIKit.post('/reservation/reservation/', payload)
+    //     .then(response => {console.log(response),Actions.home()})
+    //     .catch(error => {console.log(error)});
+    // }
 
     render() {
         return (

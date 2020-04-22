@@ -9,9 +9,10 @@ import {
   Text,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import APIKit from './APIKit';
 
 const window = Dimensions.get('window');
-const uri = 'https://pickaface.net/gallery/avatar/Opi51c74d0125fd4.png';
+const uri = 'http://192.168.1.35:8000/media/accounts/2020/03/53652956_2072908022777783_78607625322758144_n_Gexwjsz.jpg';
 
 const styles = StyleSheet.create({
   menu: {
@@ -44,7 +45,10 @@ const styles = StyleSheet.create({
   },
 });
 
+
+
 export default function Menu({ onItemSelected }) {
+  
   return (
     <ScrollView scrollsToTop={false} style={styles.menu}>
       <View style={styles.avatarContainer}>
@@ -91,6 +95,12 @@ export default function Menu({ onItemSelected }) {
         style={styles.item}
       >
         About
+      </Text>
+      <Text
+        onPress={() => Actions.login()}
+        style={styles.item}
+      >
+        Log out
       </Text>
     </ScrollView>
   );

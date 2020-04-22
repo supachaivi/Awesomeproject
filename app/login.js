@@ -9,20 +9,20 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-import Spinner from 'react-native-loading-spinner-overlay'
-
-import APIKit from './APIKit';
-// import axios from 'axios';
-const initialState = {
-  username: '',
-  password: '',
-  errors: {},
-  isAuthorized: false,
-  isLoading: false,
-};
+import APIKit, { setClientToken } from './APIKit';
 
 class Login extends Component {
-  state = initialState;
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+      errors: {},
+      isAuthorized: false,
+      // csrf_token: ''
+
+    };
+  }
 
   componentDidMount() {
     APIKit.get('/accounts/logout/');
@@ -41,29 +41,45 @@ class Login extends Component {
   onPressLogin() {
     const { username, password } = this.state;
     const payload = { username, password };
-    console.log(payload);
-    const onSuccess = ({ data }) => {
-     
-      
-      // Actions.pop()
-      // Set JSON Web Token on success
-      // setClientToken(data.token);
-      Actions.home()
-      // console.log(data)
-      this.setState({ isLoading: false, isAuthorized: true });
-    };
-
-    const onFailure = error => {
-      console.log(error.response.data);
-      this.setState({ errors: error.response.data, isLoading: false });
-    };
-
-    // Show spinner when call is made
-    this.setState({ isLoading: true });
+    // console.log(payload);
     APIKit.post('/accounts/login/', payload)
-      .then(onSuccess)
-      .catch(onFailure);
+      .then(response => {
+        var csrf_token = response.data
+        console.log(response)
+        Actions.home({'token': csrf_token})
+        // this.props.navigation.navigate('slider', { csrf_token });
+        // navigate('home', { csrf_token: [response.data] })
+      })
+      .catch(error => {
+        console.log(error);
+      })
   }
+  // onPressLogin() {
+  //   const { username, password } = this.state;
+  //   const payload = { username, password };
+  //   // console.log(payload);
+  //   const onSuccess = () => {
+  //     if (this.state.username == 'admin') {
+  //       // this.props.navigation.navigate('stock');
+  //       this.setState({ isAuthorized: true });
+  //     }
+  //     else {
+  //       this.props.navigation.navigate('home');
+  //       this.setState({ isAuthorized: true });
+  //     }
+
+  //   };
+
+  //   const onFailure = error => {
+  //     console.log(error.response.data);
+  //     this.setState({ errors: error.response.data });
+  //   };
+
+  //   // Show spinner when call is made
+  //   APIKit.post('/accounts/login/', payload)
+  //     .then(onSuccess)
+  //     .catch(onFailure);
+  // }
 
   getNonFieldErrorMessage() {
     // Return errors that are served in `non_field_errors`
@@ -103,6 +119,7 @@ class Login extends Component {
 
   render() {
     const { isLoading } = this.state;
+    var csrf_token = this.props
 
     return (
       <View style={styles.container1}>
@@ -166,10 +183,10 @@ class Login extends Component {
               <Text style={styles.loginText}>Login</Text>
             </TouchableHighlight>
             <TouchableHighlight style={styles.buttonContainer1} onPress={() => Actions.forgot()}>
-              <Text style={{color: 'white'}}>Forgot your password?</Text>
+              <Text style={{ color: 'white' }}>Forgot your password?</Text>
             </TouchableHighlight>
             <TouchableHighlight style={styles.buttonContainer1} onPress={() => Actions.register()}>
-              <Text style={{color: 'white'}}>Register</Text>
+              <Text style={{ color: 'white' }}>Register</Text>
             </TouchableHighlight>
           </View> : <View><Text>Successfully authorized!</Text></View>}
       </View>

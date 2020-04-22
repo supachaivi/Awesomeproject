@@ -154,7 +154,7 @@ class HomeScreen extends React.Component {
                         <View style={{ flex: 1 }}>
                             {example1}
                             {this.state.menu.map((image) => {
-                                return (<Card>
+                                return (<Card style={{marginBottom: 20}}>
                                     <CardImage
                                         source={{ uri: image.menu_image }}
                                     // title="Above all i am here"
@@ -164,7 +164,7 @@ class HomeScreen extends React.Component {
                                     // subtitle="This is subtitle"
                                     />
                                     <CardContent text={image.description} />
-                                    <CardAction
+                                    {/* <CardAction
                                         separator={true}
                                         inColumn={false}>
                                         <CardButton
@@ -178,7 +178,7 @@ class HomeScreen extends React.Component {
                                             title="Later"
                                             color="blue"
                                         />
-                                    </CardAction>
+                                    </CardAction> */}
                                 </Card>)
                             })}
                         </View>

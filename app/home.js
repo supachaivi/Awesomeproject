@@ -125,7 +125,9 @@ class HomeScreen extends React.Component {
 
 
     render() {
+        console.log(this.props.token)
         const example1 = this.mainExample();
+        
 
         return (
             <SafeAreaView style={styles.safeArea}>
@@ -155,17 +157,18 @@ class HomeScreen extends React.Component {
                         <View style={{ flex: 1 }}>
                             {example1}
                             {this.state.menu.map((image) => {
-                                return (<Card>
-                                    <CardImage
-                                        source={{ uri: image.menu_image }}
-                                    // title="Above all i am here"
-                                    />
-                                    <CardTitle
-                                        title={image.menu_name}
-                                    // subtitle="This is subtitle"
-                                    />
-                                    <CardContent text={image.description} />
-                                    <CardAction
+                                return (
+                                    <Card style={{ marginBottom: 20 }}>
+                                        <CardImage
+                                            source={{ uri: image.menu_image }}
+                                        // title="Above all i am here"
+                                        />
+                                        <CardTitle
+                                            title={image.menu_name}
+                                        // subtitle="This is subtitle"
+                                        />
+                                        <CardContent text={image.description} />
+                                        {/* <CardAction
                                         separator={true}
                                         inColumn={false}>
                                         <CardButton
@@ -179,8 +182,8 @@ class HomeScreen extends React.Component {
                                             title="Later"
                                             color="blue"
                                         />
-                                    </CardAction>
-                                </Card>)
+                                    </CardAction> */}
+                                    </Card>)
                             })}
                         </View>
 
@@ -242,8 +245,19 @@ class QueueScreen extends React.Component {
         super(props);
         this.state = {
             value: '',
+            queue: 1,
             count: 1
         };
+    }
+
+    onPressQueue() {
+        const { value, queue } = this.state;
+        const payload = { queue, quantity: value };
+        console.log(payload)
+        console.log()
+        APIKit.post('/reservation/reservation/', payload)
+            .then(response => { console.log(response), Actions.home() })
+            .catch(error => { console.log(error) });
     }
 
     render() {
@@ -290,13 +304,7 @@ class QueueScreen extends React.Component {
                     </View>
                     <View style={styles.itemContainer}>
                         <Button
-                            onPress={() => {
-                                Alert.alert(
-                                    'Confirm Queue',
-                                    `${this.state.value} seat was add to system`)
-
-                                Actions.home()
-                            }}
+                            onPress={this.onPressQueue.bind(this)}
 
                             title="Comfirm"
                             color="#c53c3c"
@@ -330,12 +338,12 @@ class QueueScreen extends React.Component {
                             {/* <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 45, marginLeft: -60 }}>Now</Text> */}
                         </View>
                     </View>
-                    <View style={{ flexDirection: 'row',justifyContent: 'center' }}>
-                        <View style={{marginTop: 85}}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                        <View style={{ marginTop: 85 }}>
                             <Button
                                 onPress={() => {
                                     Alert.alert("Hi")
-                                 }}
+                                }}
 
                                 title="Check Queue"
                                 color="#c53c3c"
@@ -387,7 +395,7 @@ class AccountScreen extends React.Component {
         const { account } = this.state
         // account = account.pop()
 
-        console.log(account.image)
+        // console.log(account.image)
 
         return (
             <View style={{ flex: 1, backgroundColor: "#e8e8e8" }}>

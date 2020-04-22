@@ -47,12 +47,12 @@ class FoodDetails extends Component {
         const { image } = this.props
         const { value } = this.state
         return (
-            
+
             <View>
                 <NavBar>
                     <NavTitle>
                         <Text>
-                            
+
                             {image.menu_name}
                         </Text>
                     </NavTitle>
@@ -60,7 +60,7 @@ class FoodDetails extends Component {
                 <View style={styles.wrapper}>
                     <Image
                         style={styles.Image}
-                        source={{uri:image.menu_image}}
+                        source={{ uri: image.menu_image }}
                     />
 
                     <View style={styles.smallItemContainer}>
@@ -96,12 +96,15 @@ class FoodDetails extends Component {
 
                     <View style={styles.itemContainer}>
                         <Button
-                            onPress={ () => {
-                                Alert.alert(
-                                'Added to basket',
-                                `${this.state.value} ${image.menu_image} was added to the basket.`)
+                            onPress={() => {
+                                APIKit.post('/mycart/mycart/', {food_menu: this.props.image.id}, {quantity: this.state.value})
+                                    .then(response => { console.log(response), Actions.slider() })
+                                    .catch(error => { console.log(error) });
+                                // Alert.alert(
+                                //     'Added to basket',
+                                //     `${value} ${image.id} was added to the basket.`)
                                 // this.props.navigation.navigate('mycart', { image, value })
-                                Actions.slider()
+                                // Actions.slider()
                                 // this.props.navigation.navigate('slider', {image,value})                  
                             }}
 
@@ -124,6 +127,7 @@ const styles = StyleSheet.create({
         width: screenWidth - 20,
         height: 300,
         marginBottom: 10,
+        marginTop: 10
     },
     stepperContainer: {
         backgroundColor: 'transparent',

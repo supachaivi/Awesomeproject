@@ -1,13 +1,23 @@
 import axios from 'axios';
+// import Cookie from "react-native-cookie";
 
-// Create axios client, pre-configured with baseURL
+// axios.defaults.withCredentials = true;
+// axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+// axios.defaults.xsrfCookieName = "csrftoken";
+
 let APIKit = axios.create({
-  baseURL:   'http://161.246.5.195:8000/api',
+  baseURL: 'http://192.168.1.35:8000/api',
   timeout: 10000,
+  // headers: {
+  //   "Accept": "application/json",
+  //   "Content-Type": "application/json",
+  //   "X-CSRFToken":
+  // }
 });
+
 // Set JSON Web Token in Client to be included in all calls
 export const setClientToken = token => {
-  APIKit.interceptors.request.use(function(config) {
+  APIKit.interceptors.request.use(function (config) {
     config.headers.Authorization = `Bearer ${token}`;
     return config;
   });

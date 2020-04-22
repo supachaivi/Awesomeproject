@@ -6,6 +6,7 @@ import Menu from './Menuadmin';
 import Icon2 from "react-native-vector-icons/Entypo";
 import Icon3 from "react-native-vector-icons/Feather";
 import { colors } from './styles/index.style';
+import APIKit from './APIKit';
 import { Actions } from 'react-native-router-flux';
 
 
@@ -26,9 +27,18 @@ export default class StaffScreen extends React.Component {
         this.state = {
             isOpen: false,
             selectedItem: '',
+            staff: []
         };
     }
 
+    componentDidMount() {
+        APIKit.get('/accounts/registerstaff/').then((response) => {
+            const staff = response.data.results
+            this.setState({ staff })
+        })
+            .then(console.log(this.state))
+            .catch((error) => console.log(error));
+    }
     toggle() {
         this.setState({
             isOpen: !this.state.isOpen,
@@ -75,32 +85,51 @@ export default class StaffScreen extends React.Component {
                             <Text style={{ fontSize: 15 }}>ตำแหน่ง</Text>
                         </View>
                         <Text numberOfLines={1} style={styles.line}>_______________________________________________________________</Text>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
-                            <Text style={{ fontSize: 15 }}>1</Text>
-                            <Text style={{ fontSize: 15 }}>ศุถชัย วิริยะเจริญกิจ</Text>
-                            <Text style={{ fontSize: 15 }}>59011325</Text>
-                            <Text style={{ fontSize: 15 }}>เชฟ</Text>
+                        {this.state.staff.map((checkstaff) => {
+                            if(checkstaff.first_name != 'admin'){
+                                return (
+                                // <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
+                                //     <Text style={{ fontSize: 15 }}>1</Text>
+                                //     <Text style={{ fontSize: 15 }}>{checkstaff.first_name} {checkstaff.last_name}</Text>
+                                //     <Text style={{ fontSize: 15 }}>59011325</Text>
+                                //     <Text style={{ fontSize: 15 }}>เชฟ</Text>
+                                // </View>
+                                <View style={{flexDirection: 'row' , marginLeft: 20, marginRight: 20, justifyContent: 'space-between'}}>
+                                    <View style={{ flexDirection: 'column', marginTop: 20 }}>
 
-                            
-                        </View>
-                        <Text numberOfLines={1} style={styles.line}>____________________________________________________________</Text>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
-                            <Text style={{ fontSize: 15 }}>2</Text>
-                            <Text style={{ fontSize: 15 }}>ศุถชัย วิริยะเจริญกิจ</Text>
-                            <Text style={{ fontSize: 15 }}>59011325</Text>
-                            <Text style={{ fontSize: 15 }}>เชฟ</Text>
+                                        <Text style={{ fontSize: 15 }}>1</Text>
 
+                                    </View>
+                                    <View style={{ flexDirection: 'column', marginTop: 20 }}>
+
+                                        <Text style={{ fontSize: 15 }}>{checkstaff.first_name} {checkstaff.last_name}</Text>
+
+                                    </View>
+                                    <View style={{ flexDirection: 'column', marginTop: 20}}>
+
+                                        <Text style={{ fontSize: 15 }}>{checkstaff.code}</Text>
+
+                                    </View>
+                                    <View style={{ flexDirection: 'column', marginTop: 20}}>
+
+                                        <Text style={{ fontSize: 15 }}>{checkstaff.position}</Text>
+
+                                    </View>
+                                </View>
+                            )
+                            }
                             
-                        </View>
-                        <Text numberOfLines={1} style={styles.line}>____________________________________________________________</Text>
+
+                        })}
+
                         <View style={styles.itemContainer}>
-                        <Button 
-                            onPress={ () => Actions.addstaff()}
+                            <Button
+                                onPress={() => Actions.addstaff()}
 
-                            title="Add Staff"
-                            color="#c53c3c"
-                        />
-                    </View>
+                                title="Add Staff"
+                                color="#c53c3c"
+                            />
+                        </View>
                     </View>
                 </SideMenu>
             </SafeAreaView>
@@ -155,7 +184,7 @@ const styles = StyleSheet.create({
     line: {
         color: 'gray',
         alignSelf: 'center',
-        marginBottom: 20
+        // marginBottom: 20
     },
     navbar1: {
         backgroundColor: 'black'

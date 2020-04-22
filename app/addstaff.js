@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Platform, TextInput, View, ScrollView, Text, StatusBar, SafeAreaView, StyleSheet, TouchableHighlight, Image, Button } from 'react-native';
 import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav'
 import SideMenu from 'react-native-side-menu';
-import Menu from './Menu';
+import Menu from './Menuadmin';
 import Icon2 from "react-native-vector-icons/Entypo";
 import Icon3 from "react-native-vector-icons/Feather";
 import { colors } from './styles/index.style';
 import { Actions } from 'react-native-router-flux';
-
+import APIKit from './APIKit';
 
 export default class StockScreen extends React.Component {
     constructor(props) {
@@ -16,12 +16,27 @@ export default class StockScreen extends React.Component {
         this.state = {
             isOpen: false,
             selectedItem: '',
+            username: '',
+            password: '',
+            confirm_password: '',
             email: '',
             first_name: '',
             last_name: '',
             phone: '',
+            code: '',
+            position: '',
+            is_staff: true,
+            is_admin: true,
             isLoading: true,
         };
+    }
+
+    onChangeText = (key, val) => {
+        this.setState({ [key]: val })
+    }
+
+    componentDidMount() {
+        APIKit.get('/accounts/logout/');
     }
 
     toggle() {
@@ -39,18 +54,16 @@ export default class StockScreen extends React.Component {
             isOpen: false,
             selectedItem: item,
         });
-    // onPressRegister() {
-    //     const { email, first_name, last_name, phone } = this.state;
-    //     const payload = { email, first_name, last_name, phone };
-    //     console.log(payload);
-    //     APIKit.post('/accounts/register/', payload)
-    //         .then(function (response) {
-    //             console.log(response, Actions.staff())
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         })
-    // }
+
+    onPressAddstaff() {
+        const { username, first_name, last_name, email, phone, code, position, is_staff, is_admin, password, confirm_password } = this.state;
+        const payload = { username, first_name, last_name, email, phone, code, position, is_staff, is_admin, password, confirm_password };
+        console.log(payload)
+
+        APIKit.post('/accounts/registerstaff/', payload)
+            .then(response => { console.log(response), Actions.staff() })
+            .catch(error => { console.log(error) });
+    }
 
     render() {
         const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
@@ -74,48 +87,82 @@ export default class StockScreen extends React.Component {
 
                             </NavButton>
                         </NavBar>
-                        <View style={styles.container1}>
-                            <TextInput
-                                style={styles.input}
-                                placeholder='First name'
-                                autoCapitalize="none"
-                                placeholderTextColor='gray'
-                                onChangeText={val => this.onChangeText('first_name', val)}
-                            />
-                            <TextInput
-                                style={styles.input}
-                                placeholder='Last name'
-                                secureTextEntry={true}
-                                autoCapitalize="none"
-                                placeholderTextColor='gray'
-                                onChangeText={val => this.onChangeText('last_name', val)}
-                            />
-                            <TextInput
-                                style={styles.input}
-                                placeholder='Phone'
-                                secureTextEntry={true}
-                                autoCapitalize="none"
-                                placeholderTextColor='gray'
-                                onChangeText={val => this.onChangeText('phone', val)}
-                            />
-                            <TextInput
-                                style={styles.input}
-                                placeholder='E-mail'
-                                autoCapitalize="none"
-                                placeholderTextColor='gray'
-                                onChangeText={val => this.onChangeText('email', val)}
-                            />
-                        </View>
+                        <ScrollView>
+                            <View style={styles.container1}>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder='Username'
+                                    autoCapitalize="none"
+                                    placeholderTextColor='gray'
+                                    onChangeText={val => this.onChangeText('username', val)}
+                                />
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder='First name'
+                                    autoCapitalize="none"
+                                    placeholderTextColor='gray'
+                                    onChangeText={val => this.onChangeText('first_name', val)}
+                                />
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder='Last name'
+                                    autoCapitalize="none"
+                                    placeholderTextColor='gray'
+                                    onChangeText={val => this.onChangeText('last_name', val)}
+                                />
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder='E-mail'
+                                    autoCapitalize="none"
+                                    placeholderTextColor='gray'
+                                    onChangeText={val => this.onChangeText('email', val)}
+                                />
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder='Phone'
+                                    autoCapitalize="none"
+                                    placeholderTextColor='gray'
+                                    onChangeText={val => this.onChangeText('phone', val)}
+                                />
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder='Position'
+                                    autoCapitalize="none"
+                                    placeholderTextColor='gray'
+                                    onChangeText={val => this.onChangeText('position', val)}
+                                />
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder='Password'
+                                    secureTextEntry
+                                    autoCapitalize="none"
+                                    placeholderTextColor='gray'
+                                    onChangeText={val => this.onChangeText('password', val)}
+                                />
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder='Comfirm password'
+                                    secureTextEntry
+                                    autoCapitalize="none"
+                                    placeholderTextColor='gray'
+                                    onChangeText={val => this.onChangeText('confirm_password', val)}
+                                />
 
 
-                        <View style={styles.itemContainer}>
-                            <Button
-                                onPress={() => Actions.staff()}
 
-                                title="Add Staff"
-                                color="#c53c3c"
-                            />
-                        </View>
+                            </View>
+
+
+                            <View style={styles.itemContainer}>
+                                <Button
+                                    onPress={this.onPressAddstaff.bind(this)}
+
+                                    title="Add Staff"
+                                    color="#c53c3c"
+                                />
+                            </View>
+                        </ScrollView>
+
                     </View>
                 </SideMenu>
             </SafeAreaView>
@@ -142,6 +189,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+        marginBottom: 30,
+        marginTop:10
     },
     input: {
         width: 350,
@@ -156,7 +205,7 @@ const styles = StyleSheet.create({
         fontWeight: '500',
     },
     container1: {
-        marginTop: 50,
+        marginTop: 25,
         justifyContent: 'center',
         alignItems: 'center'
     }

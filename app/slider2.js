@@ -174,7 +174,7 @@ export default class example extends Component {
                             <View style={{ flex: 1 }}>
                                 {example1}
                                 {this.state.menu.map((image) => {
-                                    return (<Card>
+                                    return (<Card style={{marginBottom: 20}}>
                                         <CardImage
                                             source={{ uri: image.menu_image }}
                                         />
