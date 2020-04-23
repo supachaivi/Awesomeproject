@@ -79,11 +79,17 @@ export default class AboutScreen extends React.Component {
                                 ></Image>
                             </View>
                             <View style={{ flexDirection: 'row' }}>
+                                <View style={styles.text}>
+                                    <Text style={{ margin: 10 }}>ร้าน อ.มัลลิการ์เปิดครั้งแรกเมื่อวันที่ 15 พฤศจิกายน 2537 ซึ่งร้านนี้นอกจากจะเป็นร้านอาหารไทยที่สามารถรองรับลูกค้าได้มากกว่า 120 ท่าน มีเมนูอร่อยให้ลูกค้าเลือกไม่น้อยกว่า 300 รายการ</Text>
+                                </View>
+                            </View>
+                            <View style={{ flexDirection: 'row' }}>
                                 <Image
                                     style={styles.blankimage}
                                     source={require('../src/about4.jpg')}
                                 ></Image>
                             </View>
+
 
 
                         </ScrollView>
@@ -127,13 +133,12 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     text: {
-        marginTop: 25,
-        marginBottom: 15,
         marginLeft: 15,
+        marginRight: 15,
+        marginBottom: 15,
         borderWidth: 1,
         borderColor: 'rgba(0,0,0,0.2)',
-        width: 180,
-        height: 200,
+        backgroundColor: '#ffeccf',
         borderRadius: 10,
         alignSelf: 'flex-end',
     },

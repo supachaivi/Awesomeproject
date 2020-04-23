@@ -7,6 +7,8 @@ import Icon1 from "react-native-vector-icons/Feather";
 import Icon2 from "react-native-vector-icons/Entypo";
 import { colors } from './styles/index.style';
 import Icon from "react-native-vector-icons/AntDesign";
+import APIKit from './APIKit';
+
 
 export default class MyaccountScreen extends React.Component {
     constructor(props) {
@@ -15,6 +17,7 @@ export default class MyaccountScreen extends React.Component {
         this.state = {
             isOpen: false,
             selectedItem: '',
+            account: {}
         };
     }
 
@@ -34,53 +37,159 @@ export default class MyaccountScreen extends React.Component {
             selectedItem: item,
         });
 
+    componentDidMount() {
+        APIKit.get('/accounts/accounviewprofile/').then((response) => {
+            const account = response.data
+            this.setState({ account })
+        })
+            .then(console.log(this.state))
+            .catch((error) => console.log(error));
+    }
+
     render() {
         const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
-        return (
-            <SafeAreaView style={styles.safeArea}>
-                <SideMenu
-                    menu={menu}
-                    isOpen={this.state.isOpen}
-                    onChange={isOpen => this.updateMenuState(isOpen)}>
-                    <View style={styles.container}>
-                        <NavBar>
-                            <NavButton>
-                                <Icon2 name="menu" size={30} color={'gray'} onPress={this.toggle} style={{marginLeft: -20}} />
-                            </NavButton>
-                            <NavTitle>
-                                <Text>
-                                    My Account
-                            </Text>
-                            </NavTitle>
-                            <NavButton>
-                                
-                            </NavButton>
-                        </NavBar>
-                        <View style={styles.container1}>
-                            <View style={[styles.view, styles.withBorderRadius]}>
-                                <Image style={styles.image} source={require('../src/start.png')} />
-                                <Text style={styles.text}>250</Text>
-                                <Text style={styles.text}>Earned Points</Text>
+        const { account } = this.state
+        if (account.point >= 0) {
+            return (
+                <SafeAreaView style={styles.safeArea}>
+                    <SideMenu
+                        menu={menu}
+                        isOpen={this.state.isOpen}
+                        onChange={isOpen => this.updateMenuState(isOpen)}>
+                        <View style={styles.container}>
+                            <NavBar>
+                                <NavButton>
+                                    <Icon2 name="menu" size={30} color={'gray'} onPress={this.toggle} style={{ marginLeft: -20 }} />
+                                </NavButton>
+                                <NavTitle>
+                                    <Text>
+                                        My Account
+                                </Text>
+                                </NavTitle>
+                                <NavButton>
+
+                                </NavButton>
+                            </NavBar>
+                            <View style={styles.container1}>
+                                <View style={[styles.view, styles.withBorderRadius]}>
+                                    <Image style={styles.image} source={require('../src/start.png')} />
+                                    <Text style={styles.text}>{account.point}</Text>
+                                    <Text style={styles.text}>Earned Points</Text>
+                                </View>
+                                <View style={[styles.view, styles.withBorderRadius]}>
+                                    <Image style={styles.image} source={require('../src/medal.jpg')} />
+                                    <Text style={styles.text}>Bronze</Text>
+                                    <Text style={styles.text}>Membership</Text>
+                                </View>
                             </View>
-                            <View style={[styles.view, styles.withBorderRadius]}>
-                                <Image style={styles.image} source={require('../src/medal.jpg')} />
-                                <Text style={styles.text}>Silver</Text>
-                                <Text style={styles.text}>Membership</Text>
-                            </View>
+                            <Text style={styles.text1}>Redeem</Text>
+                            <Text style={styles.text2}>{'\u2B24'}   Customer will be able to redeem pointon bills</Text>
+                            <Text style={styles.text2}>{'\u2B24'}   10 point = ฿1.00</Text>
+                            <Text numberOfLines={1} style={styles.line}> __________________________________________________________</Text>
+                            <Text style={styles.text1}>Event Points</Text>
+                            <Text style={styles.text3}>My Points : {account.point}</Text>
+                            <Text style={styles.text2}>10 point = ฿1.00</Text>
+
                         </View>
-                        <Text style={styles.text1}>Redeem</Text>
-                        <Text style={styles.text2}>{'\u2B24'}   Customer will be able to redeem pointon bills</Text>
-                        <Text style={styles.text2}>{'\u2B24'}   10 point = ฿1.00</Text>
-                        <Text numberOfLines={1} style={styles.line}> __________________________________________________________</Text>
-                        <Text style={styles.text1}>Event Points</Text>
-                        <Text style={styles.text3}>My Points : 250</Text>
-                        <Text style={styles.text2}>10 point = ฿1.00</Text>
+                    </SideMenu>
+                </SafeAreaView >
+            )
+        }
+        else if(account.point >= 100 && account.point <= 200){
+            return (
+                <SafeAreaView style={styles.safeArea}>
+                    <SideMenu
+                        menu={menu}
+                        isOpen={this.state.isOpen}
+                        onChange={isOpen => this.updateMenuState(isOpen)}>
+                        <View style={styles.container}>
+                            <NavBar>
+                                <NavButton>
+                                    <Icon2 name="menu" size={30} color={'gray'} onPress={this.toggle} style={{ marginLeft: -20 }} />
+                                </NavButton>
+                                <NavTitle>
+                                    <Text>
+                                        My Account
+                                </Text>
+                                </NavTitle>
+                                <NavButton>
+    
+                                </NavButton>
+                            </NavBar>
+                            <View style={styles.container1}>
+                                <View style={[styles.view, styles.withBorderRadius]}>
+                                    <Image style={styles.image} source={require('../src/start.png')} />
+                                    <Text style={styles.text}>{account.point}</Text>
+                                    <Text style={styles.text}>Earned Points</Text>
+                                </View>
+                                <View style={[styles.view, styles.withBorderRadius]}>
+                                    <Image style={styles.image} source={require('../src/medal.jpg')} />
+                                    <Text style={styles.text}>Silver</Text>
+                                    <Text style={styles.text}>Membership</Text>
+                                </View>
+                            </View>
+                            <Text style={styles.text1}>Redeem</Text>
+                            <Text style={styles.text2}>{'\u2B24'}   Customer will be able to redeem pointon bills</Text>
+                            <Text style={styles.text2}>{'\u2B24'}   10 point = ฿1.00</Text>
+                            <Text numberOfLines={1} style={styles.line}> __________________________________________________________</Text>
+                            <Text style={styles.text1}>Event Points</Text>
+                            <Text style={styles.text3}>My Points : {account.point}</Text>
+                            <Text style={styles.text2}>10 point = ฿1.00</Text>
+    
+                        </View>
+                    </SideMenu>
+                </SafeAreaView >
+    
+            )
+        }
+        else{
+            return (
+                <SafeAreaView style={styles.safeArea}>
+                    <SideMenu
+                        menu={menu}
+                        isOpen={this.state.isOpen}
+                        onChange={isOpen => this.updateMenuState(isOpen)}>
+                        <View style={styles.container}>
+                            <NavBar>
+                                <NavButton>
+                                    <Icon2 name="menu" size={30} color={'gray'} onPress={this.toggle} style={{ marginLeft: -20 }} />
+                                </NavButton>
+                                <NavTitle>
+                                    <Text>
+                                        My Account
+                                </Text>
+                                </NavTitle>
+                                <NavButton>
+    
+                                </NavButton>
+                            </NavBar>
+                            <View style={styles.container1}>
+                                <View style={[styles.view, styles.withBorderRadius]}>
+                                    <Image style={styles.image} source={require('../src/start.png')} />
+                                    <Text style={styles.text}>{account.point}</Text>
+                                    <Text style={styles.text}>Earned Points</Text>
+                                </View>
+                                <View style={[styles.view, styles.withBorderRadius]}>
+                                    <Image style={styles.image} source={require('../src/medal.jpg')} />
+                                    <Text style={styles.text}>Gold</Text>
+                                    <Text style={styles.text}>Membership</Text>
+                                </View>
+                            </View>
+                            <Text style={styles.text1}>Redeem</Text>
+                            <Text style={styles.text2}>{'\u2B24'}   Customer will be able to redeem pointon bills</Text>
+                            <Text style={styles.text2}>{'\u2B24'}   10 point = ฿1.00</Text>
+                            <Text numberOfLines={1} style={styles.line}> __________________________________________________________</Text>
+                            <Text style={styles.text1}>Event Points</Text>
+                            <Text style={styles.text3}>My Points : {account.point}</Text>
+                            <Text style={styles.text2}>10 point = ฿1.00</Text>
+    
+                        </View>
+                    </SideMenu>
+                </SafeAreaView >
+    
+            )
+        }
 
-                    </View>
-                </SideMenu>
-            </SafeAreaView >
-
-        )
     }
 }
 

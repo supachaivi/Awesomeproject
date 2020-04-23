@@ -393,7 +393,6 @@ class AccountScreen extends React.Component {
     render() {
         const { account } = this.state
         // account = account.pop()
-
         // console.log(account.image)
 
         return (
