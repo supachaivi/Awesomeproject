@@ -125,7 +125,6 @@ class HomeScreen extends React.Component {
 
 
     render() {
-        console.log(this.props.token)
         const example1 = this.mainExample();
         
 

@@ -44,9 +44,9 @@ class Login extends Component {
     // console.log(payload);
     APIKit.post('/accounts/login/', payload)
       .then(response => {
-        var csrf_token = response.data
+        const csrf_token = response.data
         console.log(response)
-        Actions.home({'token': csrf_token})
+        Actions.slider({token: csrf_token})
         // this.props.navigation.navigate('slider', { csrf_token });
         // navigate('home', { csrf_token: [response.data] })
       })

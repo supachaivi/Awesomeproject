@@ -46,6 +46,8 @@ class FoodDetails extends Component {
     render() {
         const { image } = this.props
         const { value } = this.state
+        const token = this.props.token
+        console.log(token + 'good')
         return (
 
             <View>

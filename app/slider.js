@@ -134,7 +134,8 @@ export default class example extends Component {
     render() {
         // console.log(this.state.menu)
         // console.log(ENTRIES1)
-        console.log(this.props.token)
+        const token = this.props.token
+        console.log(token)
         const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
         const example1 = this.mainExample();
 
@@ -189,7 +190,7 @@ export default class example extends Component {
                                             <CardButton
                                                 onPress={() => {
 
-                                                    this.props.navigation.navigate('fooddetail', { image });
+                                                    this.props.navigation.navigate('fooddetail', { image, token });
 
                                                 }}
                                                 title="Push"
@@ -215,37 +216,37 @@ export default class example extends Component {
                                 automaticallyAdjustContentInsets={true}
                             >
                                 <NavBar>
-                                    <NavButton onPress={() => Actions.slider()}>
+                                    <NavButton onPress={() => Actions.slider({token})}>
                                         <Image source={require('../src/soup.jpg')} style={styles.logo} />
                                         <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Soup</NavButtonText>
                                     </NavButton>
                                 </NavBar>
                                 <NavBar>
-                                    <NavButton onPress={() => Actions.slider1()}>
+                                    <NavButton onPress={() => Actions.slider1({token})}>
                                         <Image source={require('../src/salad.jpg')} style={styles.logo} />
                                         <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Salad</NavButtonText>
                                     </NavButton>
                                 </NavBar>
                                 <NavBar>
-                                    <NavButton onPress={() => Actions.slider2()}>
+                                    <NavButton onPress={() => Actions.slider2({token})}>
                                         <Image source={require('../src/main.jpg')} style={styles.logo} />
                                         <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Main</NavButtonText>
                                     </NavButton>
                                 </NavBar>
                                 <NavBar>
-                                    <NavButton onPress={() => Actions.slider3()}>
+                                    <NavButton onPress={() => Actions.slider3({token})}>
                                         <Image source={require('../src/side.jpg')} style={styles.logo} />
                                         <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Side Dish</NavButtonText>
                                     </NavButton>
                                 </NavBar>
                                 <NavBar>
-                                    <NavButton onPress={() => Actions.slider4()}>
+                                    <NavButton onPress={() => Actions.slider4({token})}>
                                         <Image source={require('../src/drink.jpg')} style={styles.logo} />
                                         <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Drink</NavButtonText>
                                     </NavButton>
                                 </NavBar>
                                 <NavBar>
-                                    <NavButton onPress={() => Actions.slider5()}>
+                                    <NavButton onPress={() => Actions.slider5({token})}>
                                         <Image source={require('../src/dessert.jpg')} style={styles.logo} />
                                         <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Dessert</NavButtonText>
                                     </NavButton>
