@@ -28,9 +28,9 @@ export default class CheckbillcashScreen extends React.Component {
         };
     }
 
-    componentDidMount() {
-        APIKit.get('/accounts/logout/');
-      }
+    // componentDidMount() {
+    //     APIKit.get('/accounts/logout/');
+    //   }
 
     toggle() {
         this.setState({
@@ -55,7 +55,7 @@ export default class CheckbillcashScreen extends React.Component {
         const { starCount, review_text } = this.state;
         const payload = {starCount, review_text };
         console.log(payload)
-        
+        APIKit.get('/accounts/logout/');
         APIKit.post('/review/', payload)
         .then(response => {console.log(response),Actions.slider()})
         .catch(error => {console.log(error)});

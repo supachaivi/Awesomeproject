@@ -79,7 +79,6 @@ export default class StaffScreen extends React.Component {
                             </NavButton>
                         </NavBar>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 20 }}>
-                            <Text style={{ fontSize: 15 }}>ลำดับ</Text>
                             <Text style={{ fontSize: 15 }}>ชื่อ-นามสกุล</Text>
                             <Text style={{ fontSize: 15 }}>รหัสประจำตัว</Text>
                             <Text style={{ fontSize: 15 }}>ตำแหน่ง</Text>
@@ -94,24 +93,18 @@ export default class StaffScreen extends React.Component {
                                 //     <Text style={{ fontSize: 15 }}>59011325</Text>
                                 //     <Text style={{ fontSize: 15 }}>เชฟ</Text>
                                 // </View>
-                                <View style={{flexDirection: 'row' , marginLeft: 20, marginRight: 20, justifyContent: 'space-between'}}>
-                                    <View style={{ flexDirection: 'column', marginTop: 20 }}>
-
-                                        <Text style={{ fontSize: 15 }}>1</Text>
-
-                                    </View>
+                                <View style={{flexDirection: 'row', marginLeft: 30, marginRight: 15,sjustifyContent: 'space-between'}}>
                                     <View style={{ flexDirection: 'column', marginTop: 20 }}>
 
                                         <Text style={{ fontSize: 15 }}>{checkstaff.first_name} {checkstaff.last_name}</Text>
 
                                     </View>
-                                    <View style={{ flexDirection: 'column', marginTop: 20}}>
+                                    <View style={{ flexDirection: 'column', marginTop: 20,marginLeft:80}}>
 
                                         <Text style={{ fontSize: 15 }}>{checkstaff.code}</Text>
 
                                     </View>
-                                    <View style={{ flexDirection: 'column', marginTop: 20}}>
-
+                                    <View style={{ flexDirection: 'column', marginTop: 20, marginLeft:80}}>
                                         <Text style={{ fontSize: 15 }}>{checkstaff.position}</Text>
 
                                     </View>

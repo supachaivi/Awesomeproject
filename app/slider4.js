@@ -76,11 +76,21 @@ export default class example extends Component {
     componentDidMount() {
         APIKit.get('/menu/category/?type=drink').then((response) => {
             const menu = response.data.results
+            // var self = this
+            // Object.keys(response.data.results).forEach(function (i) {
+            //     self.state.promotion.push({ title: menu[i].menu_name, subtitle: menu[i].description, illustration: menu[i].menu_image })
+            // })
+            this.setState({ menu })
+        })
+            .catch((error) => console.log(error));
+
+        APIKit.get('/promotions/promotions/').then((response) => {
+            const menu1 = response.data.results
             var self = this
             Object.keys(response.data.results).forEach(function (i) {
-                self.state.promotion.push({ title: menu[i].menu_name, subtitle: menu[i].description, illustration: menu[i].menu_image })
+                self.state.promotion.push({ title: menu1[i].promotion_name, subtitle: menu1[i].description, illustration: menu1[i].promotion_picture })
             })
-            this.setState({ menu })
+            this.setState({ menu1 })
         })
             .catch((error) => console.log(error));
     }

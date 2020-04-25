@@ -46,8 +46,17 @@ class Login extends Component {
       .then(response => {
         const csrf_token = response.data
         console.log(response)
-        Actions.slider({token: csrf_token})
-        // this.props.navigation.navigate('slider', { csrf_token });
+        if (this.state.username == 'admin') {
+          // Actions.staff({ token: csrf_token })
+          this.props.navigation.navigate('staff', { token: csrf_token });
+
+        }
+        else {
+          // Actions.home({ token: csrf_token })
+          this.props.navigation.navigate('slider', { token: csrf_token });
+
+        }
+
         // navigate('home', { csrf_token: [response.data] })
       })
       .catch(error => {

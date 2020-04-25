@@ -15,14 +15,17 @@ import SliderEntry from './components/SliderEntry';
 import { colors } from './styles/index.style';
 import { sliderWidth, itemWidth } from './styles/SliderEntry.style';
 import APIKit from './APIKit';
+import axios from 'axios'
 import { acc } from 'react-native-reanimated';
 import { ENTRIES1 } from './static/entries'
 
 const IS_ANDROID = Platform.OS === 'android';
 const SLIDER_1_FIRST_ITEM = 1;
 
+let token;
 export default class App extends React.Component {
     render() {
+        const token = this.props.token
         return (
             <AppContainer />
         );
@@ -66,11 +69,21 @@ class HomeScreen extends React.Component {
     componentDidMount() {
         APIKit.get('/menu/category/?type=salad').then((response) => {
             const menu = response.data.results
+            // var self = this
+            // Object.keys(response.data.results).forEach(function (i) {
+            //     self.state.promotion.push({ title: menu[i].menu_name, subtitle: menu[i].description, illustration: menu[i].menu_image })
+            // })
+            this.setState({ menu })
+        })
+            .catch((error) => console.log(error));
+
+        APIKit.get('/promotions/promotions/').then((response) => {
+            const menu1 = response.data.results
             var self = this
             Object.keys(response.data.results).forEach(function (i) {
-                self.state.promotion.push({ title: menu[i].menu_name, subtitle: menu[i].description, illustration: menu[i].menu_image })
+                self.state.promotion.push({ title: menu1[i].promotion_name, subtitle: menu1[i].description, illustration: menu1[i].promotion_picture })
             })
-            this.setState({ menu })
+            this.setState({ menu1 })
         })
             .catch((error) => console.log(error));
     }
@@ -155,7 +168,7 @@ class HomeScreen extends React.Component {
                             {example1}
                             {this.state.menu.map((image) => {
                                 return (
-                                    <Card style={{marginBottom: 20}}>
+                                    <Card style={{ marginBottom: 20 }}>
                                         <CardImage
                                             source={{ uri: image.menu_image }}
                                         // title="Above all i am here"
@@ -193,37 +206,37 @@ class HomeScreen extends React.Component {
                             automaticallyAdjustContentInsets={true}
                         >
                             <NavBar>
-                                <NavButton onPress={() => Actions.home()}>
+                                <NavButton onPress={() => Actions.home({ token })}>
                                     <Image source={require('../src/soup.jpg')} style={styles.logo} />
                                     <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Soup</NavButtonText>
                                 </NavButton>
                             </NavBar>
                             <NavBar>
-                                <NavButton onPress={() => Actions.home1()}>
+                                <NavButton onPress={() => Actions.home1({ token })}>
                                     <Image source={require('../src/salad.jpg')} style={styles.logo} />
                                     <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Salad</NavButtonText>
                                 </NavButton>
                             </NavBar>
                             <NavBar>
-                                <NavButton onPress={() => Actions.home2()}>
+                                <NavButton onPress={() => Actions.home2({ token })}>
                                     <Image source={require('../src/main.jpg')} style={styles.logo} />
                                     <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Main</NavButtonText>
                                 </NavButton>
                             </NavBar>
                             <NavBar>
-                                <NavButton onPress={() => Actions.home3()}>
+                                <NavButton onPress={() => Actions.home3({ token })}>
                                     <Image source={require('../src/side.jpg')} style={styles.logo} />
                                     <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Side Dish</NavButtonText>
                                 </NavButton>
                             </NavBar>
                             <NavBar>
-                                <NavButton onPress={() => Actions.home4()}>
+                                <NavButton onPress={() => Actions.home4({ token })}>
                                     <Image source={require('../src/drink.jpg')} style={styles.logo} />
                                     <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Drink</NavButtonText>
                                 </NavButton>
                             </NavBar>
                             <NavBar>
-                                <NavButton onPress={() => Actions.home5()}>
+                                <NavButton onPress={() => Actions.home5({ token })}>
                                     <Image source={require('../src/dessert.jpg')} style={styles.logo} />
                                     <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Dessert</NavButtonText>
                                 </NavButton>
@@ -242,21 +255,37 @@ class QueueScreen extends React.Component {
         super(props);
         this.state = {
             value: '',
-            // queue: 1,
         };
     }
 
-    // onPressQueue() {
-    //     const { value, queue } = this.state;
-    //     const payload = {value, queue };
-    //     console.log(payload)
+    componentDidMount() {
+        APIKit.get('/accounts/logout/');
+    }
 
-    //     APIKit.post('/reservation/reservation/', payload)
-    //     .then(response => {console.log(response),Actions.home()})
-    //     .catch(error => {console.log(error)});
-    // }
+    onPressQueue() {
+        const { value } = this.state;
+        const payload = { quantity: value };
+        console.log(payload)
+        // axios.defaults.withCredentials = true;
+        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+        axios.defaults.xsrfCookieName = "csrftoken";
+        axios.post('http://192.168.1.36:8000/api/reservation/reservation/', payload,
+            // {
+            //     headers: {
+            //         "Accept": "application/json",
+            //         "Content-Type": "application/json",
+            //         // "X-CSRFToken": "\"" + token + "\""
+            //         "X-CSRFToken": token
+            //     }
+            // }
+        )
+            .then(response => { console.log(response), Alert.alert('Add to system', `${value} seat was added to the queue.`), Actions.home1() })
+            .catch(error => { console.log(error.response) });
+    }
 
     render() {
+        console.log(token + 'hello')
+        // console.log(token)
         return (
             <View style={{ flex: 1, backgroundColor: "#e8e8e8" }}>
                 <View style={{ justifyContent: 'flex-start' }}>
@@ -281,7 +310,7 @@ class QueueScreen extends React.Component {
                 <Text style={styles.textinput1}>Please enter your seat</Text>
                 <View style={styles.itemContainer}>
                     <NumericInput
-                        value={this.state.value}
+                        // value={this.state.value}
                         onChange={value => this.setState({ value })}
                         onLimitReached={(isMax, msg) => console.log(isMax, msg)}
                         totalWidth={240}
@@ -299,13 +328,7 @@ class QueueScreen extends React.Component {
                 </View>
                 <View style={styles.itemContainer}>
                     <Button
-                        onPress={() => {
-                            Alert.alert(
-                                'Confirm Queue',
-                                `${this.state.value} seat was add to system`)
-
-                            Actions.home()
-                        }}
+                        onPress={this.onPressQueue.bind(this)}
 
                         title="Comfirm"
                         color="#c53c3c"
@@ -314,11 +337,101 @@ class QueueScreen extends React.Component {
             </View>
 
         );
+
     }
     onNumberChange = (tag, number) => {
     }
 }
 
+class QueueScreen1 extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            queue: []
+        };
+    }
+
+    componentDidMount() {
+        APIKit.get('/reservation/reservation/').then((response) => {
+            const queue = response.data.results
+            console.log(queue)
+            this.setState({ queue })
+        })
+            .then(console.log(this.state))
+            .catch((error) => console.log(error));
+    }
+
+    render() {
+        const { queue } = this.state
+        return (
+            <View style={{ flex: 1, backgroundColor: "#e8e8e8" }}>
+                <View style={{ justifyContent: 'flex-start' }}>
+                    <NavBar>
+                        <NavTitle>
+                            <Text>
+                                Queue
+                                </Text>
+                        </NavTitle>
+                    </NavBar>
+                </View>
+
+                {/* {this.state.queue.map((checkqueue) => {
+                        return (
+                            <View>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <View style={styles.blanktext}>
+                                        <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 35, marginLeft: 100 }}>Your Queue</Text>
+                                        <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 105, marginLeft: -90 }}>{checkqueue.queue}</Text>
+                                    </View>
+                                </View>
+
+                            </View>
+                        )
+
+                    })} */}
+                <View>
+                    <View style={{ flexDirection: 'row' }}>
+                        <View style={styles.blanktext}>
+                            <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 35, marginLeft: 100 }}>Your Queue</Text>
+                            <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 105, marginLeft: -90 }}>{(queue.length) - 1}</Text>
+
+                        </View>
+                    </View>
+
+                </View>
+                <View style={{ flexDirection: 'row' }}>
+                    <View style={styles.blanktext1}>
+                        <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 25, marginLeft: 80 }}>Now queue : {queue.length}</Text>
+                        {/* <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 45, marginLeft: -60 }}>Now</Text> */}
+                    </View>
+                </View>
+
+                <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                    <View style={{ marginTop: 85 }}>
+                        <Button
+                            onPress={() => {
+                                if ((queue.length) - 1 == 0) {
+                                    Alert.alert("You queue already")
+                                }
+                                else {
+                                    Alert.alert("You queue not already")
+                                }
+
+
+                            }}
+
+                            title="Check Queue"
+                            color="#c53c3c"
+                        />
+                    </View>
+                </View>
+            </View>
+        )
+
+    }
+    onNumberChange = (tag, number) => {
+    }
+}
 class HistoryScreen extends React.Component {
     render() {
         return (
@@ -408,6 +521,14 @@ const bottomTabNavigator = createBottomTabNavigator(
                     <Icon name="group" size={25} color={tintColor} />
                 )
             }
+        },
+        Checkqueue: {
+            screen: QueueScreen1,
+            navigationOptions: {
+                tabBarIcon: ({ tintColor }) => (
+                    <Icon name="group" size={25} color={tintColor} />
+                )
+            }
         }, History: {
             screen: HistoryScreen,
             navigationOptions: {
@@ -466,6 +587,11 @@ const styles = StyleSheet.create({
     },
     titleDark: {
         color: colors.black
+    },
+    line: {
+        color: 'gray',
+        alignSelf: 'center',
+        marginBottom: 20
     },
     subtitle: {
         marginTop: 5,
@@ -588,7 +714,41 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         // borderColor: 'black',
         // borderWidth: 1
-    }
+    },
+    blanktext: {
+        flex: 1,
+        marginTop: 50,
+        marginLeft: 25,
+        marginRight: 25,
+        borderWidth: 1,
+        borderColor: 'rgba(0,0,0,0.2)',
+        backgroundColor: 'red',
+        height: 200,
+        borderRadius: 10,
+        alignSelf: 'center',
+        flexDirection: 'row'
+    },
+    blanktext1: {
+        flex: 1,
+        marginTop: 30,
+        marginLeft: 25,
+        marginRight: 25,
+        borderWidth: 1,
+        borderColor: 'rgba(0,0,0,0.2)',
+        backgroundColor: 'orange',
+        height: 100,
+        borderRadius: 10,
+        alignSelf: 'center',
+        flexDirection: 'row'
+    },
+    LinearGradientStyle: {
+        height: 40,
+        paddingLeft: 15,
+        paddingRight: 15,
+        borderRadius: 5,
+        marginBottom: 20
+    },
+
 });
 
 const AppContainer = createAppContainer(bottomTabNavigator);

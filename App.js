@@ -34,6 +34,7 @@ import bill from './app/bill'
 import checkfeedback from './app/checkfeedback'
 import review from './app/review'
 import notification from './app/notification'
+import orderadmin from './app/orderadmin'
 
 
 
@@ -161,6 +162,7 @@ const App = () => {
           key="mycart"
           component={mycart}
           hideNavBar
+          // initial
         />
         <Scene
           key="fooddetail"
@@ -239,6 +241,12 @@ const App = () => {
         <Scene
           key="checkfeedback"
           component={checkfeedback}
+          hideNavBar
+        // initial
+        />
+        <Scene
+          key="orderadmin"
+          component={orderadmin}
           hideNavBar
         // initial
         />

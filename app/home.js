@@ -15,6 +15,7 @@ import SliderEntry from './components/SliderEntry';
 import { colors } from './styles/index.style';
 import { sliderWidth, itemWidth } from './styles/SliderEntry.style';
 import APIKit from './APIKit';
+import axios from 'axios';
 import { acc } from 'react-native-reanimated';
 import { ENTRIES1 } from './static/entries'
 // import LinearGradient from 'react-native-linear-gradient';
@@ -22,8 +23,12 @@ import { ENTRIES1 } from './static/entries'
 const IS_ANDROID = Platform.OS === 'android';
 const SLIDER_1_FIRST_ITEM = 1;
 
+let token;
 export default class App extends React.Component {
+
     render() {
+        token = this.props.token
+        // console.log(token)
         return (
             <AppContainer />
         );
@@ -36,6 +41,7 @@ class HomeScreen extends React.Component {
         this.state = {
             slider1ActiveSlide: SLIDER_1_FIRST_ITEM,
             menu: [],
+            menu1: [],
             promotion: []
 
         };
@@ -67,11 +73,21 @@ class HomeScreen extends React.Component {
     componentDidMount() {
         APIKit.get('/menu/category/?type=soup').then((response) => {
             const menu = response.data.results
+            // var self = this
+            // Object.keys(response.data.results).forEach(function (i) {
+            //     self.state.promotion.push({ title: menu[i].menu_name, subtitle: menu[i].description, illustration: menu[i].menu_image })
+            // })
+            this.setState({ menu })
+        })
+            .catch((error) => console.log(error));
+
+        APIKit.get('/promotions/promotions/').then((response) => {
+            const menu1 = response.data.results
             var self = this
             Object.keys(response.data.results).forEach(function (i) {
-                self.state.promotion.push({ title: menu[i].menu_name, subtitle: menu[i].description, illustration: menu[i].menu_image })
+                self.state.promotion.push({ title: menu1[i].promotion_name, subtitle: menu1[i].description, illustration: menu1[i].promotion_picture })
             })
-            this.setState({ menu })
+            this.setState({ menu1 })
         })
             .catch((error) => console.log(error));
     }
@@ -126,7 +142,7 @@ class HomeScreen extends React.Component {
 
     render() {
         const example1 = this.mainExample();
-        
+
 
         return (
             <SafeAreaView style={styles.safeArea}>
@@ -195,37 +211,37 @@ class HomeScreen extends React.Component {
                             automaticallyAdjustContentInsets={true}
                         >
                             <NavBar>
-                                <NavButton onPress={() => Actions.home()}>
+                                <NavButton onPress={() => Actions.home(token)}>
                                     <Image source={require('../src/soup.jpg')} style={styles.logo} />
                                     <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Soup</NavButtonText>
                                 </NavButton>
                             </NavBar>
                             <NavBar>
-                                <NavButton onPress={() => Actions.home1()}>
+                                <NavButton onPress={() => Actions.home1(token)}>
                                     <Image source={require('../src/salad.jpg')} style={styles.logo} />
                                     <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Salad</NavButtonText>
                                 </NavButton>
                             </NavBar>
                             <NavBar>
-                                <NavButton onPress={() => Actions.home2()}>
+                                <NavButton onPress={() => Actions.home2(token)}>
                                     <Image source={require('../src/main.jpg')} style={styles.logo} />
                                     <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Main</NavButtonText>
                                 </NavButton>
                             </NavBar>
                             <NavBar>
-                                <NavButton onPress={() => Actions.home3()}>
+                                <NavButton onPress={() => Actions.home3(token)}>
                                     <Image source={require('../src/side.jpg')} style={styles.logo} />
                                     <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Side Dish</NavButtonText>
                                 </NavButton>
                             </NavBar>
                             <NavBar>
-                                <NavButton onPress={() => Actions.home4()}>
+                                <NavButton onPress={() => Actions.home4(token)}>
                                     <Image source={require('../src/drink.jpg')} style={styles.logo} />
                                     <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Drink</NavButtonText>
                                 </NavButton>
                             </NavBar>
                             <NavBar>
-                                <NavButton onPress={() => Actions.home5()}>
+                                <NavButton onPress={() => Actions.home5(token)}>
                                     <Image source={require('../src/dessert.jpg')} style={styles.logo} />
                                     <NavButtonText style={{ fontSize: 10, marginBottom: 8, alignSelf: 'center', color: 'black' }}>Dessert</NavButtonText>
                                 </NavButton>
@@ -244,115 +260,178 @@ class QueueScreen extends React.Component {
         super(props);
         this.state = {
             value: '',
-            queue: 1,
-            count: 1
         };
     }
 
+    componentDidMount() {
+        APIKit.get('/accounts/logout/');
+    }
+
     onPressQueue() {
-        const { value, queue } = this.state;
-        const payload = { queue, quantity: value };
+        const { value } = this.state;
+        const payload = { quantity: value };
         console.log(payload)
-        console.log()
-        APIKit.post('/reservation/reservation/', payload)
-            .then(response => { console.log(response), Actions.home() })
-            .catch(error => { console.log(error) });
+        // axios.defaults.withCredentials = true;
+        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+        axios.defaults.xsrfCookieName = "csrftoken";
+        axios.post('http://192.168.1.36:8000/api/reservation/reservation/', payload,
+            // {
+            //     headers: {
+            //         "Accept": "application/json",
+            //         "Content-Type": "application/json",
+            //         // "X-CSRFToken": "\"" + token + "\""
+            //         "X-CSRFToken": token
+            //     }
+            // }
+        )
+            .then(response => { console.log(response), Alert.alert('Add to system', `${value} seat was added to the queue.`), Actions.home() })
+            .catch(error => { console.log(error.response) });
     }
 
     render() {
-        if (this.state.count == 1) {
-            return (
-                <View style={{ flex: 1, backgroundColor: "#e8e8e8" }}>
-                    <View style={{ justifyContent: 'flex-start' }}>
-                        <NavBar>
-                            <NavTitle>
-                                <Text>
-                                    Queue
+        console.log(token + 'hello')
+        // console.log(token)
+        return (
+            <View style={{ flex: 1, backgroundColor: "#e8e8e8" }}>
+                <View style={{ justifyContent: 'flex-start' }}>
+                    <NavBar>
+                        <NavTitle>
+                            <Text>
+                                Queue
                             </Text>
-                            </NavTitle>
-                        </NavBar>
-                    </View>
+                        </NavTitle>
+                    </NavBar>
+                </View>
 
-                    <Image style={styles.restaurantimage} source={require('../src/restaurant.jpg')} />
-                    <Text style={styles.textinput}>Restaurant Name: Swiftfood</Text>
-                    <View
-                        style={{
-                            borderBottomColor: 'black',
-                            borderBottomWidth: 1,
-                            marginTop: 20,
-                        }}
+                <Image style={styles.restaurantimage} source={require('../src/restaurant.jpg')} />
+                <Text style={styles.textinput}>Restaurant Name: Swiftfood</Text>
+                <View
+                    style={{
+                        borderBottomColor: 'black',
+                        borderBottomWidth: 1,
+                        marginTop: 20,
+                    }}
+                />
+                <Text style={styles.textinput1}>Please enter your seat</Text>
+                <View style={styles.itemContainer}>
+                    <NumericInput
+                        // value={this.state.value}
+                        onChange={value => this.setState({ value })}
+                        onLimitReached={(isMax, msg) => console.log(isMax, msg)}
+                        totalWidth={240}
+                        minValue={1}
+                        maxValue={10}
+                        totalHeight={50}
+                        iconSize={25}
+                        step={1}
+                        valueType='real'
+                        rounded
+                        textColor='#000000'
+                        iconStyle={{ color: 'black' }}
+                        rightButtonBackgroundColor='#e8e8e8'
+                        leftButtonBackgroundColor='#e8e8e8' />
+                </View>
+                <View style={styles.itemContainer}>
+                    <Button
+                        onPress={this.onPressQueue.bind(this)}
+
+                        title="Comfirm"
+                        color="#c53c3c"
                     />
-                    <Text style={styles.textinput1}>Please enter your seat</Text>
-                    <View style={styles.itemContainer}>
-                        <NumericInput
-                            // value={this.state.value}
-                            onChange={value => this.setState({ value })}
-                            onLimitReached={(isMax, msg) => console.log(isMax, msg)}
-                            totalWidth={240}
-                            minValue={1}
-                            maxValue={10}
-                            totalHeight={50}
-                            iconSize={25}
-                            step={1}
-                            valueType='real'
-                            rounded
-                            textColor='#000000'
-                            iconStyle={{ color: 'black' }}
-                            rightButtonBackgroundColor='#e8e8e8'
-                            leftButtonBackgroundColor='#e8e8e8' />
-                    </View>
-                    <View style={styles.itemContainer}>
-                        <Button
-                            onPress={this.onPressQueue.bind(this)}
+                </View>
+            </View>
 
-                            title="Comfirm"
+        );
+
+    }
+    onNumberChange = (tag, number) => {
+    }
+}
+
+class QueueScreen1 extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            queue: []
+        };
+    }
+
+    componentDidMount() {
+        APIKit.get('/reservation/reservation/').then((response) => {
+            const queue = response.data.results
+            console.log(queue)
+            this.setState({ queue })
+        })
+            .then(console.log(this.state))
+            .catch((error) => console.log(error));
+    }
+
+    render() {
+        const { queue } = this.state
+        return (
+            <View style={{ flex: 1, backgroundColor: "#e8e8e8" }}>
+                <View style={{ justifyContent: 'flex-start' }}>
+                    <NavBar>
+                        <NavTitle>
+                            <Text>
+                                Queue
+                                </Text>
+                        </NavTitle>
+                    </NavBar>
+                </View>
+
+                {/* {this.state.queue.map((checkqueue) => {
+                        return (
+                            <View>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <View style={styles.blanktext}>
+                                        <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 35, marginLeft: 100 }}>Your Queue</Text>
+                                        <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 105, marginLeft: -90 }}>{checkqueue.queue}</Text>
+                                    </View>
+                                </View>
+
+                            </View>
+                        )
+
+                    })} */}
+                <View>
+                    <View style={{ flexDirection: 'row' }}>
+                        <View style={styles.blanktext}>
+                            <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 35, marginLeft: 100 }}>Your Queue</Text>
+                            <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 105, marginLeft: -90 }}>{(queue.length) - 1}</Text>
+
+                        </View>
+                    </View>
+
+                </View>
+                <View style={{ flexDirection: 'row' }}>
+                    <View style={styles.blanktext1}>
+                        <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 25, marginLeft: 80 }}>Now queue : {queue.length}</Text>
+                        {/* <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 45, marginLeft: -60 }}>Now</Text> */}
+                    </View>
+                </View>
+
+                <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                    <View style={{ marginTop: 85 }}>
+                        <Button
+                            onPress={() => {
+                                if ((queue.length) - 1 == 0) {
+                                    Alert.alert("You queue already")
+                                }
+                                else{
+                                    Alert.alert("You queue not already")
+                                }
+
+
+                            }}
+
+                            title="Check Queue"
                             color="#c53c3c"
                         />
                     </View>
                 </View>
-
-            );
-        }
-        else {
-            return (
-                <View style={{ flex: 1, backgroundColor: "#e8e8e8" }}>
-                    <View style={{ justifyContent: 'flex-start' }}>
-                        <NavBar>
-                            <NavTitle>
-                                <Text>
-                                    Queue
-                                </Text>
-                            </NavTitle>
-                        </NavBar>
-                    </View>
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={styles.blanktext}>
-                            <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 35, marginLeft: 95 }}>Your Queue</Text>
-                            <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 105, marginLeft: -95 }}>07</Text>
-                        </View>
-                    </View>
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={styles.blanktext1}>
-                            <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 25, marginLeft: 80 }}>Now queue : 05</Text>
-                            {/* <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 45, marginLeft: -60 }}>Now</Text> */}
-                        </View>
-                    </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                        <View style={{ marginTop: 85 }}>
-                            <Button
-                                onPress={() => {
-                                    Alert.alert("Hi")
-                                }}
-
-                                title="Check Queue"
-                                color="#c53c3c"
-                            />
-                        </View>
-                    </View>
-                </View>
-
-            );
-        }
+            </View>
+        )
 
     }
     onNumberChange = (tag, number) => {
@@ -367,9 +446,21 @@ class HistoryScreen extends React.Component {
                     <NavTitle>
                         <Text>
                             History
-                            </Text>
+                         </Text>
                     </NavTitle>
                 </NavBar>
+                <ScrollView>
+                    <Text style={{ fontSize: 16, fontWeight: 'bold', marginLeft: 20, marginTop: 20, marginBottom: 10 }}>ประวัติรายการสั่งอาหาร</Text>
+                    <View style={{ flexDirection: 'column', marginTop: 20, marginLeft: 20 }}>
+                        <View style={{ flexDirection: 'row', marginBottom: 15 }}>
+                            <Text style={{ fontSize: 16 }}>- ต้มยำกุ้ง</Text>
+                            <Text style={{ fontSize: 16, marginLeft: 20 }}>65</Text>
+                        </View>
+                    </View>
+                    <Text numberOfLines={1} style={styles.line}>_______________________________________________________________</Text>
+                </ScrollView>
+
+
             </View>
         );
     }
@@ -408,7 +499,7 @@ class AccountScreen extends React.Component {
                 {/* <View style={{ height: 100, backgroundColor: 'red', alignItems: 'space-around' }} /> */}
                 <View style={styles.MainContainer1}>
                     <Text style={{ fontSize: 20 }}>  Your Point: </Text>
-                    <Text style={{ fontSize: 20 }}>100 points</Text>
+                    <Text style={{ fontSize: 20 }}>{account.point} points</Text>
                 </View>
                 <View style={styles.MainContainer}>
                     <Icon name="user" size={25} />
@@ -442,6 +533,14 @@ const bottomTabNavigator = createBottomTabNavigator(
         },
         Queue: {
             screen: QueueScreen,
+            navigationOptions: {
+                tabBarIcon: ({ tintColor }) => (
+                    <Icon name="group" size={25} color={tintColor} />
+                )
+            }
+        },
+        Checkqueue: {
+            screen: QueueScreen1,
             navigationOptions: {
                 tabBarIcon: ({ tintColor }) => (
                     <Icon name="group" size={25} color={tintColor} />
@@ -505,6 +604,11 @@ const styles = StyleSheet.create({
     },
     titleDark: {
         color: colors.black
+    },
+    line: {
+        color: 'gray',
+        alignSelf: 'center',
+        marginBottom: 20
     },
     subtitle: {
         marginTop: 5,

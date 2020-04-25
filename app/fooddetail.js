@@ -14,7 +14,7 @@ class FoodDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 1
+            value: ''
         };
     }
 
@@ -43,13 +43,16 @@ class FoodDetails extends Component {
     //         .catch(onFailure);
     // }
 
+    componentDidMount() {
+        APIKit.get('/accounts/logout/');
+    }
+
     render() {
         const { image } = this.props
         const { value } = this.state
         const token = this.props.token
         console.log(token + 'good')
         return (
-
             <View>
                 <NavBar>
                     <NavTitle>
@@ -99,9 +102,10 @@ class FoodDetails extends Component {
                     <View style={styles.itemContainer}>
                         <Button
                             onPress={() => {
-                                APIKit.post('/mycart/mycart/', {food_menu: this.props.image.id}, {quantity: this.state.value})
+                                APIKit.post('/mycart/mycart/', { food_menu: image.id , quantity: value})
                                     .then(response => { console.log(response), Actions.slider() })
                                     .catch(error => { console.log(error) });
+                                // console.log(image.id)
                                 // Alert.alert(
                                 //     'Added to basket',
                                 //     `${value} ${image.id} was added to the basket.`)

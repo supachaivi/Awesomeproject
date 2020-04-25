@@ -6,7 +6,11 @@ import Menu from './Menuadmin';
 import Icon2 from "react-native-vector-icons/Entypo";
 import Icon3 from "react-native-vector-icons/Feather";
 import { colors } from './styles/index.style';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
+import APIKit from './APIKit';
+import axios from 'axios';
+
 
 const button = require('../src/button.jpg');
 
@@ -27,6 +31,7 @@ export default class YourorderScreen extends React.Component {
         this.state = {
             isOpen: false,
             selectedItem: '',
+            reservation: []
         };
     }
 
@@ -45,6 +50,22 @@ export default class YourorderScreen extends React.Component {
             isOpen: false,
             selectedItem: item,
         });
+
+    componentDidMount() {
+        APIKit.get('/reservation/reservation/').then((response) => {
+            const reservation = response.data.results
+            this.setState({ reservation })
+        })
+            .then(console.log(this.state))
+            .catch((error) => console.log(error));
+    }
+
+    onPressQueue() {
+        // APIKit.get('/accounts/logout/'),
+        axios.delete('http://192.168.1.36:8000/api/reservation/reservation/{id}/?id=checkreservation.id')
+            .then(response => { console.log(response) })
+            .catch(error => { console.log(error) })
+    }
 
     render() {
         const likedStyles = this.state.liked ? styles.liked : null;
@@ -77,38 +98,38 @@ export default class YourorderScreen extends React.Component {
 
                         </View>
                         <Text numberOfLines={1} style={styles.line}>_______________________________________________________________</Text>
+                        {this.state.reservation.map((checkreservation) => {
+                            return (
+                                <View>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
+                                        <Text style={{ fontSize: 15, marginLeft: 10 }}>{checkreservation.id}</Text>
+                                        <Text style={{ fontSize: 15, marginLeft: 20 }}>{checkreservation.queue}</Text>
+                                        <Text style={{ fontSize: 15, marginLeft: 30 }}>{checkreservation.quantity}</Text>
+                                        {/* <TouchableHighlight onPress={() => Alert.alert('Queue' + checkreservation.queue)}>
+                                            <Image style={styles.icon} source={button} />
+                                        </TouchableHighlight> */}
+                                        <Button
+                                            onPress={this.onPressQueue.bind(this)}
 
-                        <View>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
-                                <Text style={{ fontSize: 15 }}>1</Text>
-                                <Text style={{ fontSize: 15 }}>07</Text>
-                                <Text style={{ fontSize: 15 }}>4</Text>
-                                <TouchableOpacity onPress={() => Alert.alert('Queue1')}>
-                                    <Image style={styles.icon} source={button}/>
-                                </TouchableOpacity>
+                                            title="OK"
+                                            color="#c53c3c"
+                                        />
 
-                            </View>
-                            <View style={{ flexDirection: 'row', marginLeft:10,marginRight:10}}>
-                                <Text numberOfLines={1} style={styles.line}>____________________________________________________________</Text>
-                            </View>
-                        </View>
-                        <View>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
-                                <Text style={{ fontSize: 15 }}>1</Text>
-                                <Text style={{ fontSize: 15 }}>07</Text>
-                                <Text style={{ fontSize: 15 }}>4</Text>
-                                <TouchableOpacity onPress={() => Alert.alert('Queue2')}>
-                                    <Image style={styles.icon} source={button}/>
-                                </TouchableOpacity>
+                                    </View>
+                                    <View style={{ flexDirection: 'row', marginLeft: 10, marginRight: 10 }}>
+                                        <Text numberOfLines={1} style={styles.line}>____________________________________________________________</Text>
+                                    </View>
+                                </View>
 
-                            </View>
-                            <View style={{ flexDirection: 'row', marginLeft:10,marginRight:10}}>
-                                <Text numberOfLines={1} style={styles.line}>____________________________________________________________</Text>
-                            </View>
-                        </View>
+                            )
+                        }
+                        )}
+
+
+
                     </View>
                 </SideMenu>
-            </SafeAreaView>
+            </SafeAreaView >
 
         )
     }
@@ -139,12 +160,12 @@ const styles = StyleSheet.create({
     //     padding: 10,
     // },
     icon: {
-        marginTop: -15,
-        marginLeft: -25,
+        marginTop: -10,
+        marginLeft: -15,
         marginRight: -20,
-        width: 50,
-        height: 50,
-        tintColor: 'red',
+        width: 60,
+        height: 35,
+        // tintColor: 'red',
     },
     liked: {
         tintColor: '#84ff00',

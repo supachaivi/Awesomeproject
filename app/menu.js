@@ -79,7 +79,7 @@ export default function Menu({ onItemSelected }) {
         Your Order
       </Text>
       <Text
-        onPress={() => Actions.checkbill()}
+        onPress={() => Actions.checkbillcash()}
         style={styles.item}
       >
         Check Bill
