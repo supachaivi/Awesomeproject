@@ -40,8 +40,8 @@ export default class OrderadminScreen extends React.Component {
         });
 
     componentDidMount() {
-        APIKit.get('/mycart/mycart/').then((response) => {
-            const order = response.data.results
+        APIKit.get('/mycart/mycarttest/order/').then((response) => {
+            const order = response.data.order_list
             console.log(order)
             this.setState({ order })
         })
@@ -50,57 +50,106 @@ export default class OrderadminScreen extends React.Component {
     }
 
     render() {
+        const order = this.state.order
         const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
-        return (
-            <SafeAreaView style={styles.safeArea}>
-                <SideMenu
-                    menu={menu}
-                    isOpen={this.state.isOpen}
-                    onChange={isOpen => this.updateMenuState(isOpen)}>
-                    <View style={styles.container}>
-                        <NavBar style={styles.navbar1}>
-                            <NavButton>
-                                <Icon2 name="menu" size={30} color={'gray'} onPress={this.toggle} style={{ marginLeft: -20 }} />
-                            </NavButton>
-                            <NavTitle>
-                                <Text>
-                                    Order
-                                </Text>
-                            </NavTitle>
-                            <NavButton>
-                            </NavButton>
-                        </NavBar>
-                        <View style={{ margin: 25 }}>
-                            <Text style={{ fontSize: 17 }}>Table 1</Text>
+        if (order != null) {
+            return (
+                <SafeAreaView style={styles.safeArea}>
+                    <SideMenu
+                        menu={menu}
+                        isOpen={this.state.isOpen}
+                        onChange={isOpen => this.updateMenuState(isOpen)}>
+                        <View style={styles.container}>
+                            <NavBar style={styles.navbar1}>
+                                <NavButton>
+                                    <Icon2 name="menu" size={30} color={'gray'} onPress={this.toggle} style={{ marginLeft: -20 }} />
+                                </NavButton>
+                                <NavTitle>
+                                    <Text>
+                                        Order
+                                    </Text>
+                                </NavTitle>
+                                <NavButton>
+                                </NavButton>
+                            </NavBar>
+                            <View style={{ margin: 25 }}>
+                                <Text style={{ fontSize: 17, fontWeight: 'bold' }}>Table 1</Text>
+                            </View>
+                            {this.state.order.map((listorder) => {
+                                // var total = 0;
+                                // var total = total + (listorder.food_menu.price * listorder.quantity);
+                                return (
+                                    <View style={{ flexDirection: 'row', marginBottom: 15, fontSize: 15 }}>
+                                        <Text style={{ flexDirection: 'column', marginLeft: 50 }}>
+                                            - {listorder.food_name}
+                                        </Text>
+                                        <Text style={{ flexDirection: 'column', marginLeft: 30, fontSize: 15 }}>
+                                            {listorder.quantity}
+                                        </Text>
+                                        {/* <Text style={{ flexDirection: 'column' }}>
+                                            {listorder.food_menu.price * listorder.quantity}
+                                        </Text> */}
+                                        {/* <Text>{total}</Text> */}
+
+                                    </View>
+                                )
+
+                            })}
+
                         </View>
-                        {this.state.order.map((listorder) => {
-                            // var total = 0;
-                            // var total = total + (listorder.food_menu.price * listorder.quantity);
-                            return (
-                                <View style={{ flexDirection: 'row', marginBottom: 15, fontSize: 15 }}>
-                                    <Text style={{ flexDirection: 'column', marginLeft: 50 }}>
-                                        - {listorder.food_menu.menu_name}
+                    </SideMenu>
+                </SafeAreaView>
+
+
+
+            )
+        }
+        else {
+            return (
+                <SafeAreaView style={styles.safeArea}>
+                    <SideMenu
+                        menu={menu}
+                        isOpen={this.state.isOpen}
+                        onChange={isOpen => this.updateMenuState(isOpen)}>
+                        <View style={styles.container}>
+                            <NavBar style={styles.navbar1}>
+                                <NavButton>
+                                    <Icon2 name="menu" size={30} color={'gray'} onPress={this.toggle} style={{ marginLeft: -20 }} />
+                                </NavButton>
+                                <NavTitle>
+                                    <Text>
+                                        Order
                                     </Text>
-                                    <Text style={{ flexDirection: 'column', marginLeft: 30, fontSize: 15 }}>
-                                        {listorder.quantity}
-                                    </Text>
-                                    {/* <Text style={{ flexDirection: 'column' }}>
-                                        {listorder.food_menu.price * listorder.quantity}
-                                    </Text> */}
-                                    {/* <Text>{total}</Text> */}
-                                    
-                                </View>
-                            )
+                                </NavTitle>
+                                <NavButton>
+                                </NavButton>
+                            </NavBar>
+                            {/* <View style={{ margin: 25 }}>
+                                <Text style={{ fontSize: 17, fontWeight: 'bold' }}>Table 1</Text>
+                            </View>
+                            {this.state.order.map((listorder) => {
+                                return (
+                                    <View style={{ flexDirection: 'row', marginBottom: 15, fontSize: 15 }}>
+                                        <Text style={{ flexDirection: 'column', marginLeft: 50 }}>
+                                            - {listorder.food_name}
+                                        </Text>
+                                        <Text style={{ flexDirection: 'column', marginLeft: 30, fontSize: 15 }}>
+                                            {listorder.quantity}
+                                        </Text>
+                                    </View>
+                                )
 
-                        })}
+                            })} */}
 
-                    </View>
-                </SideMenu>
-            </SafeAreaView>
+                        </View>
+                    </SideMenu>
+                </SafeAreaView>
 
 
 
-        )
+            )
+        }
+
     }
 }
 

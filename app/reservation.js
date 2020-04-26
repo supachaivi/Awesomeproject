@@ -62,7 +62,7 @@ export default class YourorderScreen extends React.Component {
 
     onPressQueue() {
         // APIKit.get('/accounts/logout/'),
-        axios.delete('http://192.168.1.36:8000/api/reservation/reservation/{id}/?id=checkreservation.id')
+        APIKit.delete('/reservation/reservation/{id}/?id=checkreservation.id')
             .then(response => { console.log(response) })
             .catch(error => { console.log(error) })
     }

@@ -208,11 +208,11 @@ export default class example extends Component {
                                                 title="Push"
                                                 color="blue"
                                             />
-                                            <CardButton
+                                            {/* <CardButton
                                                 onPress={() => { }}
                                                 title="Later"
                                                 color="blue"
-                                            />
+                                            /> */}
                                         </CardAction>
                                     </Card>)
                                 })}

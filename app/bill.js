@@ -16,7 +16,8 @@ export default class OrderScreen extends React.Component {
         this.state = {
             isOpen: false,
             selectedItem: '',
-            bill: []
+            bill: [],
+            total: []
         };
     }
 
@@ -37,66 +38,127 @@ export default class OrderScreen extends React.Component {
         });
 
     componentDidMount() {
-        APIKit.get('/mycart/mycart/').then((response) => {
-            const bill = response.data.results
+        APIKit.get('/mycart/mycarttest/order/').then((response) => {
+            const bill = response.data.order_list
+            const total = response.data.total_price
             console.log(bill)
             this.setState({ bill })
+            this.setState({ total })
         })
             .then(console.log(this.state))
             .catch((error) => console.log(error));
     }
 
     render() {
+        const total = this.state.total
+        const bill = this.state.bill
         const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
-        return (
-            <SafeAreaView style={styles.safeArea}>
-                <SideMenu
-                    menu={menu}
-                    isOpen={this.state.isOpen}
-                    onChange={isOpen => this.updateMenuState(isOpen)}>
-                    <View style={styles.container}>
-                        <NavBar>
-                            <NavButton>
-                                <Icon2 name="menu" size={30} color={'gray'} style={{ justifyContent: 'flex-start' }} onPress={this.toggle} style={{ marginLeft: -20 }} />
-                            </NavButton>
-                            <NavTitle>
-                                <Text>
-                                    Bill
+        if (bill != null) {
+            return (
+                <SafeAreaView style={styles.safeArea}>
+                    <SideMenu
+                        menu={menu}
+                        isOpen={this.state.isOpen}
+                        onChange={isOpen => this.updateMenuState(isOpen)}>
+                        <View style={styles.container}>
+                            <NavBar>
+                                <NavButton>
+                                    <Icon2 name="menu" size={30} color={'gray'} style={{ justifyContent: 'flex-start' }} onPress={this.toggle} style={{ marginLeft: -20 }} />
+                                </NavButton>
+                                <NavTitle>
+                                    <Text>
+                                        Bill
                             </Text>
-                            </NavTitle>
-                            <NavButton>
+                                </NavTitle>
+                                <NavButton>
 
-                            </NavButton>
-                        </NavBar>
-                        <View style={{ margin: 25 }}>
-                            <Text style={{ fontSize: 17 }}>Table 1</Text>
+                                </NavButton>
+                            </NavBar>
+                            <View style={{ margin: 25 }}>
+                                <Text style={{ fontSize: 17, fontWeight: 'bold' }}>Table 1</Text>
+                            </View>
+                            {this.state.bill.map((listbill) => {
+                                // var total = 0;
+                                // var total = total + (listorder.food_menu.price * listorder.quantity);
+                                return (
+                                    <View style={{ flexDirection: 'row', marginBottom: 15, fontSize: 15 }}>
+                                        <Text style={{ flexDirection: 'column', marginLeft: 50 }}>
+                                            - {listbill.food_name}
+                                        </Text>
+                                        <Text style={{ flexDirection: 'column', marginLeft: 25, fontSize: 15 }}>
+                                            {listbill.quantity}  ที่
+                                    </Text>
+                                        <Text style={{ flexDirection: 'column', marginLeft: 25, fontSize: 15 }}>
+                                            {listbill.price}   บาท
+                                    </Text>
+                                        {/* <Text>{total}</Text> */}
+
+                                    </View>
+                                )
+
+                            })}
+                            <View>
+                                <Text style={{ marginLeft: 50, marginTop: 20 }}> Total price :    {total}  บาท</Text>
+                            </View>
+
                         </View>
-                        {this.state.bill.map((listbill) => {
-                            // var total = 0;
-                            // var total = total + (listorder.food_menu.price * listorder.quantity);
-                            return (
-                                <View style={{ flexDirection: 'row', marginBottom: 15, fontSize: 15 }}>
-                                    <Text style={{ flexDirection: 'column', marginLeft: 50 }}>
-                                        - {listbill.food_menu.menu_name}
-                                    </Text>
-                                    <Text style={{ flexDirection: 'column', marginLeft: 30, fontSize: 15 }}>
-                                        {listbill.quantity}
-                                    </Text>
-                                    <Text style={{ flexDirection: 'column', marginLeft: 30, fontSize: 15 }}>
-                                        {listbill.food_menu.price * listbill.quantity}
-                                    </Text>
-                                    {/* <Text>{total}</Text> */}
+                    </SideMenu>
+                </SafeAreaView>
 
-                                </View>
-                            )
+            )
+        }
+        else {
+            return (
+                <SafeAreaView style={styles.safeArea}>
+                    <SideMenu
+                        menu={menu}
+                        isOpen={this.state.isOpen}
+                        onChange={isOpen => this.updateMenuState(isOpen)}>
+                        <View style={styles.container}>
+                            <NavBar>
+                                <NavButton>
+                                    <Icon2 name="menu" size={30} color={'gray'} style={{ justifyContent: 'flex-start' }} onPress={this.toggle} style={{ marginLeft: -20 }} />
+                                </NavButton>
+                                <NavTitle>
+                                    <Text>
+                                        Bill
+                                </Text>
+                                </NavTitle>
+                                <NavButton>
 
-                        })}
+                                </NavButton>
+                            </NavBar>
+                            {/* <View style={{ margin: 25 }}>
+                                <Text style={{ fontSize: 17, fontWeight: 'bold' }}>Table 1</Text>
+                            </View>
+                            {this.state.bill.map((listbill) => {
+                                return (
+                                    <View style={{ flexDirection: 'row', marginBottom: 15, fontSize: 15 }}>
+                                        <Text style={{ flexDirection: 'column', marginLeft: 50 }}>
+                                            - {listbill.food_name}
+                                        </Text>
+                                        <Text style={{ flexDirection: 'column', marginLeft: 25, fontSize: 15 }}>
+                                            {listbill.quantity}  ที่
+                                        </Text>
+                                        <Text style={{ flexDirection: 'column', marginLeft: 25, fontSize: 15 }}>
+                                            {listbill.price}   บาท
+                                        </Text>
 
-                    </View>
-                </SideMenu>
-            </SafeAreaView>
+                                    </View>
+                                )
 
-        )
+                            })}
+                            <View>
+                                <Text style={{ marginLeft: 50, marginTop: 20 }}> Total price :    {total}  บาท</Text>
+                            </View> */}
+
+                        </View>
+                    </SideMenu>
+                </SafeAreaView>
+
+            )
+        }
+
     }
 }
 

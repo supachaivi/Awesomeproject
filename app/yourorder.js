@@ -26,7 +26,8 @@ export default class MycartScreen extends React.Component {
         this.state = {
             isOpen: false,
             selectedItem: '',
-            myorder: []
+            myorder: [],
+            total: []
         };
     }
 
@@ -47,85 +48,163 @@ export default class MycartScreen extends React.Component {
         });
 
     componentDidMount() {
-        APIKit.get('/mycart/mycart/').then((response) => {
-            const myorder = response.data.results
+        APIKit.get('/mycart/mycarttest/order/').then((response) => {
+            const myorder = response.data.order_list
+            const total = response.data.total_price
             console.log(myorder)
             this.setState({ myorder })
+            this.setState({ total })
         })
             .then(console.log(this.state))
             .catch((error) => console.log(error));
     }
 
     render() {
+        const myorder = this.state.myorder
         const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
-        return (
-            <SafeAreaView style={styles.safeArea}>
-                <SideMenu
-                    menu={menu}
-                    isOpen={this.state.isOpen}
-                    onChange={isOpen => this.updateMenuState(isOpen)}>
-                    <View style={styles.container}>
-                        <NavBar>
-                            <NavButton>
-                                <Icon2 name="menu" size={30} color={'gray'} onPress={this.toggle} style={{ marginLeft: -20 }} />
-                            </NavButton>
-                            <NavTitle>
-                                <Text>
-                                    Your order
+        const total = this.state.total
+        if (myorder != null) {
+            return (
+                <SafeAreaView style={styles.safeArea}>
+                    <SideMenu
+                        menu={menu}
+                        isOpen={this.state.isOpen}
+                        onChange={isOpen => this.updateMenuState(isOpen)}>
+                        <View style={styles.container}>
+                            <NavBar>
+                                <NavButton>
+                                    <Icon2 name="menu" size={30} color={'gray'} onPress={this.toggle} style={{ marginLeft: -20 }} />
+                                </NavButton>
+                                <NavTitle>
+                                    <Text>
+                                        Your order
                                 </Text>
-                            </NavTitle>
-                            <NavButton>
+                                </NavTitle>
+                                <NavButton>
 
-                            </NavButton>
-                        </NavBar>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 20 }}>
-                            <Text style={{ fontSize: 15 }}>ลำดับ</Text>
-                            <Text style={{ fontSize: 15 }}>รายการอาหาร</Text>
-                            <Text style={{ fontSize: 15 }}>จำนวน</Text>
-                            <Text style={{ fontSize: 15 }}>ราคา</Text>
-                        </View>
-                        <Text numberOfLines={1} style={styles.line}>_______________________________________________________________</Text>
-                        {this.state.myorder.map((checkmyorder) => {
-                            return (
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-                                    <View style={{ flexDirection: 'column', marginTop: 20 }}>
+                                </NavButton>
+                            </NavBar>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 20, marginRight: 30 }}>
+                                {/* <Text style={{ fontSize: 15 }}>ลำดับ</Text> */}
+                                <Text style={{ fontSize: 15 }}>รายการอาหาร</Text>
+                                <Text style={{ fontSize: 15 }}>จำนวน</Text>
+                                <Text style={{ fontSize: 15 }}>ราคา</Text>
+                            </View>
+                            <Text numberOfLines={1} style={styles.line}>_______________________________________________________________</Text>
+                            {this.state.myorder.map((checkmyorder) => {
+                                return (
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                                        {/* <View style={{ flexDirection: 'column', marginTop: 20 }}>
 
                                         <Text style={{ fontSize: 15 }}>{checkmyorder.id}</Text>
 
+                                    </View> */}
+                                        <View style={{ flexDirection: 'column', marginTop: 20 }}>
+
+                                            <Text style={{ fontSize: 15 }}>{checkmyorder.food_name}</Text>
+
+                                        </View>
+                                        <View style={{ flexDirection: 'column', marginTop: 20, marginRight: 10 }}>
+
+                                            <Text style={{ fontSize: 15 }}>{checkmyorder.quantity}</Text>
+
+                                        </View>
+                                        <View style={{ flexDirection: 'column', marginTop: 20, marginRight: 30 }}>
+
+                                            <Text style={{ fontSize: 15 }}>{checkmyorder.price}</Text>
+
+                                        </View>
                                     </View>
-                                    <View style={{ flexDirection: 'column', marginTop: 20 }}>
 
-                                        <Text style={{ fontSize: 15 }}>{checkmyorder.food_menu.menu_name}</Text>
+                                )
+                            }
 
-                                    </View>
-                                    <View style={{ flexDirection: 'column', marginTop: 20 }}>
-
-                                        <Text style={{ fontSize: 15 }}>{checkmyorder.quantity}</Text>
-
-                                    </View>
-                                    <View style={{ flexDirection: 'column', marginTop: 20 }}>
-
-                                        <Text style={{ fontSize: 15 }}>{checkmyorder.food_menu.price}</Text>
-
-                                    </View>
-                                </View>
-
-                            )
-                        }
-                        )}
-                        <View style={styles.itemContainer}>
-                            <Button
-                                onPress={() => Actions.checkbillcash()}
-
-                                title="Check bill"
-                                color="#c53c3c"
-                            />
+                            )}
+                            <View>
+                                <Text style={{ marginLeft: 120, marginTop: 300 }}> Total price :    {total}  บาท</Text>
+                            </View>
+                            <View style={styles.itemContainer}>
+                                <Button
+                                    onPress={() => Actions.checkbillcash()}
+                                    title="Check bill"
+                                    color="#c53c3c"
+                                />
+                            </View>
                         </View>
-                    </View>
-                </SideMenu>
-            </SafeAreaView>
+                    </SideMenu>
+                </SafeAreaView>
 
-        )
+            )
+        }
+        else {
+            return (
+                <SafeAreaView style={styles.safeArea}>
+                    <SideMenu
+                        menu={menu}
+                        isOpen={this.state.isOpen}
+                        onChange={isOpen => this.updateMenuState(isOpen)}>
+                        <View style={styles.container}>
+                            <NavBar>
+                                <NavButton>
+                                    <Icon2 name="menu" size={30} color={'gray'} onPress={this.toggle} style={{ marginLeft: -20 }} />
+                                </NavButton>
+                                <NavTitle>
+                                    <Text>
+                                        Your order
+                                </Text>
+                                </NavTitle>
+                                <NavButton>
+
+                                </NavButton>
+                            </NavBar>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 20, marginRight: 30 }}>
+                                {/* <Text style={{ fontSize: 15 }}>ลำดับ</Text> */}
+                                <Text style={{ fontSize: 15 }}>รายการอาหาร</Text>
+                                <Text style={{ fontSize: 15 }}>จำนวน</Text>
+                                <Text style={{ fontSize: 15 }}>ราคา</Text>
+                            </View>
+                            <Text numberOfLines={1} style={styles.line}>_______________________________________________________________</Text>
+                            {/* {this.state.myorder.map((checkmyorder) => {
+                                return (
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                                        <View style={{ flexDirection: 'column', marginTop: 20 }}>
+
+                                            <Text style={{ fontSize: 15 }}>{checkmyorder.food_name}</Text>
+
+                                        </View>
+                                        <View style={{ flexDirection: 'column', marginTop: 20, marginRight: 10 }}>
+
+                                            <Text style={{ fontSize: 15 }}>{checkmyorder.quantity}</Text>
+
+                                        </View>
+                                        <View style={{ flexDirection: 'column', marginTop: 20, marginRight: 30 }}>
+
+                                            <Text style={{ fontSize: 15 }}>{checkmyorder.price}</Text>
+
+                                        </View>
+                                    </View>
+
+                                )
+                            }
+
+                            )}
+                            <View>
+                                <Text style={{ marginLeft: 120, marginTop: 300 }}> Total price :    {total}  บาท</Text>
+                            </View>
+                            <View style={styles.itemContainer}>
+                                <Button
+                                    onPress={() => Actions.checkbillcash()}
+                                    title="Check bill"
+                                    color="#c53c3c"
+                                />
+                            </View> */}
+                        </View>
+                    </SideMenu>
+                </SafeAreaView>
+
+            )
+        }
+
     }
 
     //     render() {

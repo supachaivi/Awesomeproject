@@ -61,7 +61,7 @@ export default class Forgot extends React.Component {
           />
           <View style={styles.itemContainer}>
             <Button
-              // onPress={() => Actions.checkbillcash()}
+              onPress={this.onPressFogot.bind(this)}
 
               title="Confirm"
             />

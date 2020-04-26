@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView, StyleSheet } from 'react-native';
+import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView, StyleSheet, Button } from 'react-native';
 import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav'
 import SideMenu from 'react-native-side-menu';
 import Menu from './Menu';
@@ -84,7 +84,7 @@ export default class MycartScreen extends React.Component {
                             <Text style={{ fontSize: 15 }}>ราคา</Text>
                         </View>
                         <Text numberOfLines={1} style={styles.line}>_______________________________________________________________</Text>
-                        {this.state.mycart.map((checkmyorder) => {
+                        {this.state.myorder.map((checkmyorder) => {
                             return (
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                                     <View style={{ flexDirection: 'column', marginTop: 20 }}>
@@ -114,7 +114,7 @@ export default class MycartScreen extends React.Component {
                         )}
                         <View style={styles.itemContainer}>
                             <Button
-                                onPress={this.onPressAddstaff.bind(this)}
+                                // onPress={this.onPressAddstaff.bind(this)}
 
                                 title="Add Staff"
                                 color="#c53c3c"

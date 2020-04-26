@@ -407,7 +407,7 @@ class QueueScreen1 extends React.Component {
                 <View style={{ flexDirection: 'row' }}>
                     <View style={styles.blanktext1}>
                         <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 25, marginLeft: 65 }}>
-                            System queue : {queue.length}</Text>
+                            Total queue : {queue.length}</Text>
                         {/* <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 45, marginLeft: -60 }}>Now</Text> */}
                     </View>
                 </View>
@@ -440,30 +440,94 @@ class QueueScreen1 extends React.Component {
 }
 
 class HistoryScreen extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            history: []
+        };
+    }
+
+    componentDidMount() {
+        APIKit.get('/mycart/mycarttest/order/').then((response) => {
+            const history = response.data.order_list
+            console.log(history)
+            this.setState({ history })
+        })
+            .then(console.log(this.state))
+            .catch((error) => console.log(error));
+    }
     render() {
-        return (
-            <View style={{ flex: 1, backgroundColor: "#e8e8e8" }}>
-                <NavBar>
-                    <NavTitle>
-                        <Text>
-                            History
+        const history = this.state.history
+        if (history != null) {
+            return (
+                <View style={{ flex: 1, backgroundColor: "#e8e8e8" }}>
+                    <NavBar>
+                        <NavTitle>
+                            <Text>
+                                History
                          </Text>
-                    </NavTitle>
-                </NavBar>
-                <ScrollView>
-                    <Text style={{ fontSize: 16, fontWeight: 'bold', marginLeft: 20, marginTop: 20, marginBottom: 10 }}>ประวัติรายการสั่งอาหาร</Text>
-                    <View style={{ flexDirection: 'column', marginTop: 20, marginLeft: 20 }}>
-                        <View style={{ flexDirection: 'row', marginBottom: 15 }}>
-                            <Text style={{ fontSize: 16 }}>- ต้มยำกุ้ง</Text>
-                            <Text style={{ fontSize: 16, marginLeft: 20 }}>65</Text>
-                        </View>
-                    </View>
-                    <Text numberOfLines={1} style={styles.line}>_______________________________________________________________</Text>
-                </ScrollView>
+                        </NavTitle>
+                    </NavBar>
+                    <ScrollView>
+                        <Text style={{ fontSize: 16, fontWeight: 'bold', marginLeft: 20, marginTop: 20, marginBottom: 10 }}>ประวัติรายการสั่งอาหาร</Text>
+                        {this.state.history.map((historylist) => {
+                            // var total = 0;
+                            // var total = total + (listorder.food_menu.price * listorder.quantity);
+                            return (
+
+                                <View style={{ flexDirection: 'column', marginTop: 20, marginLeft: 20 }}>
+                                    <View style={{ flexDirection: 'row', marginBottom: 15 }}>
+                                        <Text style={{ fontSize: 16 }}>- {historylist.food_name}</Text>
+                                        <Text style={{ fontSize: 16, marginLeft: 20 }}>{historylist.price}      บาท</Text>
+                                    </View>
+                                </View>
+
+                            )
+
+                        })}
+
+                    </ScrollView>
 
 
-            </View>
-        );
+                </View>
+            );
+        }
+        else {
+            return (
+                <View style={{ flex: 1, backgroundColor: "#e8e8e8" }}>
+                    <NavBar>
+                        <NavTitle>
+                            <Text>
+                                History
+                         </Text>
+                        </NavTitle>
+                    </NavBar>
+                    <ScrollView>
+                        <Text style={{ fontSize: 16, fontWeight: 'bold', marginLeft: 20, marginTop: 20, marginBottom: 10 }}>ประวัติรายการสั่งอาหาร</Text>
+                        {/* {this.state.history.map((historylist) => {
+                        // var total = 0;
+                        // var total = total + (listorder.food_menu.price * listorder.quantity);
+                        return (
+
+                            <View style={{ flexDirection: 'column', marginTop: 20, marginLeft: 20 }}>
+                                <View style={{ flexDirection: 'row', marginBottom: 15 }}>
+                                    <Text style={{ fontSize: 16 }}>- {historylist.food_name}</Text>
+                                    <Text style={{ fontSize: 16, marginLeft: 20 }}>{historylist.price}      บาท</Text>
+                                </View>
+                            </View>
+
+                        )
+
+                    })} */}
+                        <Text numberOfLines={1} style={styles.line}>_______________________________________________________________</Text>
+
+                    </ScrollView>
+
+
+                </View>
+            );
+        }
+
     }
 }
 class AccountScreen extends React.Component {

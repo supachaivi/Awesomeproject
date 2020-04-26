@@ -25,6 +25,8 @@ export default class CheckbillcashScreen extends React.Component {
             review_text: '',
             valueForQRCode: '250',
             starCount: 2,
+            price: [],
+            coount: []
         };
     }
 
@@ -51,14 +53,26 @@ export default class CheckbillcashScreen extends React.Component {
         this.setState({ [key]: val })
     }
 
+    componentDidMount() {
+        APIKit.get('/mycart/mycarttest/order/').then((response) => {
+            const price = response.data.total_price
+            const count = response.data.count_order
+            this.setState({ price })
+            this.setState({ count })
+            console.log(price)
+        })
+            .then(console.log(this.state))
+            .catch((error) => console.log(error));
+    }
+
     onPressReview() {
         const { starCount, review_text } = this.state;
-        const payload = {starCount, review_text };
+        const payload = { starCount, review_text };
         console.log(payload)
         APIKit.get('/accounts/logout/');
         APIKit.post('/review/', payload)
-        .then(response => {console.log(response),Actions.slider()})
-        .catch(error => {console.log(error)});
+            .then(response => { console.log(response), Actions.slider() })
+            .catch(error => { console.log(error) });
     }
 
     onStarRatingPress(rating) {
@@ -68,7 +82,8 @@ export default class CheckbillcashScreen extends React.Component {
     }
 
     render() {
-
+        const price = this.state.price
+        const count = this.state.count
         const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
         return (
             <SafeAreaView style={styles.safeArea}>
@@ -92,23 +107,23 @@ export default class CheckbillcashScreen extends React.Component {
                         </NavBar>
                         <View>
                             <Text style={styles.text}>
-                                สาขา:
+                                สาขา: ราชพฤกษ์
                             </Text>
                             <Text style={styles.text}>
-                                วันที่/เวลา:
+                                วันที่: วันที่ 27 เมษายน 2563
                             </Text>
                             <Text style={styles.text}>
-                                โต็ะ:
+                                โต็ะ: 1
                             </Text>
                             <Text style={styles.text}>
-                                จำนวนลูกค้า:
+                                จำนวนลูกค้า: 2
                             </Text>
                             <Text style={styles.text}>
-                                จำนวนรายการอาหาร:
+                                จำนวนรายการอาหาร: {count}
                             </Text>
                             <Text numberOfLines={1} style={styles.line}> __________________________________________________________</Text>
                             <Text style={styles.text}>
-                                ราคารวม:
+                                ราคารวม: {price}
                             </Text>
                         </View>
                         <View style={styles.MainContainer}>

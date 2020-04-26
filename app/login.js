@@ -53,7 +53,7 @@ class Login extends Component {
         }
         else {
           // Actions.home({ token: csrf_token })
-          this.props.navigation.navigate('home', { token: csrf_token });
+          this.props.navigation.navigate('slider', { token: csrf_token });
 
         }
 

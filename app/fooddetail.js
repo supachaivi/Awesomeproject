@@ -102,7 +102,7 @@ class FoodDetails extends Component {
                     <View style={styles.itemContainer}>
                         <Button
                             onPress={() => {
-                                APIKit.post('/mycart/mycart/', { food_menu: image.id , quantity: value})
+                                APIKit.post('/mycart/ordertest/', { food_menu: image.id , quantity: value})
                                     .then(response => { console.log(response), Actions.slider() })
                                     .catch(error => { console.log(error) });
                                 // console.log(image.id)
