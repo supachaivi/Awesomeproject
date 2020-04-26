@@ -3,10 +3,15 @@ import {
   View,
   Button,
   TextInput,
-  StyleSheet
+  StyleSheet,
+  SafeAreaView,
+  Text
 } from 'react-native'
 import { Actions } from 'react-native-router-flux';
 import APIKit from './APIKit';
+import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav'
+import { colors } from './styles/index.style';
+
 export default class Forgot extends React.Component {
   state = {
     email: '',
@@ -28,29 +33,46 @@ export default class Forgot extends React.Component {
     const { email } = this.state;
     const payload = { email };
     console.log('payload');
-    APIKit.post('/accounts/forgetpassword/' , payload).then(function(response){
-      console.log(response,Actions.login())
+    APIKit.post('/accounts/forgetpassword/', payload).then(function (response) {
+      console.log(response, Actions.login())
     })
-    .catch(function(error){
-      console.log(error);
-    })
+      .catch(function (error) {
+        console.log(error);
+      })
   }
- 
+
   render() {
     return (
-      <View style={styles.container}>
-        <TextInput
-          style={styles.input}
-          placeholder='E-mail'
-          autoCapitalize="none"
-          placeholderTextColor='gray'
-          onChangeText={val => this.onChangeText('email', val)}
-        />
-        <Button
-          title='Confirm'
-          onPress={this.onPressFogot.bind(this)}
-        />
-      </View>
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.container}>
+          <NavBar>
+            <NavTitle>
+              <Text>
+                ForgotPassword
+              </Text>
+            </NavTitle>
+          </NavBar>
+
+          <TextInput style={styles.input}
+            placeholder='E-mail'
+            autoCapitalize="none"
+            placeholderTextColor='gray'
+            onChangeText={val => this.onChangeText('email', val)}
+          />
+          <View style={styles.itemContainer}>
+            <Button
+              // onPress={() => Actions.checkbillcash()}
+
+              title="Confirm"
+            />
+          </View>
+        </View>
+      </SafeAreaView>
+
+
+
+
+
     )
   }
 }
@@ -61,17 +83,28 @@ const styles = StyleSheet.create({
     height: 55,
     borderBottomColor: '#F5FCFF',
     backgroundColor: '#FFFFFF',
-    margin: 10,
     padding: 8,
     color: 'gray',
     borderRadius: 14,
     fontSize: 18,
     fontWeight: '500',
+    marginTop: 200,
+    marginLeft: 30
+  },
+  safeArea: {
+    flex: 1,
+    backgroundColor: colors.black
   },
   container: {
-    backgroundColor: '#DCDCDC',
     flex: 1,
+    backgroundColor: colors.background1
+  },
+  itemContainer: {
+    flex: 1,
+    flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+    marginBottom: 30,
+    marginTop: 30
+  },
 })

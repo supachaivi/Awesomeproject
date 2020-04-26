@@ -84,25 +84,25 @@ export default class MycartScreen extends React.Component {
                             <Text style={{ fontSize: 15 }}>ราคา</Text>
                         </View>
                         <Text numberOfLines={1} style={styles.line}>_______________________________________________________________</Text>
-                        {this.state.mycart.map((checkmycart) => {
+                        {this.state.mycart.map((checkmyorder) => {
                             return (
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-                                    <View style={{ flexDirection: 'column', marginTop: 20}}>
+                                    <View style={{ flexDirection: 'column', marginTop: 20 }}>
 
-                                        <Text style={{ fontSize: 15 }}>{checkmycart.id}</Text>
+                                        <Text style={{ fontSize: 15 }}>{checkmyorder.id}</Text>
 
                                     </View>
-                                    <View style={{ flexDirection: 'column', marginTop: 20}}>
+                                    <View style={{ flexDirection: 'column', marginTop: 20 }}>
 
                                         <Text style={{ fontSize: 15 }}>{checkmycart.food_menu.menu_name}</Text>
 
                                     </View>
-                                    <View style={{ flexDirection: 'column', marginTop: 20}}>
+                                    <View style={{ flexDirection: 'column', marginTop: 20 }}>
 
                                         <Text style={{ fontSize: 15 }}>{checkmycart.quantity}</Text>
 
                                     </View>
-                                    <View style={{ flexDirection: 'column', marginTop: 20}}>
+                                    <View style={{ flexDirection: 'column', marginTop: 20 }}>
 
                                         <Text style={{ fontSize: 15 }}>{checkmycart.food_menu.price}</Text>
 
@@ -112,6 +112,14 @@ export default class MycartScreen extends React.Component {
                             )
                         }
                         )}
+                        <View style={styles.itemContainer}>
+                            <Button
+                                onPress={this.onPressAddstaff.bind(this)}
+
+                                title="Add Staff"
+                                color="#c53c3c"
+                            />
+                        </View>
                     </View>
                 </SideMenu>
             </SafeAreaView>
@@ -166,6 +174,14 @@ const styles = StyleSheet.create({
     line: {
         color: 'gray',
         alignSelf: 'center'
+    },
+    itemContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 30,
+        marginTop: 10
     },
 
 

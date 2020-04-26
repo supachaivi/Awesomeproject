@@ -269,7 +269,7 @@ class QueueScreen extends React.Component {
         // axios.defaults.withCredentials = true;
         axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
         axios.defaults.xsrfCookieName = "csrftoken";
-        axios.post('http://192.168.1.36:8000/api/reservation/reservation/', payload,
+        APIKit.post('/reservation/reservation/', payload,
             // {
             //     headers: {
             //         "Accept": "application/json",
@@ -392,7 +392,7 @@ class QueueScreen1 extends React.Component {
                 <View>
                     <View style={{ flexDirection: 'row' }}>
                         <View style={styles.blanktext}>
-                            <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 35, marginLeft: 100 }}>Your Queue</Text>
+                            <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 35, marginLeft: 100 }}>Wait queue</Text>
                             <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 105, marginLeft: -90 }}>{(queue.length) - 1}</Text>
 
                         </View>
@@ -401,7 +401,8 @@ class QueueScreen1 extends React.Component {
                 </View>
                 <View style={{ flexDirection: 'row' }}>
                     <View style={styles.blanktext1}>
-                        <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 25, marginLeft: 80 }}>Now queue : {queue.length}</Text>
+                        <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 25, marginLeft: 65 }}>
+                            System queue : {queue.length}</Text>
                         {/* <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginTop: 45, marginLeft: -60 }}>Now</Text> */}
                     </View>
                 </View>

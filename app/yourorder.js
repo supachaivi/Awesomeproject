@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView, StyleSheet } from 'react-native';
+import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView, StyleSheet, Button } from 'react-native';
 import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav'
 import SideMenu from 'react-native-side-menu';
 import Menu from './Menu';
 import Icon2 from "react-native-vector-icons/Entypo";
 import Icon3 from "react-native-vector-icons/Feather";
 import { colors } from './styles/index.style';
+import APIKit from './APIKit';
+import { Actions } from 'react-native-router-flux'
 
-export default class YourorderScreen extends React.Component {
+export default class MycartScreen extends React.Component {
     // constructor(props) {
     //     super(props);
     //     this.state = {
@@ -24,6 +26,7 @@ export default class YourorderScreen extends React.Component {
         this.state = {
             isOpen: false,
             selectedItem: '',
+            myorder: []
         };
     }
 
@@ -43,6 +46,16 @@ export default class YourorderScreen extends React.Component {
             selectedItem: item,
         });
 
+    componentDidMount() {
+        APIKit.get('/mycart/mycart/').then((response) => {
+            const myorder = response.data.results
+            console.log(myorder)
+            this.setState({ myorder })
+        })
+            .then(console.log(this.state))
+            .catch((error) => console.log(error));
+    }
+
     render() {
         const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
         return (
@@ -52,26 +65,62 @@ export default class YourorderScreen extends React.Component {
                     isOpen={this.state.isOpen}
                     onChange={isOpen => this.updateMenuState(isOpen)}>
                     <View style={styles.container}>
-                        <NavBar style={styles.navbar1}>
+                        <NavBar>
                             <NavButton>
-                                <Icon2 name="menu" size={30} color={'gray'} onPress={this.toggle} style={{marginLeft: -20}} />
+                                <Icon2 name="menu" size={30} color={'gray'} onPress={this.toggle} style={{ marginLeft: -20 }} />
                             </NavButton>
                             <NavTitle>
                                 <Text>
-                                    Your Order
+                                    Your order
                                 </Text>
                             </NavTitle>
                             <NavButton>
-                                
+
                             </NavButton>
                         </NavBar>
-                        <View style={{  flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 20 }}>
                             <Text style={{ fontSize: 15 }}>ลำดับ</Text>
                             <Text style={{ fontSize: 15 }}>รายการอาหาร</Text>
                             <Text style={{ fontSize: 15 }}>จำนวน</Text>
                             <Text style={{ fontSize: 15 }}>ราคา</Text>
                         </View>
                         <Text numberOfLines={1} style={styles.line}>_______________________________________________________________</Text>
+                        {this.state.myorder.map((checkmyorder) => {
+                            return (
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                                    <View style={{ flexDirection: 'column', marginTop: 20 }}>
+
+                                        <Text style={{ fontSize: 15 }}>{checkmyorder.id}</Text>
+
+                                    </View>
+                                    <View style={{ flexDirection: 'column', marginTop: 20 }}>
+
+                                        <Text style={{ fontSize: 15 }}>{checkmyorder.food_menu.menu_name}</Text>
+
+                                    </View>
+                                    <View style={{ flexDirection: 'column', marginTop: 20 }}>
+
+                                        <Text style={{ fontSize: 15 }}>{checkmyorder.quantity}</Text>
+
+                                    </View>
+                                    <View style={{ flexDirection: 'column', marginTop: 20 }}>
+
+                                        <Text style={{ fontSize: 15 }}>{checkmyorder.food_menu.price}</Text>
+
+                                    </View>
+                                </View>
+
+                            )
+                        }
+                        )}
+                        <View style={styles.itemContainer}>
+                            <Button
+                                onPress={() => Actions.checkbillcash()}
+
+                                title="Check bill"
+                                color="#c53c3c"
+                            />
+                        </View>
                     </View>
                 </SideMenu>
             </SafeAreaView>
@@ -79,36 +128,36 @@ export default class YourorderScreen extends React.Component {
         )
     }
 
-//     render() {
-//         const { image, value } = this.props
-//         // const {mycart} = this.state
-//         return (
-//             <View style={{ flex: 1 }}>
-//                 <NavBar>
-//                     <NavTitle>
-//                         <Text>
-//                             My cart
-//                         </Text>
-//                     </NavTitle>
-//                 </NavBar>
-//                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
-//                     <Text style={{ fontSize: 15 }}>ลำดับ</Text>
-//                     <Text style={{ fontSize: 15 }}>รายการอาหาร</Text>
-//                     <Text style={{ fontSize: 15 }}>จำนวน</Text>
-//                     <Text style={{ fontSize: 15 }}>ราคา</Text>
-//                 </View>
-//                 {/* {mycart.map((menu) => {
-//                             return (
-//                                 <Text>menu</Text>
-//                             )
-//                         })} */}
-//                 {/* <View style={styles.smallItemContainer}>
-//                     <Text style={styles.mainText}>{image.name} {value}</Text>
-//                 </View> */}
+    //     render() {
+    //         const { image, value } = this.props
+    //         // const {mycart} = this.state
+    //         return (
+    //             <View style={{ flex: 1 }}>
+    //                 <NavBar>
+    //                     <NavTitle>
+    //                         <Text>
+    //                             My cart
+    //                         </Text>
+    //                     </NavTitle>
+    //                 </NavBar>
+    //                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
+    //                     <Text style={{ fontSize: 15 }}>ลำดับ</Text>
+    //                     <Text style={{ fontSize: 15 }}>รายการอาหาร</Text>
+    //                     <Text style={{ fontSize: 15 }}>จำนวน</Text>
+    //                     <Text style={{ fontSize: 15 }}>ราคา</Text>
+    //                 </View>
+    //                 {/* {mycart.map((menu) => {
+    //                             return (
+    //                                 <Text>menu</Text>
+    //                             )
+    //                         })} */}
+    //                 {/* <View style={styles.smallItemContainer}>
+    //                     <Text style={styles.mainText}>{image.name} {value}</Text>
+    //                 </View> */}
 
-//             </View>
-//         )
-//     }
+    //             </View>
+    //         )
+    //     }
 }
 
 const styles = StyleSheet.create({
@@ -127,8 +176,14 @@ const styles = StyleSheet.create({
         color: 'gray',
         alignSelf: 'center'
     },
-    navbar1: {
-        backgroundColor: 'black'
-    }
+    itemContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 30,
+        marginTop: 10
+    },
+
 
 });

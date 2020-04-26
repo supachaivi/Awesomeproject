@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView, StyleSheet } from 'react-native';
+import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView, StyleSheet,Button } from 'react-native';
 import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav'
 import SideMenu from 'react-native-side-menu';
 import Menu from './Menu';
@@ -7,6 +7,8 @@ import Icon2 from "react-native-vector-icons/Entypo";
 import Icon3 from "react-native-vector-icons/Feather";
 import { colors } from './styles/index.style';
 import APIKit from './APIKit';
+import { Actions } from 'react-native-router-flux';
+
 
 export default class MycartScreen extends React.Component {
     // constructor(props) {
@@ -85,25 +87,26 @@ export default class MycartScreen extends React.Component {
                         </View>
                         <Text numberOfLines={1} style={styles.line}>_______________________________________________________________</Text>
                         {this.state.mycart.map((checkmycart) => {
+                            // console.log(checkmycart)
                             // const total_price = checkmycart.quantity * checkmycart.food_menu.price
                             return (
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <View style={{ flexDirection: 'column', marginTop: 20}}>
+                                    <View style={{ flexDirection: 'column', marginTop: 20 }}>
 
                                         <Text style={{ fontSize: 15, marginLeft: 40 }}>{checkmycart.id}</Text>
 
                                     </View>
-                                    <View style={{ flexDirection: 'column', marginTop: 20}}>
+                                    <View style={{ flexDirection: 'column', marginTop: 20 }}>
 
                                         <Text style={{ fontSize: 15 }}>{checkmycart.food_menu.menu_name}</Text>
 
                                     </View>
-                                    <View style={{ flexDirection: 'column', marginTop: 20, marginRight: 10}}>
+                                    <View style={{ flexDirection: 'column', marginTop: 20, marginRight: 10 }}>
 
                                         <Text style={{ fontSize: 15 }}>{checkmycart.quantity}</Text>
 
                                     </View>
-                                    <View style={{ flexDirection: 'column', marginTop: 20, marginRight: 30}}>
+                                    <View style={{ flexDirection: 'column', marginTop: 20, marginRight: 30 }}>
 
                                         <Text style={{ fontSize: 15 }}>{checkmycart.food_menu.price * checkmycart.quantity}</Text>
 
@@ -113,6 +116,14 @@ export default class MycartScreen extends React.Component {
                             )
                         }
                         )}
+                        <View style={styles.itemContainer}>
+                            <Button
+                                // onPress={() => Actions.checkbillcash()}
+
+                                title="Confirm order"
+                                color="#c53c3c"
+                            />
+                        </View>
                     </View>
                 </SideMenu>
             </SafeAreaView>
@@ -167,6 +178,14 @@ const styles = StyleSheet.create({
     line: {
         color: 'gray',
         alignSelf: 'center'
+    },
+    itemContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 30,
+        marginTop: 10
     },
 
 

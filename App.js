@@ -64,11 +64,14 @@ const App = () => {
         <Scene
           key="register"
           component={register}
+          hideNavBar
         // initial
         />
         <Scene
           key="forgot"
           component={forgot}
+          hideNavBar
+          // initial
         />
         <Scene
           key="home"
@@ -152,6 +155,7 @@ const App = () => {
           key="order"
           component={order}
           hideNavBar
+          // initial
         />
         <Scene
           key="menubar"

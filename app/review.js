@@ -5,8 +5,8 @@ import {
     TextInput,
     StyleSheet
 } from 'react-native'
-// import APIKit from './APIKit';
-import axios from 'axios'
+import APIKit from './APIKit';
+// import axios from 'axios'
 export default class SignUp extends React.Component {
     state = {
         starCount: '', review_text: ''
@@ -20,7 +20,7 @@ export default class SignUp extends React.Component {
         const { starCount, review_text } = this.state;
         const payload = { starCount, review_text };
         console.log(payload);     
-        axios.post('http://161.246.5.195:8000/api/review/', payload)
+        APIKit.post('http://161.246.5.195:8000/api/review/', payload)
             .then(response => {console.log(response)})
             .catch(error => {console.log(error)});
     }

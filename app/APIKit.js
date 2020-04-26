@@ -6,7 +6,7 @@ axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
 
 let APIKit = axios.create({
-  baseURL: 'http://192.168.1.36:8000/api',
+  baseURL: 'http://192.168.1.34:8000/api',
   timeout: 10000,
   // headers: {
     // "Accept": "application/json",
