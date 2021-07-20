@@ -15,7 +15,7 @@
     "mathjs": "^6.6.0",
     "react": "16.9.0",
     "react-dom": "~16.9.0",
-    "react-native": "0.61.5",
+    "react-native": "0.62.3",
     "react-native-action-bar": "^2.0.4",
     "react-native-best-viewpager": "^1.0.2",
     "react-native-circular-carousel": "0.0.6",
